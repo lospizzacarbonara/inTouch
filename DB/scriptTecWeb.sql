@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`User` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `Nick_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `Id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE);
+  UNIQUE INDEX `Nick_UNIQUE` (`username` ASC) ,
+  UNIQUE INDEX `Id_UNIQUE` (`id` ASC) ,
+  UNIQUE INDEX `Email_UNIQUE` (`email` ASC) );
 
 
 -- -----------------------------------------------------
@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`PendingFriendship` (
   `sender` INT NOT NULL,
   `receiver` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Friendship_User_idx` (`sender` ASC) VISIBLE,
-  INDEX `fk_Friendship_User1_idx` (`receiver` ASC) VISIBLE,
+  INDEX `fk_Friendship_User_idx` (`sender` ASC) ,
+  INDEX `fk_Friendship_User1_idx` (`receiver` ASC) ,
   CONSTRAINT `fk_Friendship_User`
     FOREIGN KEY (`sender`)
     REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Friendship_User1`
+  CONSTRAINT `fk_Friendship_User3`
     FOREIGN KEY (`receiver`)
     REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`Post` (
   `private` TINYINT(1) NOT NULL DEFAULT 1,
   `attachment` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Post_Group1_idx` (`group` ASC) VISIBLE,
-  INDEX `fk_Post_User1_idx` (`author` ASC) VISIBLE,
+  INDEX `fk_Post_Group1_idx` (`group` ASC) ,
+  INDEX `fk_Post_User1_idx` (`author` ASC) ,
   CONSTRAINT `fk_Post_Group1`
     FOREIGN KEY (`group`)
     REFERENCES `inTouch`.`Group` (`id`)
@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`Membership` (
   `group` INT NOT NULL,
   `member` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Membership_Group1_idx` (`group` ASC) VISIBLE,
-  INDEX `fk_Membership_User1_idx` (`member` ASC) VISIBLE,
+  INDEX `fk_Membership_Group1_idx` (`group` ASC) ,
+  INDEX `fk_Membership_User1_idx` (`member` ASC) ,
   CONSTRAINT `fk_Membership_Group1`
     FOREIGN KEY (`group`)
     REFERENCES `inTouch`.`Group` (`id`)
@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`Friendship` (
   `friend1` INT NOT NULL,
   `friend2` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Friendship_User1_idx` (`friend1` ASC) VISIBLE,
-  INDEX `fk_Friendship_User2_idx` (`friend2` ASC) VISIBLE,
+  INDEX `fk_Friendship_User1_idx` (`friend1` ASC) ,
+  INDEX `fk_Friendship_User2_idx` (`friend2` ASC) ,
   CONSTRAINT `fk_Friendship_User1`
     FOREIGN KEY (`friend1`)
     REFERENCES `inTouch`.`User` (`id`)
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`PendingMembership` (
   `user` INT NOT NULL,
   `group` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_PendingMembership_User1_idx` (`user` ASC) VISIBLE,
-  INDEX `fk_PendingMembership_Group1_idx` (`group` ASC) VISIBLE,
+  INDEX `fk_PendingMembership_User1_idx` (`user` ASC) ,
+  INDEX `fk_PendingMembership_Group1_idx` (`group` ASC) ,
   CONSTRAINT `fk_PendingMembership_User1`
     FOREIGN KEY (`user`)
     REFERENCES `inTouch`.`User` (`id`)
