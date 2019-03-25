@@ -1,5 +1,8 @@
 # Custom ignores
 
+# Test classes
+Test.java
+
 # End of custom ignores
 
 # Created by https://www.gitignore.io/api/netbeans
