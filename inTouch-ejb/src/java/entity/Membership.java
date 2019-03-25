@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jfaldanam
  */
 @Entity
-@Table(name = "PendingMembership")
+@Table(name = "Membership")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PendingMembership.findAll", query = "SELECT p FROM PendingMembership p")
-    , @NamedQuery(name = "PendingMembership.findById", query = "SELECT p FROM PendingMembership p WHERE p.id = :id")
-    , @NamedQuery(name = "PendingMembership.findByInvitation", query = "SELECT p FROM PendingMembership p WHERE p.invitation = :invitation")})
-public class PendingMembership implements Serializable {
+    @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
+    , @NamedQuery(name = "Membership.findById", query = "SELECT m FROM Membership m WHERE m.id = :id")
+    , @NamedQuery(name = "Membership.findByAdmin", query = "SELECT m FROM Membership m WHERE m.admin = :admin")})
+public class Membership implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,25 +41,25 @@ public class PendingMembership implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "invitation")
-    private boolean invitation;
+    @Column(name = "admin")
+    private boolean admin;
     @JoinColumn(name = "group", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Group1 group1;
-    @JoinColumn(name = "user", referencedColumnName = "id")
+    @JoinColumn(name = "member", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User user;
+    private User member1;
 
-    public PendingMembership() {
+    public Membership() {
     }
 
-    public PendingMembership(Integer id) {
+    public Membership(Integer id) {
         this.id = id;
     }
 
-    public PendingMembership(Integer id, boolean invitation) {
+    public Membership(Integer id, boolean admin) {
         this.id = id;
-        this.invitation = invitation;
+        this.admin = admin;
     }
 
     public Integer getId() {
@@ -70,12 +70,12 @@ public class PendingMembership implements Serializable {
         this.id = id;
     }
 
-    public boolean getInvitation() {
-        return invitation;
+    public boolean getAdmin() {
+        return admin;
     }
 
-    public void setInvitation(boolean invitation) {
-        this.invitation = invitation;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public Group1 getGroup1() {
@@ -86,12 +86,12 @@ public class PendingMembership implements Serializable {
         this.group1 = group1;
     }
 
-    public User getUser() {
-        return user;
+    public User getMember1() {
+        return member1;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMember1(User member1) {
+        this.member1 = member1;
     }
 
     @Override
@@ -104,10 +104,10 @@ public class PendingMembership implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PendingMembership)) {
+        if (!(object instanceof Membership)) {
             return false;
         }
-        PendingMembership other = (PendingMembership) object;
+        Membership other = (Membership) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +116,7 @@ public class PendingMembership implements Serializable {
 
     @Override
     public String toString() {
-        return "db.PendingMembership[ id=" + id + " ]";
+        return "db.Membership[ id=" + id + " ]";
     }
     
 }

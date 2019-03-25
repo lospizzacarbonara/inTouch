@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,41 +23,31 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jfaldanam
  */
 @Entity
-@Table(name = "Membership")
+@Table(name = "PendingFriendship")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
-    , @NamedQuery(name = "Membership.findById", query = "SELECT m FROM Membership m WHERE m.id = :id")
-    , @NamedQuery(name = "Membership.findByAdmin", query = "SELECT m FROM Membership m WHERE m.admin = :admin")})
-public class Membership implements Serializable {
+    @NamedQuery(name = "PendingFriendship.findAll", query = "SELECT p FROM PendingFriendship p")
+    , @NamedQuery(name = "PendingFriendship.findById", query = "SELECT p FROM PendingFriendship p WHERE p.id = :id")})
+public class PendingFriendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "admin")
-    private boolean admin;
-    @JoinColumn(name = "group", referencedColumnName = "id")
+    @Column(name = "id")
+    private Integer id;
+    @JoinColumn(name = "sender", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Group1 group1;
-    @JoinColumn(name = "member", referencedColumnName = "id")
+    private User sender;
+    @JoinColumn(name = "receiver", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User member1;
+    private User receiver;
 
-    public Membership() {
+    public PendingFriendship() {
     }
 
-    public Membership(Integer id) {
+    public PendingFriendship(Integer id) {
         this.id = id;
-    }
-
-    public Membership(Integer id, boolean admin) {
-        this.id = id;
-        this.admin = admin;
     }
 
     public Integer getId() {
@@ -70,28 +58,20 @@ public class Membership implements Serializable {
         this.id = id;
     }
 
-    public boolean getAdmin() {
-        return admin;
+    public User getSender() {
+        return sender;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    public Group1 getGroup1() {
-        return group1;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setGroup1(Group1 group1) {
-        this.group1 = group1;
-    }
-
-    public User getMember1() {
-        return member1;
-    }
-
-    public void setMember1(User member1) {
-        this.member1 = member1;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
     @Override
@@ -104,10 +84,10 @@ public class Membership implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Membership)) {
+        if (!(object instanceof PendingFriendship)) {
             return false;
         }
-        Membership other = (Membership) object;
+        PendingFriendship other = (PendingFriendship) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +96,7 @@ public class Membership implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Membership[ id=" + id + " ]";
+        return "db.PendingFriendship[ id=" + id + " ]";
     }
     
 }

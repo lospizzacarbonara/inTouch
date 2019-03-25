@@ -3,19 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package db;
+package entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -23,30 +24,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jfaldanam
  */
 @Entity
-@Table(name = "PendingFriendship")
+@Table(name = "Friendship")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "PendingFriendship.findAll", query = "SELECT p FROM PendingFriendship p")
-    , @NamedQuery(name = "PendingFriendship.findById", query = "SELECT p FROM PendingFriendship p WHERE p.id = :id")})
-public class PendingFriendship implements Serializable {
+    @NamedQuery(name = "Friendship.findAll", query = "SELECT f FROM Friendship f")
+    , @NamedQuery(name = "Friendship.findById", query = "SELECT f FROM Friendship f WHERE f.id = :id")})
+public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "sender", referencedColumnName = "id")
+    @JoinColumn(name = "friend1", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User sender;
-    @JoinColumn(name = "receiver", referencedColumnName = "id")
+    private User friend1;
+    @JoinColumn(name = "friend2", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User receiver;
+    private User friend2;
 
-    public PendingFriendship() {
+    public Friendship() {
     }
 
-    public PendingFriendship(Integer id) {
+    public Friendship(Integer id) {
         this.id = id;
     }
 
@@ -58,20 +59,20 @@ public class PendingFriendship implements Serializable {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
+    public User getFriend1() {
+        return friend1;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setFriend1(User friend1) {
+        this.friend1 = friend1;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public User getFriend2() {
+        return friend2;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setFriend2(User friend2) {
+        this.friend2 = friend2;
     }
 
     @Override
@@ -84,10 +85,10 @@ public class PendingFriendship implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PendingFriendship)) {
+        if (!(object instanceof Friendship)) {
             return false;
         }
-        PendingFriendship other = (PendingFriendship) object;
+        Friendship other = (Friendship) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +97,7 @@ public class PendingFriendship implements Serializable {
 
     @Override
     public String toString() {
-        return "db.PendingFriendship[ id=" + id + " ]";
+        return "db.Friendship[ id=" + id + " ]";
     }
     
 }
