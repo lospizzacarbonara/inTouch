@@ -45,7 +45,7 @@ public class Membership implements Serializable {
     private boolean admin;
     @JoinColumn(name = "group", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Group1 group1;
+    private Group group1;
     @JoinColumn(name = "member", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User member1;
@@ -78,11 +78,11 @@ public class Membership implements Serializable {
         this.admin = admin;
     }
 
-    public Group1 getGroup1() {
+    public Group getGroup1() {
         return group1;
     }
 
-    public void setGroup1(Group1 group1) {
+    public void setGroup1(Group group1) {
         this.group1 = group1;
     }
 

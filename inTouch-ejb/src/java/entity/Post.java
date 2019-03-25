@@ -61,7 +61,7 @@ public class Post implements Serializable {
     private String attachment;
     @JoinColumn(name = "group", referencedColumnName = "id")
     @ManyToOne
-    private Group1 group1;
+    private Group group1;
     @JoinColumn(name = "author", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User author;
@@ -119,11 +119,11 @@ public class Post implements Serializable {
         this.attachment = attachment;
     }
 
-    public Group1 getGroup1() {
+    public Group getGroup1() {
         return group1;
     }
 
-    public void setGroup1(Group1 group1) {
+    public void setGroup1(Group group1) {
         this.group1 = group1;
     }
 

@@ -5,7 +5,7 @@
  */
 package facades;
 
-import entity.Group1;
+import entity.Group;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author jfaldanam
  */
 @Stateless
-public class Group1Facade extends AbstractFacade<Group1> {
+public class GroupFacade extends AbstractFacade<Group> {
 
     @PersistenceContext(unitName = "inTouch-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class Group1Facade extends AbstractFacade<Group1> {
         return em;
     }
 
-    public Group1Facade() {
-        super(Group1.class);
+    public GroupFacade() {
+        super(Group.class);
     }
     
 }
