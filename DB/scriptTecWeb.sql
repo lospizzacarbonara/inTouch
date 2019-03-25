@@ -3,15 +3,15 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema inTouch
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `inTouch` DEFAULT CHARACTER SET utf8 ;
+USE `inTouch` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`User`
+-- Table `inTouch`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`User` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `name` VARCHAR(45) NULL,
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PendingFriendship`
+-- Table `inTouch`.`PendingFriendship`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PendingFriendship` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`PendingFriendship` (
   `id` INT NOT NULL,
   `sender` INT NOT NULL,
   `receiver` INT NOT NULL,
@@ -37,21 +37,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`PendingFriendship` (
   INDEX `fk_Friendship_User1_idx` (`receiver` ASC) VISIBLE,
   CONSTRAINT `fk_Friendship_User`
     FOREIGN KEY (`sender`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Friendship_User1`
     FOREIGN KEY (`receiver`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Group`
+-- Table `inTouch`.`Group`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Group` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`Group` (
   `id` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `creationDate` DATE NOT NULL,
@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Group` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Post`
+-- Table `inTouch`.`Post`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Post` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`Post` (
   `id` INT NOT NULL,
   `body` VARCHAR(500) NULL,
   `publishedDate` DATE NOT NULL,
@@ -77,21 +77,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Post` (
   INDEX `fk_Post_User1_idx` (`author` ASC) VISIBLE,
   CONSTRAINT `fk_Post_Group1`
     FOREIGN KEY (`group`)
-    REFERENCES `mydb`.`Group` (`id`)
+    REFERENCES `inTouch`.`Group` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Post_User1`
     FOREIGN KEY (`author`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Membership`
+-- Table `inTouch`.`Membership`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Membership` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`Membership` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `admin` TINYINT(1) NOT NULL DEFAULT 0,
   `group` INT NOT NULL,
@@ -101,44 +101,44 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Membership` (
   INDEX `fk_Membership_User1_idx` (`member` ASC) VISIBLE,
   CONSTRAINT `fk_Membership_Group1`
     FOREIGN KEY (`group`)
-    REFERENCES `mydb`.`Group` (`id`)
+    REFERENCES `inTouch`.`Group` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Membership_User1`
     FOREIGN KEY (`member`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`Friendhip`
+-- Table `inTouch`.`Friendship`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Friendhip` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`Friendship` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `friend1` INT NOT NULL,
   `friend2` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Friendhip_User1_idx` (`friend1` ASC) VISIBLE,
-  INDEX `fk_Friendhip_User2_idx` (`friend2` ASC) VISIBLE,
-  CONSTRAINT `fk_Friendhip_User1`
+  INDEX `fk_Friendship_User1_idx` (`friend1` ASC) VISIBLE,
+  INDEX `fk_Friendship_User2_idx` (`friend2` ASC) VISIBLE,
+  CONSTRAINT `fk_Friendship_User1`
     FOREIGN KEY (`friend1`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Friendhip_User2`
+  CONSTRAINT `fk_Friendship_User2`
     FOREIGN KEY (`friend2`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`PendingMembership`
+-- Table `inTouch`.`PendingMembership`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`PendingMembership` (
+CREATE TABLE IF NOT EXISTS `inTouch`.`PendingMembership` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `invitation` TINYINT(1) NOT NULL,
   `user` INT NOT NULL,
@@ -148,12 +148,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`PendingMembership` (
   INDEX `fk_PendingMembership_Group1_idx` (`group` ASC) VISIBLE,
   CONSTRAINT `fk_PendingMembership_User1`
     FOREIGN KEY (`user`)
-    REFERENCES `mydb`.`User` (`id`)
+    REFERENCES `inTouch`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_PendingMembership_Group1`
     FOREIGN KEY (`group`)
-    REFERENCES `mydb`.`Group` (`id`)
+    REFERENCES `inTouch`.`Group` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
