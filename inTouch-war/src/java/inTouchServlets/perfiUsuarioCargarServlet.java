@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package inTouchServlets;
+
 
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
@@ -17,14 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Asus
- */
-@WebServlet(name = "perfilUsuarioGuardarServlet", urlPatterns = {"/perfilUsuarioGuardarServlet"})
-public class perfilUsuarioGuardarServlet extends HttpServlet {
 
-     @EJB
+@WebServlet(urlPatterns = {"/perfiUsuarioCargarServlet"})
+public class perfiUsuarioCargarServlet extends HttpServlet {
+
+    @EJB
     private UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,9 +34,8 @@ public class perfilUsuarioGuardarServlet extends HttpServlet {
         
         Integer idUser = null;
         User user;
-        User newUser;
         
-        String str = request.getParameter("id_usuario");
+        String str = request.getParameter("idUsuario");
         
         try{
             idUser = Integer.parseInt(str);
@@ -60,25 +52,12 @@ public class perfilUsuarioGuardarServlet extends HttpServlet {
         else
         {
             user = this.userFacade.find(idUser);
-            newUser = new User();
             
-            str = request.getParameter("nombre");
-            if(str != null)
-            {
-                if(user.getName().equals(str))
-                {
-                    
-                }
-            }
-            
-            
-                    
-                    
             request.setAttribute("user",user);
             RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
             rd.forward(request,response);
                         
-        }    
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

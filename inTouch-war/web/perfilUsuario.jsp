@@ -1,5 +1,9 @@
+<%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    User user = (User)request.getAttribute("user");
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +24,7 @@
                             Nombre:
                         </th>
                         <td>
-                            <input name="nombre" value="" size="25" maxsize="25"/>
+                            <input name="nombre" value="" size="25" maxsize="25" value="<%= user.getName() %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -28,7 +32,7 @@
                             Apellidos:
                         </th>
                         <td>
-                            <input name="apellido" value="" size="25" maxsize="25"/>
+                            <input name="apellido" value="" size="25" maxsize="25" value="<%= user.getSurname() %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -36,7 +40,7 @@
                             Fecha de nacimiento:
                         </th>
                         <td>
-                            <input name="bithday" value="" size="25" maxsize="25"/>
+                            <input name="birthday" value="" size="25" maxsize="25" value="<%= user.getBirthdate() %>"/>
                         </td>
                     </tr>
                 </table>
@@ -51,7 +55,7 @@
                             Usuario:
                         </th>
                         <td>
-                            <input name="user" value="" size="25" maxsize="25"/>
+                            <input name="user" value="" size="25" maxsize="25" value="<%= user.getUsername() %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -82,14 +86,20 @@
                             Correo Electronico:
                         </th>
                         <td>
-                            <input name="email" value="" size="25" maxsize="25"/>
+                            <input name="email" value="" size="25" maxsize="25" value="<%= user.getEmail() %>"/>
                         </td>
                     </tr>
                 </table>
             </fieldset>
             <br/>
             <br/>
-            <input type="hidden" name="id_usuario" value="1"/>
+            <input type="hidden" name="id_usuario" value=""/>
+            <input type="hidden" name="nombre_original" value="<%= user.getName() %>"/>
+            <input type="hidden" name="apellido_original" value="<%= user.getSurname() %>"/>
+            <input type="hidden" name="apellido_original" value="<%= user.getBirthdate() %>"/>
+            <input type="hidden" name="user_original" value="<%= user.getUsername() %>"/>
+            <input type="hidden" name="password_orginal" value="<%= user.getPassword() %>"/>
+            <input type="hidden" name="email_original" value="<%= user.getEmail() %>"/>
             <button>Guardar cambios</button>
         </form>
     </body>
