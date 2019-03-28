@@ -1,8 +1,28 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
     User user = (User)request.getAttribute("user");
+    String nombre = "";
+    String apellido = "";
+    String fechaNacimiento = "";
+    SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
+    
+    if(user.getName()!=null)
+    {
+       nombre = user.getName();
+    }
+    if(user.getSurname()!=null)
+    {
+        apellido = user.getSurname();
+    }
+    if(user.getBirthdate()!=null)
+    {
+        fechaNacimiento = date_format.format(user.getBirthdate());
+    }    
 %>
 <html>
     <head>
@@ -24,7 +44,7 @@
                             Nombre:
                         </th>
                         <td>
-                            <input name="nombre" value="" size="25" maxsize="25" value="<%= user.getName() %>"/>
+                            <input name="nombre" size="25" maxsize="25" value="<%= nombre %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -32,7 +52,7 @@
                             Apellidos:
                         </th>
                         <td>
-                            <input name="apellido" value="" size="25" maxsize="25" value="<%= user.getSurname() %>"/>
+                            <input name="apellido" size="25" maxsize="25" value="<%= apellido %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -40,7 +60,7 @@
                             Fecha de nacimiento:
                         </th>
                         <td>
-                            <input name="birthday" value="" size="25" maxsize="25" value="<%= user.getBirthdate() %>"/>
+                            <input name="birthday" size="25" maxsize="25" value="<%= fechaNacimiento %>"/>
                         </td>
                     </tr>
                 </table>
@@ -55,7 +75,7 @@
                             Usuario:
                         </th>
                         <td>
-                            <input name="user" value="" size="25" maxsize="25" value="<%= user.getUsername() %>"/>
+                            <input name="user" size="25" maxsize="25" value="<%= user.getUsername() %>"/>
                         </td>
                     </tr>
                     <tr>
@@ -63,7 +83,7 @@
                             Contraseña:
                         </th>
                         <td>
-                            <input name="password" value="" size="25" maxsize="25"/>
+                            <input type="password" name="password" size="25" maxsize="25" value=""/>
                         </td>
                     </tr>
                     <tr>
@@ -71,7 +91,7 @@
                             Repita la contraseña:
                         </th>
                         <td>
-                            <input name="password2" value="" size="25" maxsize="25"/>
+                            <input type="password" name="password2" size="25" maxsize="25" value=""/>
                         </td>
                     </tr>
                 </table>
@@ -86,7 +106,7 @@
                             Correo Electronico:
                         </th>
                         <td>
-                            <input name="email" value="" size="25" maxsize="25" value="<%= user.getEmail() %>"/>
+                            <input name="email" size="25" maxsize="25" value="<%= user.getEmail() %>"/>
                         </td>
                     </tr>
                 </table>
