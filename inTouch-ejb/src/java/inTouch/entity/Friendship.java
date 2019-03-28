@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,13 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author jfaldanam
  */
 @Entity
-@Table(name = "Membership")
+@Table(name = "Friendship")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
-    , @NamedQuery(name = "Membership.findById", query = "SELECT m FROM Membership m WHERE m.id = :id")
-    , @NamedQuery(name = "Membership.findByAdmin", query = "SELECT m FROM Membership m WHERE m.admin = :admin")})
-public class Membership implements Serializable {
+    @NamedQuery(name = "Friendship.findAll", query = "SELECT f FROM Friendship f")
+    , @NamedQuery(name = "Friendship.findById", query = "SELECT f FROM Friendship f WHERE f.id = :id")})
+public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,27 +37,18 @@ public class Membership implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "admin")
-    private boolean admin;
-    @JoinColumn(name = "group", referencedColumnName = "id")
+    @JoinColumn(name = "friend1", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Group group1;
-    @JoinColumn(name = "member", referencedColumnName = "id")
+    private User friend1;
+    @JoinColumn(name = "friend2", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private User member1;
+    private User friend2;
 
-    public Membership() {
+    public Friendship() {
     }
 
-    public Membership(Integer id) {
+    public Friendship(Integer id) {
         this.id = id;
-    }
-
-    public Membership(Integer id, boolean admin) {
-        this.id = id;
-        this.admin = admin;
     }
 
     public Integer getId() {
@@ -70,28 +59,20 @@ public class Membership implements Serializable {
         this.id = id;
     }
 
-    public boolean getAdmin() {
-        return admin;
+    public User getFriend1() {
+        return friend1;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setFriend1(User friend1) {
+        this.friend1 = friend1;
     }
 
-    public Group getGroup1() {
-        return group1;
+    public User getFriend2() {
+        return friend2;
     }
 
-    public void setGroup1(Group group1) {
-        this.group1 = group1;
-    }
-
-    public User getMember1() {
-        return member1;
-    }
-
-    public void setMember1(User member1) {
-        this.member1 = member1;
+    public void setFriend2(User friend2) {
+        this.friend2 = friend2;
     }
 
     @Override
@@ -104,10 +85,10 @@ public class Membership implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Membership)) {
+        if (!(object instanceof Friendship)) {
             return false;
         }
-        Membership other = (Membership) object;
+        Friendship other = (Friendship) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -116,7 +97,7 @@ public class Membership implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Membership[ id=" + id + " ]";
+        return "inTouch.entity.Friendship[ id=" + id + " ]";
     }
     
 }

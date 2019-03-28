@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -245,7 +245,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "db.User[ id=" + id + " ]";
+        return "inTouch.entity.User[ id=" + id + " ]";
     }
     
 }

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facades;
+package inTouch.ejb;
 
-import entity.PendingFriendship;
+import inTouch.entity.Friendship;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author jfaldanam
  */
 @Stateless
-public class PendingFriendshipFacade extends AbstractFacade<PendingFriendship> {
+public class FriendshipFacade extends AbstractFacade<Friendship> {
 
     @PersistenceContext(unitName = "inTouch-ejbPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class PendingFriendshipFacade extends AbstractFacade<PendingFriendship> {
         return em;
     }
 
-    public PendingFriendshipFacade() {
-        super(PendingFriendship.class);
+    public FriendshipFacade() {
+        super(Friendship.class);
     }
     
 }

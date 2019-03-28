@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -29,16 +29,16 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author jfaldanam
  */
 @Entity
-@Table(name = "Group")
+@Table(name = "SocialGroup")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Group1.findAll", query = "SELECT g FROM Group1 g")
-    , @NamedQuery(name = "Group1.findById", query = "SELECT g FROM Group1 g WHERE g.id = :id")
-    , @NamedQuery(name = "Group1.findByName", query = "SELECT g FROM Group1 g WHERE g.name = :name")
-    , @NamedQuery(name = "Group1.findByCreationDate", query = "SELECT g FROM Group1 g WHERE g.creationDate = :creationDate")
-    , @NamedQuery(name = "Group1.findByDescription", query = "SELECT g FROM Group1 g WHERE g.description = :description")
-    , @NamedQuery(name = "Group1.findByType", query = "SELECT g FROM Group1 g WHERE g.type = :type")})
-public class Group implements Serializable {
+    @NamedQuery(name = "SocialGroup.findAll", query = "SELECT s FROM SocialGroup s")
+    , @NamedQuery(name = "SocialGroup.findById", query = "SELECT s FROM SocialGroup s WHERE s.id = :id")
+    , @NamedQuery(name = "SocialGroup.findByName", query = "SELECT s FROM SocialGroup s WHERE s.name = :name")
+    , @NamedQuery(name = "SocialGroup.findByCreationDate", query = "SELECT s FROM SocialGroup s WHERE s.creationDate = :creationDate")
+    , @NamedQuery(name = "SocialGroup.findByDescription", query = "SELECT s FROM SocialGroup s WHERE s.description = :description")
+    , @NamedQuery(name = "SocialGroup.findByType", query = "SELECT s FROM SocialGroup s WHERE s.type = :type")})
+public class SocialGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -68,14 +68,14 @@ public class Group implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group1")
     private Collection<PendingMembership> pendingMembershipCollection;
 
-    public Group() {
+    public SocialGroup() {
     }
 
-    public Group(Integer id) {
+    public SocialGroup(Integer id) {
         this.id = id;
     }
 
-    public Group(Integer id, String name, Date creationDate) {
+    public SocialGroup(Integer id, String name, Date creationDate) {
         this.id = id;
         this.name = name;
         this.creationDate = creationDate;
@@ -158,10 +158,10 @@ public class Group implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Group)) {
+        if (!(object instanceof SocialGroup)) {
             return false;
         }
-        Group other = (Group) object;
+        SocialGroup other = (SocialGroup) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -170,7 +170,7 @@ public class Group implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Group1[ id=" + id + " ]";
+        return "inTouch.entity.SocialGroup[ id=" + id + " ]";
     }
     
 }

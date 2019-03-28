@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -45,7 +45,7 @@ public class PendingMembership implements Serializable {
     private boolean invitation;
     @JoinColumn(name = "group", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Group group1;
+    private SocialGroup group1;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
@@ -78,11 +78,11 @@ public class PendingMembership implements Serializable {
         this.invitation = invitation;
     }
 
-    public Group getGroup1() {
+    public SocialGroup getGroup1() {
         return group1;
     }
 
-    public void setGroup1(Group group1) {
+    public void setGroup1(SocialGroup group1) {
         this.group1 = group1;
     }
 
@@ -116,7 +116,7 @@ public class PendingMembership implements Serializable {
 
     @Override
     public String toString() {
-        return "db.PendingMembership[ id=" + id + " ]";
+        return "inTouch.entity.PendingMembership[ id=" + id + " ]";
     }
     
 }

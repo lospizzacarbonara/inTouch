@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -96,7 +96,7 @@ public class PendingFriendship implements Serializable {
 
     @Override
     public String toString() {
-        return "db.PendingFriendship[ id=" + id + " ]";
+        return "inTouch.entity.PendingFriendship[ id=" + id + " ]";
     }
     
 }

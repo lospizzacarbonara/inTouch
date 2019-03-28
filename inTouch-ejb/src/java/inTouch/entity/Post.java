@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package inTouch.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -61,7 +61,7 @@ public class Post implements Serializable {
     private String attachment;
     @JoinColumn(name = "group", referencedColumnName = "id")
     @ManyToOne
-    private Group group1;
+    private SocialGroup group1;
     @JoinColumn(name = "author", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User author;
@@ -119,11 +119,11 @@ public class Post implements Serializable {
         this.attachment = attachment;
     }
 
-    public Group getGroup1() {
+    public SocialGroup getGroup1() {
         return group1;
     }
 
-    public void setGroup1(Group group1) {
+    public void setGroup1(SocialGroup group1) {
         this.group1 = group1;
     }
 
@@ -157,7 +157,7 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Post[ id=" + id + " ]";
+        return "inTouch.entity.Post[ id=" + id + " ]";
     }
     
 }
