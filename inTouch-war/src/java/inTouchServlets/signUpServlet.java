@@ -8,6 +8,7 @@ package inTouchServlets;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -44,13 +45,14 @@ public class signUpServlet extends HttpServlet {
         String name = new String (request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");
         String surname = new String (request.getParameter("surname").getBytes("ISO-8859-1"),"UTF-8");
         String email = new String (request.getParameter("email").getBytes("ISO-8859-1"),"UTF-8");
-        String date = new String (request.getParameter("date").getBytes("ISO-8859-1"),"UTF-8");
+        String date = new String(request.getParameter("date").getBytes("ISO-8859-1"),"UTF-8");
         String username = new String (request.getParameter("username").getBytes("ISO-8859-1"),"UTF-8");
         String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
         
         User user = new User(new Random().nextInt(),username,password,email);
         user.setName(name);
         user.setSurname(surname);
+        user.setBirthdate(Date.valueOf(date));
         //No esta implementada la fecha
         
         this.userFacade.create(user);
