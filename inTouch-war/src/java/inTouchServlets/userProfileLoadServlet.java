@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(urlPatterns = {"/perfilUsuarioCargarServlet"})
+@WebServlet(urlPatterns = {"/userProfileLoadServlet"})
 public class userProfileLoadServlet extends HttpServlet {
 
     @EJB
@@ -54,7 +54,7 @@ public class userProfileLoadServlet extends HttpServlet {
             user = this.userFacade.find(idUser);
             
             request.setAttribute("user",user);
-            RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
             rd.forward(request,response);
                         
         } 

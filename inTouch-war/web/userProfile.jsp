@@ -30,7 +30,7 @@
         <title>Perfil de usuario</title>
     </head>
     <body>
-        <form name="perfil de usuario" method="get" action="perfilUsuarioGuardarServlet">
+        <form name="perfil de usuario" method="get" action="userProfileSaveServlet">
             <fieldset name="titulo">
                 <h1  align="center">Perfil de usuario</h1>
             </fieldset>

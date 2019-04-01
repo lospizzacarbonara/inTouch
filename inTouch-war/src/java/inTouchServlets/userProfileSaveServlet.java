@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Asus
  */
-@WebServlet(name = "perfilUsuarioGuardarServlet", urlPatterns = {"/perfilUsuarioGuardarServlet"})
+@WebServlet(name = "userProfileSaveServlet", urlPatterns = {"/userProfileSaveServlet"})
 public class userProfileSaveServlet extends HttpServlet {
 
      @EJB
@@ -105,8 +105,9 @@ public class userProfileSaveServlet extends HttpServlet {
             
             if(cambio)
             {
+                System.out.println("SI");
                 request.setAttribute("user",user);
-                RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
                 rd.forward(request,response);
             }                       
         }    

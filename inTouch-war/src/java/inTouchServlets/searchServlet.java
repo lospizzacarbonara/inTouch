@@ -44,6 +44,7 @@ public class searchServlet extends HttpServlet {
         String searchText = request.getParameter("searchText");
         
         List<User> userList;
+        //TODO: Filter user list by searchText
         if (searchText != null)
             userList = this.userFacade.findAll();
         else

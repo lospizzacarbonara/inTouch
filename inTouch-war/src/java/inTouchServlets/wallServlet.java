@@ -48,7 +48,7 @@ public class wallServlet extends HttpServlet {
             
         request.setAttribute("globalPostList",globalPostList);
         request.setAttribute("privatePostList", privatePostList);
-        RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/wall.jsp");
         rd.forward(request,response);
     }
 

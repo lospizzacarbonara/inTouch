@@ -121,7 +121,7 @@
         <button>options</button>
         <button>friends</button>
         <input type="button" onclick="location.href='/inTouch-war/search';" value="Search"/>
-        <input type="button" onclick="location.href='/inTouch-war/perfilUsuarioCargarServlet';" value="My Profile"/>
+        <input type="button" onclick="location.href='/inTouch-war/userProfileLoadServlet';" value="My Profile"/>
     </div>
 
 
