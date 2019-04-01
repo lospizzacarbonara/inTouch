@@ -9,13 +9,14 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,42 +40,27 @@ public class loginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
+        HttpSession session = request.getSession();
 
-        String usuario = new String (request.getParameter("usuario").getBytes("ISO-8859-1"),"UTF-8");
-        String clave = new String (request.getParameter("clave").getBytes("ISO-8859-1"),"UTF-8");
-        String exito= "USUARIO Y CLAVE INCORRECTA";
-        int id = 0;
-        String nombre="";
-        String apellido="";
-        String email="";
+        String username = new String (request.getParameter("user").getBytes("ISO-8859-1"),"UTF-8");
+        String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
+        int id=-1;
+        Boolean login = false;
         for (User user : this.userFacade.findAll()) {
-            if(user.getUsername().equals(usuario) && user.getPassword().equals(clave)){
-                exito= "USUARIO Y CLAVE CORRECTA";
+            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
                 id=user.getId();
-                nombre=user.getName();
-                apellido=user.getSurname();
-                email=user.getEmail();
+                login=true;
             }
         }
-        
-    
-       PrintWriter out = response.getWriter();
-        try {
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet que procesa un formulario b&aacute;sico</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>" + "El usuario con Nombre: " + nombre + "  Apellido: " + apellido+  ":</h1>");
-            out.println("<h1>" + "email: " + email + " y  " + exito+  ":</h1>");
-            out.println("<h1>" + "Tiene Nombre de Usuario: " + usuario + "  Clave: " + clave+  ":</h1>");
-
-            out.println("</body>");
-            out.println("</html>");
-            
-        } finally { 
-            out.close();
+        session.setAttribute("userId", id);
+        request.setAttribute("login", login);
+        String redirect="/signUp.html";
+        if(!login){
+            redirect="/login.jsp";
         }
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(redirect);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -114,6 +100,6 @@ public class loginServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold> 
 
 }
