@@ -8,6 +8,9 @@ package inTouchServlets;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Asus
  */
 @WebServlet(name = "perfilUsuarioGuardarServlet", urlPatterns = {"/perfilUsuarioGuardarServlet"})
-public class perfilUsuarioGuardarServlet extends HttpServlet {
+public class userProfileSaveServlet extends HttpServlet {
 
      @EJB
     private UserFacade userFacade;
@@ -40,9 +43,8 @@ public class perfilUsuarioGuardarServlet extends HttpServlet {
         
         Integer idUser = null;
         User user;
-        User newUser;
         
-        String str = request.getParameter("id_usuario");
+        String str = request.getParameter("idUsuario");
         
         try{
             idUser = Integer.parseInt(str);
@@ -58,25 +60,55 @@ public class perfilUsuarioGuardarServlet extends HttpServlet {
         }
         else
         {
-            user = this.userFacade.find(idUser);
-            newUser = new User();
+            boolean cambio = false;
+            user = new User(idUser);
             
             str = request.getParameter("nombre");
-            if(str != null)
+            String strO = request.getParameter("nombreOriginal");
+            user.setName(str);
+            cambio = cambio || str == strO;
+            
+            str = request.getParameter("apellido");
+            strO = request.getParameter("apellidoOriginal");
+            user.setSurname(str);
+            cambio = cambio || str == strO;
+
+            str = request.getParameter("birthday");
+            strO = request.getParameter("birthdayOriginal");
+            Date fecha = null;
+            try
             {
-                if(user.getName().equals(str))
-                {
-                    
-                }
+                SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
+                fecha = date_format.parse(str);
             }
+            catch(ParseException e)
+            {
+                System.out.println("Formato de fecha incorrecto");
+            }
+            user.setBirthdate(fecha);
+            cambio = cambio || str == strO;
             
+            str = request.getParameter("user");
+            strO = request.getParameter("userOriginal");
+            user.setUsername(str);
+            cambio = cambio || str == strO;
+
+            str = request.getParameter("password");
+            strO = request.getParameter("passwordOriginal");
+            user.setPassword(str);
+            cambio = cambio || str == strO;
+
+            str = request.getParameter("email");
+            strO = request.getParameter("emailOriginal");
+            user.setEmail(str);
+            cambio = cambio || str == strO;
             
-                    
-                    
-            request.setAttribute("user",user);
-            RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
-            rd.forward(request,response);
-                        
+            if(cambio)
+            {
+                request.setAttribute("user",user);
+                RequestDispatcher rd = request.getRequestDispatcher("/perfilUsuario.jsp");
+                rd.forward(request,response);
+            }                       
         }    
     }
 
