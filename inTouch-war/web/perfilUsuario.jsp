@@ -113,13 +113,14 @@
             </fieldset>
             <br/>
             <br/>
-            <input type="hidden" name="id_usuario" value=""/>
-            <input type="hidden" name="nombre_original" value="<%= user.getName() %>"/>
-            <input type="hidden" name="apellido_original" value="<%= user.getSurname() %>"/>
-            <input type="hidden" name="apellido_original" value="<%= user.getBirthdate() %>"/>
-            <input type="hidden" name="user_original" value="<%= user.getUsername() %>"/>
-            <input type="hidden" name="password_orginal" value="<%= user.getPassword() %>"/>
-            <input type="hidden" name="email_original" value="<%= user.getEmail() %>"/>
+            <input type="hidden" name="idUsuario" value=""/>
+            <input type="hidden" name="nombreOriginal" value="<%= user.getName() %>"/>
+            <input type="hidden" name="apellidoOriginal" value="<%= user.getSurname() %>"/>
+            <input type="hidden" name="birthdayOriginal" value="<%= user.getBirthdate() %>"/>
+            <input type="hidden" name="userOriginal" value="<%= user.getUsername() %>"/>
+            <input type="hidden" name="passwordOriginal" value="<%= user.getPassword() %>"/>
+            <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
+           
             <button>Guardar cambios</button>
         </form>
     </body>
