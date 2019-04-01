@@ -1,7 +1,14 @@
+<%-- 
+    Document   : Search
+    Created on : Apr 1, 2019, 8:57:01 AM
+    Author     : jfaldanam
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
     <head>
-        <title>nani</title>
+        <title>Search</title>
         <style type="text/css">
             table {
                 border: 0px solid black;
