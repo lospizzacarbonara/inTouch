@@ -52,7 +52,8 @@ public class signUpServlet extends HttpServlet {
         User user = new User(new Random().nextInt(),username,password,email);
         user.setName(name);
         user.setSurname(surname);
-        user.setBirthdate(Date.valueOf(date));
+        
+        user.setBirthdate( new Date(Date.valueOf(date).getTime()+24*60*60*1000) );
         //No esta implementada la fecha
         
         this.userFacade.create(user);
