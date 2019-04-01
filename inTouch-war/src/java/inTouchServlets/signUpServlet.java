@@ -8,9 +8,9 @@ package inTouchServlets;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Random;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,33 +41,21 @@ public class signUpServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String nombre = new String (request.getParameter("nombre").getBytes("ISO-8859-1"),"UTF-8");
-        String apellido = new String (request.getParameter("apellido").getBytes("ISO-8859-1"),"UTF-8");
+        String name = new String (request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");
+        String surname = new String (request.getParameter("surname").getBytes("ISO-8859-1"),"UTF-8");
         String email = new String (request.getParameter("email").getBytes("ISO-8859-1"),"UTF-8");
-        String fecha = new String (request.getParameter("fecha").getBytes("ISO-8859-1"),"UTF-8");
-        String usuario = new String (request.getParameter("usuario").getBytes("ISO-8859-1"),"UTF-8");
-        String clave = new String (request.getParameter("clave").getBytes("ISO-8859-1"),"UTF-8");
+        String date = new String (request.getParameter("date").getBytes("ISO-8859-1"),"UTF-8");
+        String username = new String (request.getParameter("username").getBytes("ISO-8859-1"),"UTF-8");
+        String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
         
-        User user = new User(new Random().nextInt(),usuario,clave,email);
+        User user = new User(new Random().nextInt(),username,password,email);
+        user.setName(name);
+        user.setSurname(surname);
+        //No esta implementada la fecha
+        
         this.userFacade.create(user);
-        
-       PrintWriter out = response.getWriter();
-        try {
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet que procesa un formulario b&aacute;sico</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>" + "Nombre: " + nombre + "  Apellido: " + apellido+  ":</h1>");
-            out.println("<h1>" + "email: " + email + "  fecha de nacimiento: " + fecha+  ":</h1>");
-            out.println("<h1>" + "Nombre de Usuario: " + usuario + "  Clave: " + clave+  ":</h1>");
-
-            out.println("</body>");
-            out.println("</html>");
-            
-        } finally { 
-            out.close();
-        }
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -45,6 +45,7 @@ public class loginServlet extends HttpServlet {
 
         String username = new String (request.getParameter("user").getBytes("ISO-8859-1"),"UTF-8");
         String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
+        //id = -1 , usuario no encontrado
         int id=-1;
         Boolean login = false;
         for (User user : this.userFacade.findAll()) {
@@ -55,7 +56,7 @@ public class loginServlet extends HttpServlet {
         }
         session.setAttribute("userId", id);
         request.setAttribute("login", login);
-        String redirect="/signUp.html";
+        String redirect="/wall.jsp";
         if(!login){
             redirect="/login.jsp";
         }
