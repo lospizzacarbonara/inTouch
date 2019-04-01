@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @WebServlet(urlPatterns = {"/perfilUsuarioCargarServlet"})
-public class perfilUsuarioCargarServlet extends HttpServlet {
+public class userProfileLoadServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
