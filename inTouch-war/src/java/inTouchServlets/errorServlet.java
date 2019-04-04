@@ -5,33 +5,22 @@
  */
 package inTouchServlets;
 
-import inTouch.ejb.PendingFriendshipFacade;
-import inTouch.ejb.UserFacade;
-import inTouch.entity.PendingFriendship;
-import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Random;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
+import java.io.StringWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jfaldanam
  */
-@WebServlet(name = "addFriendServlet", urlPatterns = {"/addFriend"})
-public class addFriendServlet extends HttpServlet {
+@WebServlet(name = "errorServlet", urlPatterns = {"/error"})
+public class errorServlet extends HttpServlet {
 
-    @EJB
-    private UserFacade userFacade;
-    @EJB
-    private PendingFriendshipFacade pendingFriendshipFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,29 +33,18 @@ public class addFriendServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
-        int userId = (Integer)session.getAttribute("userId");
-        User sender = this.userFacade.find(userId);
+        Exception ex = (Exception)request.getAttribute("exception");
         
-        String addUserStr = request.getParameter("addUserId");
-        int addUserId = -1;       
-        try {
-            addUserId = Integer.parseInt(addUserStr);
-        } catch(NumberFormatException e) {
-            request.setAttribute("exception", e);
-            RequestDispatcher rd = request.getRequestDispatcher("error");
-            rd.forward(request, response);
-        }
-        User receiver = this.userFacade.find(addUserId);
+        if (ex != null) {
+            StringWriter sw = new StringWriter();
+            ex.printStackTrace(new PrintWriter(sw));
+            String exceptionAsString = sw.toString();
+            
+            request.setAttribute("stacktrace", exceptionAsString); 
+        }       
         
-        PendingFriendship pending = new PendingFriendship(new Random().nextInt());
-        pending.setSender(sender);
-        pending.setReceiver(receiver);
+        request.getRequestDispatcher("error.jsp").forward(request, response);
         
-        this.pendingFriendshipFacade.create(pending);
-         
-        RequestDispatcher rd = request.getRequestDispatcher("search");
-        rd.forward(request, response);
         
     }
 
