@@ -9,6 +9,7 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -43,11 +44,12 @@ public class searchServlet extends HttpServlet {
         
         String searchText = request.getParameter("searchText");
         
-        List<User> userList;
+        List<User> userList = new ArrayList<User>();
         //TODO: Filter user list by searchText
-        if (searchText != null)
-            userList = this.userFacade.findAll();
-        else
+        if (searchText != null) {
+            //userList = this.userFacade.findAll();
+            userList = this.userFacade.findByusername(searchText);
+        } else
             userList = null;
         
         request.setAttribute("userList", userList);

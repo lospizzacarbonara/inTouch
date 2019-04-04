@@ -6,8 +6,10 @@
 package inTouch.ejb;
 
 import inTouch.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -27,6 +29,16 @@ public class UserFacade extends AbstractFacade<User> {
 
     public UserFacade() {
         super(User.class);
+    }
+    
+    public List findByusername(String username) {
+        try {
+            return em.createNamedQuery("User.findByUsername")
+                .setParameter("username", "%" + username + "%")
+                .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }
