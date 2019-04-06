@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet(urlPatterns = {"/userProfileLoadServlet"})
@@ -33,32 +34,50 @@ public class userProfileLoadServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Integer idUser = null;
-        User user;
+        User user = new User();
+        Boolean myProfile = true;
+        Boolean myFriend = false;
+        Boolean myGroup = false;
+        String str = null;
         
-        String str = request.getParameter("idUsuario");
+        Object obj =  request.getAttribute("userId");
+         
         
-        try{
-            idUser = Integer.parseInt(str);
-        }
-        catch(NumberFormatException msg)
+        if(obj != null)
         {
-            System.out.println("Formato de id de usuario incorrecto: " + msg);
-        }
-        
-        if(idUser == null)
-        {
-            System.out.println("El usuario es nulo");
+            str = obj.toString();
+            myProfile = false;
         }
         else
         {
-            user = this.userFacade.find(idUser);
+            HttpSession session = request.getSession(false);
+            obj = session.getAttribute("userId");
             
-            request.setAttribute("user",user);
-            RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-            rd.forward(request,response);
-                        
-        } 
-        
+            if(obj != null)
+            {
+                str = obj.toString();
+            }
+        }
+
+        if(obj != null)
+        {
+            try
+            {
+                idUser = Integer.parseInt(str);
+                user = this.userFacade.find(idUser);
+            }
+            catch(NumberFormatException msg)
+            {
+                System.out.println("Formato de id de usuario incorrecto: " + msg);
+            }
+        }
+
+        request.setAttribute("user",user);
+        request.setAttribute("myProfile",myProfile);
+        request.setAttribute("myFriend",myFriend);
+        request.setAttribute("myGroup",myGroup);
+        RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
+        rd.forward(request,response);                       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

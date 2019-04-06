@@ -1,0 +1,53 @@
+fieldset.tituloPerfil
+{
+    color: purple;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+fieldset.izquierdaPerfil
+{
+    position: absolute;
+    top: 8em;
+    left: 2.5%;
+    width: 22.5%;
+    height: 15em;
+}
+fieldset.centroPerfil
+{
+    position: absolute;
+    top: 8em;
+    left: 27.5%;
+    width: 45%;
+    height: 15em;
+}
+fieldset.derechaPerfil
+{
+    position: absolute;
+    top: 8em;
+    left: 75%;
+    width: 22.5%;
+    height: 15em;    
+}
+table.centradoPerfil
+{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+div.derechaPerfil
+{
+    margin-left: 50%;
+    margin-right: 25%;  
+    height: 2em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+th.alineadoDerecha
+{
+    text-align: right;
+}
+tr.filaPerfil
+{
+    height: 2em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
