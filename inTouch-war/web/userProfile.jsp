@@ -1,3 +1,4 @@
+<%@page import="java.util.Scanner"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.time.LocalDate"%>
@@ -22,7 +23,7 @@
     String correo = "";
     String alias = "";
     
-    SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
     
     if(user != null)
     {
@@ -37,9 +38,14 @@
         if(user.getBirthdate()!=null)
         {
             fechaNacimiento = date_format.format(user.getBirthdate());
+            Scanner scanner = new Scanner(fechaNacimiento);
+            scanner.useDelimiter("-");
+            String year = scanner.next();
+            String month = scanner.next();
+            String day = scanner.next();
+            fechaNacimiento = day + "/" + month + "/" + year;
         }
     }
-
 
 %>
 <html>
@@ -52,6 +58,7 @@
     <body>
         <fieldset name="titulo" class="tituloPerfil">
             <h1  align="center">Perfil de usuario</h1>
+            
         </fieldset>
         <br/>
         <br/>
@@ -153,14 +160,15 @@
                             Fecha de nacimiento:
                         </th>
                         <td>
-                            <input type="date" name="birthday" value="<%= fechaNacimiento %>"/>
+                            <input  name="birthday" value="<%= fechaNacimiento %>"/>
                         </td>
                     </tr>
                 </table>
-                <input type="hidden" name="idUser" value="<%= alias %> "/>
-                <input type="hidden" name="nameOriginal" value="<%= nombre %> "/>
-                <input type="hidden" name="surnameOriginal" value="<%= apellido %> "/>
-                <input type="hidden" name="birthdayOriginal" value="<%= fechaNacimiento %> "/>
+                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                <input type="hidden" name="user" value="<%=alias%> "/>
+                <input type="hidden" name="nameOriginal" value="<%=nombre%> "/>
+                <input type="hidden" name="surnameOriginal" value="<%=apellido%> "/>
+                <input type="hidden" name="birthdayOriginal" value="<%=fechaNacimiento%> "/>
                 <br/>
                 <div class="derechaPerfil">
                     <button>Guardar cambios</button>

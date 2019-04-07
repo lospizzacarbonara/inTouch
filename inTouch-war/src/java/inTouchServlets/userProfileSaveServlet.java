@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,76 +41,92 @@ public class userProfileSaveServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
         Integer idUser = null;
-        User user;
+        User user = new User();
         
-        String str = request.getParameter("idUsuario");
+        String str = request.getParameter("idUser").trim();
+        System.out.println("El parametro de idUser es "+str);
         
         try{
             idUser = Integer.parseInt(str);
         }
         catch(NumberFormatException msg)
         {
-            System.out.println("Formato de id de usuario incorrecto: " + msg);
+            String error = " ERROR: Formato de id de usuario incorrecto: " + msg + "(str es: " + str + ")";
+            request.setAttribute("error", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/newjsp.jsp");
+            rd.forward(request,response); 
         }
         
         if(idUser == null)
         {
-            System.out.println("El usuario es nulo");
+            String error = " ERROR: El usuario es nulo ";
+            request.setAttribute("error", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/newjsp.jsp");
+            rd.forward(request,response); 
         }
         else
         {
             boolean cambio = false;
-            user = new User(idUser);
-            
-            str = request.getParameter("nombre");
-            String strO = request.getParameter("nombreOriginal");
-            user.setName(str);
-            cambio = cambio || str == strO;
-            
-            str = request.getParameter("apellido");
-            strO = request.getParameter("apellidoOriginal");
-            user.setSurname(str);
-            cambio = cambio || str == strO;
+            user = this.userFacade.find(idUser);
 
-            str = request.getParameter("birthday");
-            strO = request.getParameter("birthdayOriginal");
+            str = new String(request.getParameter("name").getBytes("ISO-8859-1"),"UTF-8");;
+            String strO = new String(request.getParameter("nameOriginal").getBytes("ISO-8859-1"),"UTF-8");;
+            cambio = cambio || str != strO;
+            if(cambio)
+            {
+                user.setName(str);
+            }
+            
+            str = new String(request.getParameter("surname").getBytes("ISO-8859-1"),"UTF-8");;
+            strO = new String(request.getParameter("surnameOriginal").getBytes("ISO-8859-1"),"UTF-8");;
+            cambio = cambio || str != strO;
+            if(cambio)
+            {
+                user.setSurname(str);
+            }
+
+            str = new String(request.getParameter("birthday").getBytes("ISO-8859-1"),"UTF-8");;
+            strO = new String(request.getParameter("birthdayOriginal").getBytes("ISO-8859-1"),"UTF-8");;
             Date fecha = null;
             try
             {
-                SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
-                fecha = date_format.parse(str);
+                Scanner scanner = new Scanner(str);
+                scanner.useDelimiter("/");
+                String day = scanner.next();
+                String month = scanner.next();
+                String year = scanner.next();
+                String fechaStr = year + "-" + month + "-" + day;
+                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                fecha = date_format.parse(fechaStr);
             }
             catch(ParseException e)
             {
                 System.out.println("Formato de fecha incorrecto");
             }
-            user.setBirthdate(fecha);
-            cambio = cambio || str == strO;
-            
-            str = request.getParameter("user");
-            strO = request.getParameter("userOriginal");
-            user.setUsername(str);
-            cambio = cambio || str == strO;
-
-            str = request.getParameter("password");
-            strO = request.getParameter("passwordOriginal");
-            user.setPassword(str);
-            cambio = cambio || str == strO;
-
-            str = request.getParameter("email");
-            strO = request.getParameter("emailOriginal");
-            user.setEmail(str);
-            cambio = cambio || str == strO;
+            cambio = cambio || str != strO;
+            if(cambio)
+            {
+                user.setBirthdate(fecha);
+            }
             
             if(cambio)
             {
-                System.out.println("SI");
-                request.setAttribute("user",user);
-                RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-                rd.forward(request,response);
-            }                       
+                this.userFacade.edit(user);
+            }
+
+            Boolean myProfile = true;
+            Boolean myFriend = false;
+            Boolean myGroup = false;
+            request.setAttribute("user",user);
+            request.setAttribute("myProfile",myProfile);
+            request.setAttribute("myFriend",myFriend);
+            request.setAttribute("myGroup",myGroup);
+            RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
+            rd.forward(request,response);  
+            
         }    
     }
 
