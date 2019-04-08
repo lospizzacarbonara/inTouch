@@ -33,16 +33,20 @@ public class errorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Exception ex = (Exception)request.getAttribute("exception");
-        
-        if (ex != null) {
-            StringWriter sw = new StringWriter();
-            ex.printStackTrace(new PrintWriter(sw));
-            String exceptionAsString = sw.toString();
-            
-            request.setAttribute("stacktrace", exceptionAsString); 
-        }       
-        
+        try {
+            Exception ex = (Exception)request.getAttribute("exception");
+
+            if (ex != null) {
+                StringWriter sw = new StringWriter();
+                ex.printStackTrace(new PrintWriter(sw));
+                String exceptionAsString = sw.toString();
+
+                request.setAttribute("stacktrace", exceptionAsString); 
+            }       
+        }catch (ClassCastException e) {
+            Object o = request.getAttribute("exception");
+            request.setAttribute("stacktrace", o.toString());
+        }
         request.getRequestDispatcher("error.jsp").forward(request, response);
         
         
