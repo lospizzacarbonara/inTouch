@@ -43,9 +43,9 @@ public class PendingMembership implements Serializable {
     @NotNull
     @Column(name = "invitation")
     private boolean invitation;
-    @JoinColumn(name = "group", referencedColumnName = "id")
+    @JoinColumn(name = "socialGroup", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private SocialGroup group1;
+    private SocialGroup socialGroup;
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User user;
@@ -78,12 +78,12 @@ public class PendingMembership implements Serializable {
         this.invitation = invitation;
     }
 
-    public SocialGroup getGroup1() {
-        return group1;
+    public SocialGroup getSocialGroup() {
+        return socialGroup;
     }
 
-    public void setGroup1(SocialGroup group1) {
-        this.group1 = group1;
+    public void setSocialGroup(SocialGroup socialGroup) {
+        this.socialGroup = socialGroup;
     }
 
     public User getUser() {

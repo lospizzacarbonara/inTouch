@@ -61,11 +61,11 @@ public class SocialGroup implements Serializable {
     private String description;
     @Column(name = "type")
     private Integer type;
-    @OneToMany(mappedBy = "group1")
+    @OneToMany(mappedBy = "socialGroup")
     private Collection<Post> postCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "socialGroup")
     private Collection<Membership> membershipCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "socialGroup")
     private Collection<PendingMembership> pendingMembershipCollection;
 
     public SocialGroup() {
