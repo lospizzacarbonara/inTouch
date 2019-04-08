@@ -21,10 +21,22 @@
             th, td {
                 padding: 10px
             }
+            .italic {
+                font-style: italic;
+            }
+            
+            fieldset {
+                border:2px solid purple;
+                -moz-border-radius:8px;
+                -webkit-border-radius:8px;	
+                border-radius:8px;	
+            }
         </style>
     </head>
     <body>
         <%
+            int loggedUserId = (Integer) session.getAttribute("userId");
+            User loggedUser = new User(loggedUserId);
             List<User> userList = (List<User>) request.getAttribute("userList");
             Map<User, Post> postMap = (Map<User, Post>) request.getAttribute("postMap");
         %>
@@ -47,18 +59,37 @@
                     <td>
                         <form action="addFriend" method="get" name="addFriend">
                             <input type="hidden" name="addUserId" value="<%=user.getId()%>">
-                            <center><%=user.getUsername()%> <input type="submit" value="A&ntilde;adir amigo"></center><br/>
-                            <%
-                                if (postMap.get(user)!=null) {
-                            %>
-                                <%=postMap.get(user).getBody()%>
-                            <%
-                                } else {
-                            %>
-                                <%=user.getUsername()%> aun no ha  hecho ningun post
-                            <%
-                                }
-                            %>
+                            <fieldset>
+                                <legend>
+                                    <center>
+                                        <%=user.getUsername()%>
+                                        <%
+                                            if (!loggedUser.isFriend(user)) {
+                                        %>
+                                        <input type="submit" value="A&ntilde;adir amigo">
+                                        <%
+                                            } else {
+                                        %>
+                                        <input type="submit" value="Ya sois amigos" disabled>
+                                        <%
+                                            }
+                                        %>
+                                    </center><br/>
+                                </legend>
+                                <%
+                                    if (postMap.get(user)!=null) {
+                                %>
+                                    <%=postMap.get(user).getBody()%>
+                                <%
+                                    } else {
+                                %>
+                                    <div class="italic">
+                                        <%=user.getUsername()%> aun no ha  hecho ningun post
+                                    </div>
+                                <%
+                                    }
+                                %>
+                            </fieldset>
                         </form>
                     </td>
                 </tr>
