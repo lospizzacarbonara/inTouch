@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByBirthdate", query = "SELECT u FROM User u WHERE u.birthdate = :birthdate")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
-public class User implements Serializable {
+public class User implements Serializable, Comparable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -246,6 +246,12 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "inTouch.entity.User[ id=" + id + " ]";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        User other = (User)o;
+        return Integer.compare(other.getId(), this.getId());
     }
     
 }

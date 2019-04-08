@@ -6,11 +6,16 @@
 package inTouchServlets;
 
 import inTouch.ejb.UserFacade;
+import inTouch.entity.Post;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,14 +50,21 @@ public class searchServlet extends HttpServlet {
         String searchText = request.getParameter("searchText");
         
         List<User> userList = new ArrayList<User>();
+        Map<User, Post> posts = new TreeMap<User, Post>();
         //TODO: Filter user list by searchText
         if (searchText != null) {
             //userList = this.userFacade.findAll();
             userList = this.userFacade.findByusername(searchText);
+            for (User u: userList) {
+                Iterator<Post> postIt = u.getPostCollection().iterator();
+                if (postIt.hasNext())
+                    posts.put(u, postIt.next());
+            }
         } else
             userList = null;
-        
+                       
         request.setAttribute("userList", userList);
+        request.setAttribute("postMap", posts);
         
         RequestDispatcher rd = request.getRequestDispatcher("/search.jsp");
         rd.forward(request,response);

@@ -4,6 +4,8 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="java.util.Map"%>
+<%@page import="inTouch.entity.Post"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="inTouch.entity.User"%>
@@ -24,6 +26,7 @@
     <body>
         <%
             List<User> userList = (List<User>) request.getAttribute("userList");
+            Map<User, Post> postMap = (Map<User, Post>) request.getAttribute("postMap");
         %>
         <div align="center">
             <form action="search" method="post" name="searchField">
@@ -45,7 +48,17 @@
                         <form action="addFriend" method="get" name="addFriend">
                             <input type="hidden" name="addUserId" value="<%=user.getId()%>">
                             <center><%=user.getUsername()%> <input type="submit" value="A&ntilde;adir amigo"></center><br/>
-                            TODO: Mostrar ultimo post. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            <%
+                                if (postMap.get(user)!=null) {
+                            %>
+                                <%=postMap.get(user).getBody()%>
+                            <%
+                                } else {
+                            %>
+                                <%=user.getUsername()%> aun no ha  hecho ningun post
+                            <%
+                                }
+                            %>
                         </form>
                     </td>
                 </tr>
