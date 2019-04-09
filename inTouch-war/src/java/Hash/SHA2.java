@@ -1,4 +1,4 @@
-
+//Clase para el uso de funciones hash SHA2 256 - 512
 package Hash;
 
 import java.math.BigInteger;
