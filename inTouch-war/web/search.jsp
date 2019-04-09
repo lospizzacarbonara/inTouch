@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
 <%@page import="inTouch.entity.Post"%>
 <%@page import="java.util.List"%>
@@ -36,9 +37,12 @@
     <body>
         <%
             int loggedUserId = (Integer) session.getAttribute("userId");
-            User loggedUser = new User(loggedUserId);
-            List<User> userList = (List<User>) request.getAttribute("userList");
-            Map<User, Post> postMap = (Map<User, Post>) request.getAttribute("postMap");
+            
+            Map<User, Object[]> userData = (Map<User, Object[]>) request.getAttribute("userData");
+            Set<User> userSet = null;
+            if (userData != null){
+                userSet = userData.keySet();
+            }
         %>
         <div align="center">
             <form action="search" method="post" name="searchField">
@@ -51,9 +55,9 @@
             </form>
             <table>
                 <%
-                   if (userList != null) {
-                    for (User user: userList) {
-                        if (user != null) {
+                   if (userSet != null) {
+                    for (User user: userSet) {
+                        if (user != null && user.getId() != loggedUserId) {
                 %>
                 <tr>
                     <td>
@@ -64,7 +68,8 @@
                                     <center>
                                         <%=user.getUsername()%>
                                         <%
-                                            if (!loggedUser.isFriend(user)) {
+                                            Boolean friend = (Boolean)userData.get(user)[1];
+                                            if (friend != null && !friend) {
                                         %>
                                         <input type="submit" value="A&ntilde;adir amigo">
                                         <%
@@ -77,9 +82,10 @@
                                     </center><br/>
                                 </legend>
                                 <%
-                                    if (postMap.get(user)!=null) {
+                                    Post p = (Post)userData.get(user)[0];
+                                    if (p != null) {
                                 %>
-                                    <%=postMap.get(user).getBody()%>
+                                    <%=p.getBody()%>
                                 <%
                                     } else {
                                 %>

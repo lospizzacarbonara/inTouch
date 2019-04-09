@@ -6,6 +6,8 @@
 package inTouchServlets;
 
 import inTouch.ejb.UserFacade;
+import inTouch.entity.Friendship;
+import inTouch.entity.PendingFriendship;
 import inTouch.entity.Post;
 import inTouch.entity.User;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -46,30 +49,49 @@ public class searchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+        HttpSession session = request.getSession();
+        int loggedUserId = (Integer) session.getAttribute("userId");
+        User loggedUser = new User(loggedUserId);
+              
         String searchText = request.getParameter("searchText");
         
-        List<User> userList = new ArrayList<User>();
-        Map<User, Post> posts = new TreeMap<User, Post>();
-        //TODO: Filter user list by searchText
+        List<User> userList = null;
+        Map<User, Object[]> userData = new TreeMap<User, Object[]>();
+        List<User> friends = this.userFacade.findFriends(loggedUser);
+        
         if (searchText != null) {
-            //userList = this.userFacade.findAll();
             userList = this.userFacade.findByusername(searchText);
             for (User u: userList) {
-                Iterator<Post> postIt = u.getPostCollection().iterator();
+                Object[] data = new Object[2];
+                
+                //Posts
+                Iterator<Post> postIt = u.getPostCollection().iterator(); 
                 if (postIt.hasNext())
-                    posts.put(u, postIt.next());
+                    data[0] = postIt.next();
+                else
+                    data[0] = null;
+                
+                //Friendship
+                if (friends.contains(u))
+                    data[1] = (Boolean)true;
+                else
+                    data[1] = (Boolean)false;
+                
+                
+                userData.put(u, data);
             }
-        } else
-            userList = null;
-                       
-        request.setAttribute("userList", userList);
-        request.setAttribute("postMap", posts);
+            
+      
+        } else {
+            userData = null;
+        }
+        
+        request.setAttribute("userData", userData);
         
         RequestDispatcher rd = request.getRequestDispatcher("/search.jsp");
         rd.forward(request,response);
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

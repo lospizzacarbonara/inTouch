@@ -31,11 +31,28 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
-    public List findByusername(String username) {
+    public List<User> findByusername(String username) {
         try {
             return em.createNamedQuery("User.findByUsername")
                 .setParameter("username", "%" + username + "%")
                 .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<User> findFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("Friendship.findFriends")
+                .setParameter("user", u)
+                .getResultList();
+            
+            List<User> list2 = em.createNamedQuery("PendingFriendship.findFriends")
+                .setParameter("user", u)
+                .getResultList();
+            list.addAll(list2);
+            
+            return list;
         } catch (NoResultException e) {
             return null;
         }
