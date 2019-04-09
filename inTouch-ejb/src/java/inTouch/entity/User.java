@@ -223,51 +223,6 @@ public class User implements Serializable, Comparable {
         this.pendingMembershipCollection = pendingMembershipCollection;
     }
     
-    public boolean isFriend(User user) {
-        if (this.getFriendshipCollection() != null) {
-            for (Friendship f: this.getFriendshipCollection()) {
-                if (f.getFriend2() == this) {
-                    if (f.getFriend1() == user)
-                        return true;
-                } else if (f.getFriend2() == user)
-                    return true;
-            }
-        }
-        
-        if (this.getFriendshipCollection1() != null) {
-            for (Friendship f: this.getFriendshipCollection1()) {
-                if (f.getFriend2() == this) {
-                    if (f.getFriend1() == user)
-                        return true;
-                } else if (f.getFriend2() == user)
-                    return true;
-            }
-        }
-        
-        if (this.getPendingFriendshipCollection() != null) {
-            for (PendingFriendship f: this.getPendingFriendshipCollection()) {
-                if (f.getSender() == this) {
-                    if (f.getReceiver() == user)
-                        return true;
-                } else if (f.getSender() == user)
-                    return true;
-            }
-        }
-              
-        if (this.getPendingFriendshipCollection1() != null) {
-            for (PendingFriendship f: this.getPendingFriendshipCollection1()) {
-                if (f.getSender() == this) {
-                    if (f.getReceiver() == user)
-                        return true;
-                } else if (f.getSender() == user)
-                    return true;
-            }
-        }
-        
-        
-        return false;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
