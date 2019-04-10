@@ -59,9 +59,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil de usuario</title>
         <link rel="stylesheet" href="perfilcss.css">
+        <link rel="stylesheet" href="menucss.css">
     </head>
     
     <body>
+
+        <div id="menu">
+            <ul>
+                <li><a href="/inTouch-war/chargingWallServlet">Home</a></li>
+                <li><a href="#">Options</a></li>
+                <li><a href="#">Friends</a></li>
+                <li><a href="/inTouch-war/search">Search</a></li>
+                <li><a href="#" class="active">My Profile</a></li>
+            </ul>
+        </div>
+
         <fieldset name="titulo" class="tituloPerfil">
             <h1  align="center">Perfil de usuario</h1>
         </fieldset>
