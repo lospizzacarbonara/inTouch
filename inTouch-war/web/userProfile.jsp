@@ -85,7 +85,7 @@
         <!-- El nombre de usuario una vez creado no se puede modificar por eso el input correspondiente
         al nombre de usuario está deshabilitado -->
         <form name="perfilDeUsuario" method="post" action="userProfileSaveServlet">
-            <fieldset name="datos_personales" class="centroPerfil">
+            <fieldset name="datos_personales" class="datos">
                 <legend>Datos personales</legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
@@ -166,7 +166,15 @@
                                         }
                                     %>
                                 </select>
-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2"></td>
+                            <td colspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <button>Modificar datos personales</button>
                             </td>
                         </tr>
                     </table>
@@ -176,24 +184,21 @@
                     <input type="hidden" name="surnameOriginal" value="<%=apellido%> "/>
                     <input type="hidden" name="birthdayOriginal" value="<%=fechaNacimiento%> "/>
                     <br/>
-                    <div class="derechaPerfil">
-                        <button>Guardar cambios</button>
-                    </div>
                 </fieldset>
             </form>
 
             <!-- Opción para realizar el cambio del correo electronico asociado a la cuenta del
             usario -->
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
-                <fieldset name="email"  class="derechaPerfil">
+                <fieldset name="email" class="email">
                     <legend>Correo Electronico</legend>
-                    <table name="correo">
+                    <table name="correo" class="centroPerfil">
                         <tr>
                             <th class="alineadoDerecha">
                                 Correo Electronico:
                             </th>
                             <td>
-                                <input type="email" name="email" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
+                                <input name="email" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
                             </td>
                         </tr>
                     </table>
@@ -203,12 +208,47 @@
                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                 <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
                 <div>
-                    <button>Guardar cambios email</button>
+                    <button>Guardar cambios</button>
                 </div>
             </form>
+                    <button class="ok">Verificar email</button>
+                    <script>
+                        $(document).ready(function()
+                        {
+                            $('.ok').click(function()
+                            {
+                                var re = /^[\w-.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
+                                var email_input = $('.email').val();
+                                if(re.test(email_input))
+                                {
+                                    alert("El correo electronico introducido es valido")
+                                }
+                                else
+                                {
+                                    alert("El correo electronico introducido es invalido")
+                                }
+                            });
+                        });
+                        $(document).ready(function()
+                        {
+                            $('#verification-code').keyup(function(e)
+                            {
+                                if(this.value.length < 1)
+                                {
+                                    $('#confirm-btn').addClass('disabled')
+                                }
+                                else 
+                                {
+                                    $('#confirm-btn').removeClass('disabled')
+                                }
+                            });
+                        }); 
+                    </script>
+
 
         <!-- Botón para ir a la opción de cambio de contraseña -->
-        <fieldset name="seguridad" class="seguridadPerfil">
+        <fieldset name="seguridad" class="seguridad">
+            <legend>Password</legend>
             <form name="perfilDeUsuario" method="post" action="changePasswordServlet">
                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                 <button>Cambiar la contraseña</button>

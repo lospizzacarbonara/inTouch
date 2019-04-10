@@ -8,18 +8,31 @@ div.tituloPerfil
     padding-bottom: 0ex;
     border-radius: 8px;
 }
+fieldset
+{
+    border-color: purple;
+    width: 50%;
+    position: absolute;
+    left: 25%;
+}
+fieldset.datos
+{
+    top: 8em;
+    height: 14em;
+}
+fieldset.email
+{
+    top: 24em;
+}
+fieldset.seguridad
+{
+    top: 40em;
+}
 table.centradoPerfil
 {
-    margin-left: 25%;
-    margin-right: 25%;
-}
-div.derechaPerfil
-{
-    margin-left: 52.5%;
-    margin-right: 20%;  
-    height: 2em;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
+    position: absolute;
+    top: 2em;
+    left: 25%;
 }
 th.alineadoDerecha
 {
