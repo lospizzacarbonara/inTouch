@@ -1,5 +1,9 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package inTouchServlets;
-
 
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
@@ -12,14 +16,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-
-@WebServlet(urlPatterns = {"/userProfileLoadServlet"})
-public class userProfileLoadServlet extends HttpServlet {
+/**
+ *
+ * @author avila
+ */
+@WebServlet(name = "changePasswordServlet", urlPatterns = {"/changePasswordServlet"})
+public class changePasswordServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,56 +39,48 @@ public class userProfileLoadServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         response.setCharacterEncoding("UTF-8");
         
         Integer idUser = null;
         User user = new User();
-        Boolean myProfile = true;
-        Boolean myFriend = false;
-        Boolean myGroup = false;
-        String str = null;
+        String str = "";
         
-        Object obj =  request.getAttribute("userId");
-         
+        try{
+        str = request.getParameter("idUser").trim();
+        }catch(NullPointerException msg){
+        String error = " ERROR: idUser es null: " + msg + "(str es: " + str + ")";
+        request.setAttribute("exception", error);
+        RequestDispatcher rd = request.getRequestDispatcher("/error");
+        rd.forward(request,response); 
+        }
         
-        if(obj != null)
+        try{
+            idUser = Integer.parseInt(str);
+        }
+        catch(NumberFormatException msg)
         {
-            str = obj.toString();
-            myProfile = false;
+            String error = " ERROR: Formato de id de usuario incorrecto: " + msg + "(str es: " + str + ")";
+            request.setAttribute("exception", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/error");
+            rd.forward(request,response); 
+        }
+        
+        if(idUser == null)
+        {
+            String error = " ERROR: El usuario es nulo ";
+            request.setAttribute("exception", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/error");
+            rd.forward(request,response); 
         }
         else
         {
-            HttpSession session = request.getSession(false);
-            obj = session.getAttribute("userId");
+            user = this.userFacade.find(idUser);
+
+            request.setAttribute("user",user);
+            RequestDispatcher rd = request.getRequestDispatcher("/changePassword.jsp");
+            rd.forward(request,response);  
             
-            if(obj != null)
-            {
-                str = obj.toString();
-            }
-        }
-
-        if(obj != null)
-        {
-            try
-            {
-                idUser = Integer.parseInt(str);
-                user = this.userFacade.find(idUser);
-            }
-            catch(NumberFormatException msg)
-            {
-                System.out.println("Formato de id de usuario incorrecto: " + msg);
-            }
-        }
-        
-        
-        
-        
-
-        request.setAttribute("user",user);
-        request.setAttribute("myProfile",myProfile);
-        request.setAttribute("myFriend",myFriend);
-        request.setAttribute("myGroup",myGroup);
-        RequestDispatcher rd = request.getRequestDispatcher("/userProfile.jsp");
-        rd.forward(request,response);                       
+        }    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

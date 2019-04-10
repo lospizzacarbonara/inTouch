@@ -22,6 +22,12 @@
     String fechaNacimiento = "";
     String correo = "";
     String alias = "";
+    int year, month = 0, day = 0;
+    
+    LocalDate today = LocalDate.now();
+    year = today.getYear();
+    
+    String[] meses = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"};
     
     SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
     
@@ -40,9 +46,9 @@
             fechaNacimiento = date_format.format(user.getBirthdate());
             Scanner scanner = new Scanner(fechaNacimiento);
             scanner.useDelimiter("-");
-            String year = scanner.next();
-            String month = scanner.next();
-            String day = scanner.next();
+            year = Integer.parseInt(scanner.next());
+            month = Integer.parseInt(scanner.next());
+            day = Integer.parseInt(scanner.next());
             fechaNacimiento = day + "/" + month + "/" + year;
         }
     }
@@ -58,149 +64,135 @@
     <body>
         <fieldset name="titulo" class="tituloPerfil">
             <h1  align="center">Perfil de usuario</h1>
-            
         </fieldset>
         <br/>
-        <br/>
 
-        <form name="seguridad" method="post" action="userProfileChangePasswordServlet">               
-            <fieldset name="seguridad" class="izquierdaPerfil">
-                <legend>Seguridad</legend>
-                <table name="claves">
-                    <tr>
-                        <th class="alineadoDerecha">
-                            Usuario:
-                        </th>
-                        <td>
-                            <input name="user" size="25" maxsize="25" value="<%= user.getUsername() %>"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="alineadoDerecha">
-                            Contraseña:
-                        </th>
-                        <td>
-                            <input type="password" name="password" size="25" maxsize="25" value=""/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th class="alineadoDerecha">
-                            Repita la contraseña:
-                        </th>
-                        <td>
-                            <input type="password" name="confirm_password" size="25" maxsize="25" value=""/>                         
-                        </td>
-                    </tr>
-                </table>
-                        <form class="pure-form">
-                <fieldset>
-                    <script>
-                            var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
-
-                            function validatePassword()
-                            {
-                                    if(password.value != confirm_password.value) 
-                                    {
-                                            confirm_password.setCustomValidity("Passwords Don't Match");
-                                    } 
-                                    else 
-                                    {
-                                            confirm_password.setCustomValidity('');
-                                    }
-                            }
-
-                            password.onchange = validatePassword;
-                            confirm_password.onkeyup = validatePassword;
-                    </script>
-                    <legend>Confirm password with HTML5</legend>
-
-                    <input type="password" placeholder="Password" id="password" required>
-                    <input type="password" placeholder="Confirm Password" id="confirm_password" required>
-
-                    <button type="submit" class="pure-button pure-button-primary">Confirm</button>
-                </fieldset>
+        <fieldset name="seguridad" class="seguridadPerfil">
+            <form name="perfilDeUsuario" method="post" action="changePasswordServlet">
+                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                <button>Cambiar la contraseña</button>
             </form>
-            </fieldset>
-            <br/>
-            <br/>           
-        </form>
-        
+        </fieldset>
         
         <form name="perfilDeUsuario" method="post" action="userProfileSaveServlet">
             <fieldset name="datos_personales" class="centroPerfil">
                 <legend>Datos personales</legend>
-                <table name="datos" class="centradoPerfil">
-                    <tr class="filaPerfil">
-                        <th class="alineadoDerecha">
-                            Apodo:
-                        </th>
-                        <td>
-                            <!-- el nombre de usuario no se puede modificar -->
-                            <input name="user" size="25" maxsize="25" value="<%= user.getUsername() %>" disabled="disabled"/>
-                        </td>
-                    </tr>
-                    <tr class="filaPerfil">
-                        <th class="alineadoDerecha">
-                            Nombre:
-                        </th>
-                        <td>
-                            <input name="name" size="25" maxsize="25" value="<%= nombre %>"/>
-                        </td>
-                    </tr>
-                    <tr class="filaPerfil">
-                        <th class="alineadoDerecha">
-                            Apellidos:
-                        </th>
-                        <td>
-                            <input name="surname" size="25" maxsize="25" value="<%= apellido %>"/>
-                        </td>
-                    </tr>
-                    <tr class="filaPerfil">
-                        <th class="alineadoDerecha">
-                            Fecha de nacimiento:
-                        </th>
-                        <td>
-                            <input  name="birthday" value="<%= fechaNacimiento %>"/>
-                        </td>
-                    </tr>
-                </table>
-                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                <input type="hidden" name="user" value="<%=alias%> "/>
-                <input type="hidden" name="nameOriginal" value="<%=nombre%> "/>
-                <input type="hidden" name="surnameOriginal" value="<%=apellido%> "/>
-                <input type="hidden" name="birthdayOriginal" value="<%=fechaNacimiento%> "/>
+                    <table name="datos" class="centradoPerfil">
+                        <tr class="filaPerfil">
+                            <th class="alineadoDerecha">
+                                <label for="user">Apodo:</label>
+                            </th>
+                            <td colspan="3">
+                                <!-- el nombre de usuario no se puede modificar -->
+                                <input type="text" name="user" size="28" value="<%= user.getUsername() %>" disabled="disabled"/>
+                            </td>
+                        </tr>
+                        <tr class="filaPerfil">
+                            <th class="alineadoDerecha">
+                                <label for="name">Nombre:</label>
+                            </th>
+                            <td colspan="3">
+                                <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %>"/>
+                            </td>
+                        </tr>
+                        <tr class="filaPerfil">
+                            <th class="alineadoDerecha">
+                                <label for="surname">Apellidos:</label>
+                            </th>
+                            <td colspan="3">
+                                <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %>"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="alineadoDerecha" rowspan="2">
+                                Fecha de nacimiento:
+                            </th>
+                            <th>
+                                <label for="dayBirth">Día</label>
+                            </th>
+                            <th>
+                                <label for="monthBirth">Mes</label>
+                            </th>
+                            <th>
+                                <label for="yearBirth">Año</label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="dayBirth">
+                                    <%
+                                        for(int i = 0; i <= 31; i++)
+                                        {
+                                            String selected = (i==day)?"selected":" ";
+                                    %>
+                                        <option value="<%= i %>" <%= selected %>> <%= (i>0)?i:"" %> </option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="monthBirth">
+                                    <%
+                                        for(int i = 0; i <= 12; i++)
+                                        {
+                                            String selected = (i==month)?"selected":" ";
+                                    %>
+                                        <option value="<%= i %>" <%= selected %>> <%= (i>0)?meses[i-1]:"" %> </option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="yearBirth">
+                                    <%
+                                        for(int i = 1800; i <= 2101; i++)
+                                        {
+                                            String selected = (i==year)?"selected":" ";
+                                    %>
+                                        <option value="<%= i %>" <%= selected %>> <%= i %> </option>
+                                    <%
+                                        }
+                                    %>
+                                </select>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                    <input type="hidden" name="user" value="<%=alias%> "/>
+                    <input type="hidden" name="nameOriginal" value="<%=nombre%> "/>
+                    <input type="hidden" name="surnameOriginal" value="<%=apellido%> "/>
+                    <input type="hidden" name="birthdayOriginal" value="<%=fechaNacimiento%> "/>
+                    <br/>
+                    <div class="derechaPerfil">
+                        <button>Guardar cambios</button>
+                    </div>
+                </fieldset>
+            </form>
+
+            <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
+                <fieldset name="email"  class="derechaPerfil">
+                    <legend>Correo Electronico</legend>
+                    <table name="correo">
+                        <tr>
+                            <th class="alineadoDerecha">
+                                Correo Electronico:
+                            </th>
+                            <td>
+                                <input type="email" name="email" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
                 <br/>
-                <div class="derechaPerfil">
-                    <button>Guardar cambios</button>
+                <br/>
+                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
+                <div>
+                    <button>Guardar cambios email</button>
                 </div>
-            </fieldset>
-        </form>
-                
-                
-        
-                        
-        <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
-            <fieldset name="email"  class="derechaPerfil">
-                <legend>Correo Electronico</legend>
-                <table name="correo">
-                    <tr>
-                        <th class="alineadoDerecha">
-                            Correo Electronico:
-                        </th>
-                        <td>
-                            <input name="email" size="25" maxsize="25" value="<%= user.getEmail() %>"/>
-                        </td>
-                    </tr>
-                </table>
-            </fieldset>
-            <br/>
-            <br/>
-            <input type="hidden" name="idUsuario" value=""/>
-            
-            
-            <input type="hidden" name="passwordOriginal" value="<%= user.getPassword() %>"/>
-            <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
-        </form>
-        
+            </form>
     </body>
 </html>

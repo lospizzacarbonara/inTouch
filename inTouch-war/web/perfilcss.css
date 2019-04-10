@@ -4,29 +4,25 @@ fieldset.tituloPerfil
     margin-left: 25%;
     margin-right: 25%;
 }
-fieldset.izquierdaPerfil
+fieldset.izquierdaPerfil,fieldset.centroPerfil,fieldset.derechaPerfil
 {
     position: absolute;
     top: 8em;
-    left: 2.5%;
     width: 22.5%;
     height: 15em;
+}
+fieldset.izquierdaPerfil
+{
+    left: 2.5%;
 }
 fieldset.centroPerfil
 {
-    position: absolute;
-    top: 8em;
     left: 27.5%;
     width: 45%;
-    height: 15em;
 }
 fieldset.derechaPerfil
 {
-    position: absolute;
-    top: 8em;
     left: 75%;
-    width: 22.5%;
-    height: 15em;    
 }
 table.centradoPerfil
 {
@@ -35,8 +31,8 @@ table.centradoPerfil
 }
 div.derechaPerfil
 {
-    margin-left: 50%;
-    margin-right: 25%;  
+    margin-left: 52.5%;
+    margin-right: 20%;  
     height: 2em;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
@@ -44,6 +40,7 @@ div.derechaPerfil
 th.alineadoDerecha
 {
     text-align: right;
+    vertical-align: bottom;
 }
 tr.filaPerfil
 {

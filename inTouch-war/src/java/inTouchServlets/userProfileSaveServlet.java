@@ -47,7 +47,6 @@ public class userProfileSaveServlet extends HttpServlet {
         User user = new User();
         
         String str = request.getParameter("idUser").trim();
-        System.out.println("El parametro de idUser es "+str);
         
         try{
             idUser = Integer.parseInt(str);
@@ -55,16 +54,16 @@ public class userProfileSaveServlet extends HttpServlet {
         catch(NumberFormatException msg)
         {
             String error = " ERROR: Formato de id de usuario incorrecto: " + msg + "(str es: " + str + ")";
-            request.setAttribute("error", error);
-            RequestDispatcher rd = request.getRequestDispatcher("/newjsp.jsp");
+            request.setAttribute("exception", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/error");
             rd.forward(request,response); 
         }
         
         if(idUser == null)
         {
             String error = " ERROR: El usuario es nulo ";
-            request.setAttribute("error", error);
-            RequestDispatcher rd = request.getRequestDispatcher("/newjsp.jsp");
+            request.setAttribute("exception", error);
+            RequestDispatcher rd = request.getRequestDispatcher("/error");
             rd.forward(request,response); 
         }
         else
