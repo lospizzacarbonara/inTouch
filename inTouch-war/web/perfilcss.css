@@ -1,28 +1,12 @@
-fieldset.tituloPerfil
+div.tituloPerfil
 {
     color: purple;
-    margin-left: 25%;
-    margin-right: 25%;
-}
-fieldset.izquierdaPerfil,fieldset.centroPerfil,fieldset.derechaPerfil
-{
-    position: absolute;
-    top: 8em;
-    width: 22.5%;
-    height: 15em;
-}
-fieldset.izquierdaPerfil
-{
-    left: 2.5%;
-}
-fieldset.centroPerfil
-{
-    left: 27.5%;
-    width: 45%;
-}
-fieldset.derechaPerfil
-{
-    left: 75%;
+    background-color:  #ece3dd; 
+    margin-top: 0ex;
+    margin-bottom: 0ex;
+    padding-top: 0ex;
+    padding-bottom: 0ex;
+    border-radius: 8px;
 }
 table.centradoPerfil
 {

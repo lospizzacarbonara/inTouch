@@ -64,6 +64,7 @@
     
     <body>
 
+        <!-- Menú de navegación horizontal superior, utiliza la hoja de estilo menucss.css -->
         <div id="menu">
             <ul>
                 <li><a href="/inTouch-war/chargingWallServlet">Home</a></li>
@@ -74,18 +75,15 @@
             </ul>
         </div>
 
-        <fieldset name="titulo" class="tituloPerfil">
+        <!-- Titulo de la página  -->
+        <div name="titulo" class="tituloPerfil">
             <h1  align="center">Perfil de usuario</h1>
-        </fieldset>
+        </div>
         <br/>
-
-        <fieldset name="seguridad" class="seguridadPerfil">
-            <form name="perfilDeUsuario" method="post" action="changePasswordServlet">
-                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                <button>Cambiar la contraseña</button>
-            </form>
-        </fieldset>
         
+        <!-- Opciones para el cambio de los datos personales: nombre, apellido y fecha de nacimiento -->
+        <!-- El nombre de usuario una vez creado no se puede modificar por eso el input correspondiente
+        al nombre de usuario está deshabilitado -->
         <form name="perfilDeUsuario" method="post" action="userProfileSaveServlet">
             <fieldset name="datos_personales" class="centroPerfil">
                 <legend>Datos personales</legend>
@@ -184,6 +182,8 @@
                 </fieldset>
             </form>
 
+            <!-- Opción para realizar el cambio del correo electronico asociado a la cuenta del
+            usario -->
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
                 <fieldset name="email"  class="derechaPerfil">
                     <legend>Correo Electronico</legend>
@@ -206,5 +206,15 @@
                     <button>Guardar cambios email</button>
                 </div>
             </form>
+
+        <!-- Botón para ir a la opción de cambio de contraseña -->
+        <fieldset name="seguridad" class="seguridadPerfil">
+            <form name="perfilDeUsuario" method="post" action="changePasswordServlet">
+                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                <button>Cambiar la contraseña</button>
+            </form>
+        </fieldset>
+
+
     </body>
 </html>
