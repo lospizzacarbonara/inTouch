@@ -68,14 +68,18 @@
                                     <center>
                                         <%=user.getUsername()%>
                                         <%
-                                            Boolean friend = (Boolean)userData.get(user)[1];
-                                            if (friend != null && !friend) {
+                                            User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
+                                            if (friendStatus == User.friendStatus.friends) { 
                                         %>
-                                        <input type="submit" value="A&ntilde;adir amigo">
+                                            <input type="submit" value="Ya sois amigos" disabled>  
+                                        <%
+                                            } else if (friendStatus == User.friendStatus.pending) {
+                                        %>
+                                            <input type="submit" value="Peticion enviada" disabled>
                                         <%
                                             } else {
                                         %>
-                                        <input type="submit" value="Ya sois amigos" disabled>
+                                            <input type="submit" value="A&ntilde;adir amigo">
                                         <%
                                             }
                                         %>

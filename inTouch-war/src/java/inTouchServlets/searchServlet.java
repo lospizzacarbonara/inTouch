@@ -58,6 +58,7 @@ public class searchServlet extends HttpServlet {
         List<User> userList = null;
         Map<User, Object[]> userData = new TreeMap<User, Object[]>();
         List<User> friends = this.userFacade.findFriends(loggedUser);
+        List<User> pendingFriends = this.userFacade.findPendingFriends(loggedUser);
         
         if (searchText != null) {
             userList = this.userFacade.findByusername(searchText);
@@ -73,9 +74,11 @@ public class searchServlet extends HttpServlet {
                 
                 //Friendship
                 if (friends.contains(u))
-                    data[1] = (Boolean)true;
+                    data[1] = User.friendStatus.friends;
+                else if (pendingFriends.contains(u))
+                    data[1] = User.friendStatus.pending;
                 else
-                    data[1] = (Boolean)false;
+                    data[1] = User.friendStatus.unrelated;
                 
                 
                 userData.put(u, data);

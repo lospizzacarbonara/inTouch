@@ -44,6 +44,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
 public class User implements Serializable, Comparable {
 
+    public enum friendStatus {
+        friends, pending, unrelated;
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

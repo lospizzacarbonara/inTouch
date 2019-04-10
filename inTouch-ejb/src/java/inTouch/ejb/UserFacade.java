@@ -46,16 +46,22 @@ public class UserFacade extends AbstractFacade<User> {
             List<User> list = em.createNamedQuery("Friendship.findFriends")
                 .setParameter("user", u)
                 .getResultList();
-            
-            List<User> list2 = em.createNamedQuery("PendingFriendship.findFriends")
-                .setParameter("user", u)
-                .getResultList();
-            list.addAll(list2);
-            
+                        
             return list;
         } catch (NoResultException e) {
             return null;
         }
     }
     
+    public List<User> findPendingFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("PendingFriendship.findFriends")
+                .setParameter("user", u)
+                .getResultList();
+            
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }
