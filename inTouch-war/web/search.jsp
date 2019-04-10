@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="markdownj.Markdown"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
 <%@page import="inTouch.entity.Post"%>
@@ -89,7 +90,7 @@
                                     Post p = (Post)userData.get(user)[0];
                                     if (p != null) {
                                 %>
-                                    <%=p.getBody()%>
+                                <%=Markdown.toHtml(p.getBody())%>
                                 <%
                                     } else {
                                 %>
