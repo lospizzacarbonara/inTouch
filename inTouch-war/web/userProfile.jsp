@@ -59,8 +59,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil de usuario</title>
-        <link rel="stylesheet" href="perfilcss.css">
-        <link rel="stylesheet" href="menucss.css">
+        <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/perfil.css">
+        <link rel="stylesheet" href="resources/css/navmenu.css">
     </head>
     
     <body>

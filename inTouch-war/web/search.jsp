@@ -17,25 +17,9 @@
 <html>
     <head>
         <title>Search</title>
-        <link rel="stylesheet" href="menucss.css">
-        <style type="text/css">
-            table {
-                border: 0px solid black;
-            }
-            th, td {
-                padding: 10px
-            }
-            .italic {
-                font-style: italic;
-            }
-            
-            fieldset {
-                border:2px solid purple;
-                -moz-border-radius:8px;
-                -webkit-border-radius:8px;	
-                border-radius:8px;	
-            }
-        </style>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/navmenu.css">
+        <link rel="stylesheet" href="resources/css/search.css">
     </head>
     <body>
         <%=NavMenu.toHtml("search")%>
@@ -73,8 +57,7 @@
                         <form action="addFriend" method="get" name="addFriend">
                             <input type="hidden" name="addUserId" value="<%=user.getId()%>">
                             <fieldset>
-                                <legend>
-                                    <center>
+                                <legend class="center-legend">
                                         <%=user.getUsername()%>
                                         <%
                                             User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
@@ -92,7 +75,6 @@
                                         <%
                                             }
                                         %>
-                                    </center><br/>
                                 </legend>
                                 <%
                                     Post p = (Post)userData.get(user)[0];
