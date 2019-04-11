@@ -6,7 +6,7 @@
 package inTouchServlets;
 
 
-import static Hash.SHA2.getSHA512;
+import static hash.SHA2.getSHA512;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
