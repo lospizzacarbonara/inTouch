@@ -5,6 +5,7 @@
  */
 package inTouch.ejb;
 
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -59,6 +60,17 @@ public class UserFacade extends AbstractFacade<User> {
                 .setParameter("user", u)
                 .getResultList();
             
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<SocialGroup> findSocialGroups(User u) {
+        try{
+            List<SocialGroup> list = em.createNamedQuery("SocialGroup.findSocialGroups")
+                    .setParameter("user", u)
+                    .getResultList();
             return list;
         } catch (NoResultException e) {
             return null;

@@ -7,16 +7,19 @@ package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
 import inTouch.entity.Post;
+import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "wallServlet", urlPatterns = {"/wallServlet"})
 public class wallServlet extends HttpServlet {
+    @EJB 
     private PostFacade postFacade;
 
     /**
@@ -37,15 +41,16 @@ public class wallServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
         List<Post> globalPostList, privatePostList;
-        privatePostList = postFacade.findAll(); //sólo los de los amigos y grupos
-        globalPostList = postFacade.findAll(); //sólo los mensajes globales (públicos)
-        //find(UserId) para controlar que usuario somos
+        
+        response.setContentType("text/html;charset=UTF-8");
+        privatePostList = postFacade.getPrivatePost(user); //sólo los de los amigos y grupos
+        globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
         
         
        
-            
         request.setAttribute("globalPostList",globalPostList);
         request.setAttribute("privatePostList", privatePostList);
         RequestDispatcher rd = request.getRequestDispatcher("/wall.jsp");

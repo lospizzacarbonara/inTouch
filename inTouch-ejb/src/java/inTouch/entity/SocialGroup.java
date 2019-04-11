@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SocialGroup.findByName", query = "SELECT s FROM SocialGroup s WHERE s.name = :name")
     , @NamedQuery(name = "SocialGroup.findByCreationDate", query = "SELECT s FROM SocialGroup s WHERE s.creationDate = :creationDate")
     , @NamedQuery(name = "SocialGroup.findByDescription", query = "SELECT s FROM SocialGroup s WHERE s.description = :description")
-    , @NamedQuery(name = "SocialGroup.findByType", query = "SELECT s FROM SocialGroup s WHERE s.type = :type")})
+    , @NamedQuery(name = "SocialGroup.findByType", query = "SELECT s FROM SocialGroup s WHERE s.type = :type")
+    , @NamedQuery(name = "SocialGroup.findSocialGroups", query = "SELECT sg FROM SocialGroup sg JOIN Membership m WHERE m.member1 = :user")})
+    // findSocialGroups => SELECT SocialGroup.* FROM inTouch.SocialGroup JOIN Membership where Membership.member = "user";
 public class SocialGroup implements Serializable {
 
     private static final long serialVersionUID = 1L;

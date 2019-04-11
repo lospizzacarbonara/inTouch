@@ -10,19 +10,10 @@
 <!DOCTYPE html>
 
 <%
-    /*
-    List postList = (List<Post>)request.getAttribute("postList");
-    User author;
-    String body = "";
     
-    if(postList != null){
-        body = postList.get(1).getBody();
-    }
+    List<Post> globalPostList = (List<Post>)request.getAttribute("globalPostList");
+    List<Post> privatePostList = (List<Post>)request.getAttribute("privatePostList");
     
-    if(postList != null){
-        author = post.getAuthor();
-    }
-    */
 %>
 
 <html>
@@ -160,8 +151,16 @@
 
             <td class="content">
                 <div id="Public" class="tabcontent" align="center">
+                    <% 
+                        for(Post p: globalPostList){
+                    %>
                     <h1>PublicChat</h1>
+                    <%=p.getBody()%>
                     <p>Here appears all the public content</p>
+                    
+                    <%
+                        }
+                    %>
                 </div>
 
                 <div id="Private" class="tabcontent" align="center">

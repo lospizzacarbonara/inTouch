@@ -59,7 +59,7 @@ public class loginServlet extends HttpServlet {
         }
         session.setAttribute("userId", id);
         request.setAttribute("login", login);
-        String redirect="/wall.jsp";
+        String redirect="/wallServlet";
         if(!login){
             redirect="/login.jsp";
         }
