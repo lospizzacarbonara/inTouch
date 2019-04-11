@@ -17,7 +17,7 @@ public class NavMenu {
             "<!-- Menú de navegación horizontal superior, utiliza la hoja de estilo menucss.css -->\n" +
             "        <div id=\"menu\">\n" +
             "            <ul>\n" +
-            "                <li><a href=" + ((activo.equals("home")) ? active : "\"/inTouch-war/chargingWallServlet\"")+ ">Home</a></li>\n" +
+            "                <li><a href=" + ((activo.equals("home")) ? active : "\"/inTouch-war/wallServlet\"")+ ">Home</a></li>\n" +
             "                <li><a href=" + ((activo.equals("options")) ? active : "\"/inTouch-war/options\"") + ">Options</a></li>\n" +
             "                <li><a href=" + ((activo.equals("friends")) ? active : "\"/inTouch-war/friend\"") + ">Friends</a></li>\n" +
             "                <li><a href=" + ((activo.equals("search")) ? active : "\"/inTouch-war/search\"") + ">Search</a></li>\n" +

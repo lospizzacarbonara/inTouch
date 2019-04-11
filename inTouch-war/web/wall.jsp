@@ -3,6 +3,8 @@
     Created on : Apr 1, 2019, 9:29:09 AM
     Author     : Nellogy
 --%>
+<%@page import="componentesHtml.NavMenu"%>
+<%@page import="markdownj.Markdown"%>
 <%@page import="java.util.List"%>
 <%@page import="inTouch.entity.Post"%>
 <%@page import="inTouch.entity.User"%>
@@ -18,6 +20,8 @@
 
 <html>
     <head>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/navmenu.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -85,14 +89,6 @@
               right: 570px;
           }
 
-          #fixedHeader{
-              position: fixed;
-              top: 0px;
-              left: 0px;
-              width: 100%;
-              background-color: darkblue;
-          }
-
           .personalInfo{
 
           }
@@ -101,20 +97,13 @@
 
 
 <body>
-
+    <!-- Options header -->
+    <%=NavMenu.toHtml("home")%>
+    
     <!-- Personal info  -->
     <div class="personalInfo" align="center">
         <h1>INFORMACION DEL USUARIO</h1>
     </div>
-
-    <!-- Options header -->
-    <div id="fixedHeader" align="center">
-        <button>options</button>
-        <button>friends</button>
-        <input type="button" onclick="location.href='/inTouch-war/search';" value="Search"/>
-        <input type="button" onclick="location.href='/inTouch-war/userProfileLoadServlet';" value="My Profile"/>
-    </div>
-
 
     <!-- Div for the wall on the main page (public/private) -->
     <table class="wallTable" align="center">
@@ -154,18 +143,22 @@
                     <% 
                         for(Post p: globalPostList){
                     %>
-                    <h1>PublicChat</h1>
+                    <h1><%=p.getAuthor().getUsername()%></h1>
                     <%=p.getBody()%>
-                    <p>Here appears all the public content</p>
-                    
                     <%
                         }
                     %>
                 </div>
 
                 <div id="Private" class="tabcontent" align="center">
-                    <h1>PrivateChat</h1>
-                    <p>Here appears friends posts</p>
+                    <%
+                        for(Post p: privatePostList){
+                    %>
+                    <h1><%=p.getAuthor().getUsername()%></h1>
+                    <%=p.getBody()%>
+                    <%
+                        }
+                    %>
                 </div>
             </td>
 
