@@ -5,6 +5,7 @@
  */
 package inTouchServlets;
 
+import static Hash.SHA2.getSHA512;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
@@ -49,11 +50,12 @@ public class signUpServlet extends HttpServlet {
         String username = new String (request.getParameter("username").getBytes("ISO-8859-1"),"UTF-8");
         String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
         
+        password = getSHA512(password);
         User user = new User(new Random().nextInt(),username,password,email);
         user.setName(name);
         user.setSurname(surname);
         
-        user.setBirthdate( new Date(Date.valueOf(date).getTime()+24*60*60*1000) );
+        //user.setBirthdate( new Date(Date.valueOf(date).getTime()+24*60*60*1000) );
         //No esta implementada la fecha
         
         this.userFacade.create(user);

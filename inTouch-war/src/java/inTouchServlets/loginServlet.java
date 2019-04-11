@@ -5,6 +5,8 @@
  */
 package inTouchServlets;
 
+
+import static Hash.SHA2.getSHA512;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
@@ -47,9 +49,10 @@ public class loginServlet extends HttpServlet {
         String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
         //id = -1 , usuario no encontrado
         int id=-1;
+        String sha512 = getSHA512(password);
         Boolean login = false;
         for (User user : this.userFacade.findAll()) {
-            if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+            if(user.getUsername().equals(username) && user.getPassword().equals(sha512)){
                 id=user.getId();
                 login=true;
             }
