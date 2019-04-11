@@ -38,6 +38,10 @@
     <body>
         <%
             int loggedUserId = (Integer) session.getAttribute("userId");
+            String searchText = request.getParameter("searchText");
+            if (searchText == null) {
+                searchText = "";
+            }
             
             Map<User, Object[]> userData = (Map<User, Object[]>) request.getAttribute("userData");
             Set<User> userSet = null;
@@ -48,8 +52,8 @@
         <div align="center">
             <form action="search" method="post" name="searchField">
                     <fieldset>
-                        <legend>Busqueda de usuarios</legend>
-                        username: <input type="text" name="searchText" value=""><br>
+                        <legend>Busqueda de usuarios</legend> 
+                        username: <input type="text" name="searchText" value=<%=searchText%>><br>
                         <input type="submit" value="Buscar">
                     </fieldset>
     
