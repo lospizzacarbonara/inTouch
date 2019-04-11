@@ -1,5 +1,5 @@
 //Clase para el uso de funciones hash SHA2 256 - 512
-package Hash;
+package hash;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

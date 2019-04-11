@@ -1,3 +1,4 @@
+<%@page import="componentesHtml.NavMenu"%>
 <%@page import="java.util.Scanner"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -64,16 +65,8 @@
     
     <body>
 
-        <!-- Menú de navegación horizontal superior, utiliza la hoja de estilo menucss.css -->
-        <div id="menu">
-            <ul>
-                <li><a href="/inTouch-war/chargingWallServlet">Home</a></li>
-                <li><a href="#">Options</a></li>
-                <li><a href="#">Friends</a></li>
-                <li><a href="/inTouch-war/search">Search</a></li>
-                <li><a href="#" class="active">My Profile</a></li>
-            </ul>
-        </div>
+       
+        <%=NavMenu.toHtml("myProfile")%>
 
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">

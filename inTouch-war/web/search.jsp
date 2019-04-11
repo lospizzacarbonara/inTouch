@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="componentesHtml.NavMenu"%>
 <%@page import="markdownj.Markdown"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
@@ -16,6 +17,7 @@
 <html>
     <head>
         <title>Search</title>
+        <link rel="stylesheet" href="menucss.css">
         <style type="text/css">
             table {
                 border: 0px solid black;
@@ -36,6 +38,8 @@
         </style>
     </head>
     <body>
+        <%=NavMenu.toHtml("search")%>
+        
         <%
             int loggedUserId = (Integer) session.getAttribute("userId");
             String searchText = request.getParameter("searchText");
