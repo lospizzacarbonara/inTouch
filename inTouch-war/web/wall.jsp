@@ -107,7 +107,7 @@
 
     <!-- Div for the wall on the main page (public/private) -->
     <table class="wallTable" align="center">
-        <tr>
+        <tr id="R1">
             <td class="groupHeader">
                 <!-- Groups div -->
                 <div>
@@ -144,7 +144,7 @@
                         for(Post p: globalPostList){
                     %>
                     <h1><%=p.getAuthor().getUsername()%></h1>
-                    <%=p.getBody()%>
+                    <%=Markdown.toHtml(p.getBody())%>
                     <%
                         }
                     %>
@@ -155,7 +155,7 @@
                         for(Post p: privatePostList){
                     %>
                     <h1><%=p.getAuthor().getUsername()%></h1>
-                    <%=p.getBody()%>
+                    <%=Markdown.toHtml(p.getBody())%>
                     <%
                         }
                     %>
@@ -171,7 +171,7 @@
     </table>
 
     <!-- Up button -->
-    <button id="fixedbutton">UP</button>
+    <button id="fixedbutton"><a href="#R1">UP</a></button>
 
 
     <!-- Script for the tabs -->
