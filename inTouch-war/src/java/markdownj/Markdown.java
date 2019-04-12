@@ -12,8 +12,11 @@ package markdownj;
 public class Markdown {
     private static MarkdownProcessor mk = null;
     public static String toHtml(String str) {
+        //Converting any number of new lines(\n) into 2
+        str = str.replaceAll("[\n]+", "\n\n");
+        
         if (mk == null)
             mk = new MarkdownProcessor();
         return  mk.markdown(str);
-    }    
+    }
 }
