@@ -27,10 +27,23 @@
     <style>
           body {
               font-family: "Lato", sans-serif;
+              background: #263238;
+              color: white;
           }
 
-          table, td, tr {
-              border: 1px solid black;
+          td {
+              border-top: 1px solid white;
+          }
+          
+          .groupList{
+              vertical-align: top;
+              border-right: 1px solid white;
+          }
+          
+          .inviteList{
+              vertical-align: top;
+              border-left: 1px solid white;
+              text-align: right;
           }
 
           .tablink {
@@ -132,23 +145,24 @@
         </tr>
 
         <tr>
-            <td class="list">
+            <td class="groupList">
                 <p>group1</p>
                 <p>group2</p>
                 <p>group3</p>
             </td>
 
             <td class="content">
-                <div id="Public" class="tabcontent" align="center">
+                <div id="Public" class="tabcontent" align="center"> <font color="white">
                     <% 
                         for(Post p: globalPostList){
                     %>
                     <h1><%=p.getAuthor().getUsername()%></h1>
                     <%=Markdown.toHtml(p.getBody())%>
+                    <hr/>
                     <%
                         }
                     %>
-                </div>
+                    </font></div>
 
                 <div id="Private" class="tabcontent" align="center">
                     <%
@@ -156,13 +170,14 @@
                     %>
                     <h1><%=p.getAuthor().getUsername()%></h1>
                     <%=Markdown.toHtml(p.getBody())%>
+                    <hr/>
                     <%
                         }
                     %>
                 </div>
             </td>
 
-            <td class="list">
+            <td class="inviteList">
                 <p>invite1</p>
                 <p>invite2</p>
                 <p>invite3</p>
