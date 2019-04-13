@@ -6,7 +6,9 @@
 package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
+import inTouch.ejb.UserFacade;
 import inTouch.entity.Post;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +29,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "wallServlet", urlPatterns = {"/wallServlet"})
 public class wallServlet extends HttpServlet {
+
+    @EJB
+    private UserFacade userFacade;
     @EJB 
     private PostFacade postFacade;
 
@@ -44,14 +49,16 @@ public class wallServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         List<Post> globalPostList, privatePostList;
+        List<SocialGroup> groupList;
         
         response.setContentType("text/html;charset=UTF-8");
         privatePostList = postFacade.getPrivatePost(user); //sólo los de los amigos y grupos
         globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
+        groupList = userFacade.findSocialGroups(user); //grupos del usuario
         
         
-       
-        request.setAttribute("globalPostList",globalPostList);
+        request.setAttribute("groupList", groupList);
+        request.setAttribute("globalPostList", globalPostList);
         request.setAttribute("privatePostList", privatePostList);
         RequestDispatcher rd = request.getRequestDispatcher("/wall.jsp");
         rd.forward(request,response);

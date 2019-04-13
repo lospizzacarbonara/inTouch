@@ -3,6 +3,7 @@
     Created on : Apr 1, 2019, 9:29:09 AM
     Author     : Nellogy
 --%>
+<%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="markdownj.Markdown"%>
 <%@page import="java.util.List"%>
@@ -15,11 +16,13 @@
     
     List<Post> globalPostList = (List<Post>)request.getAttribute("globalPostList");
     List<Post> privatePostList = (List<Post>)request.getAttribute("privatePostList");
+    List<SocialGroup> groupList = (List<SocialGroup>)request.getAttribute("groupList");
     
 %>
 
 <html>
     <head>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -66,7 +69,6 @@
               color: black;
               display: none;
               padding: 50px;
-              text-align: center;
           }
 
           .content{
@@ -104,6 +106,16 @@
 
           .personalInfo{
 
+          }
+          
+          .post {
+              background: #37474f;
+              border-radius: 8px;
+              padding-left: 20px;
+              padding-right: 20px;
+              padding-top: 5px;
+              padding-bottom: 10px;
+              margin-top: 20px;
           }
       </style>
 </head>
@@ -146,25 +158,33 @@
 
         <tr>
             <td class="groupList">
-                <p>group1</p>
-                <p>group2</p>
-                <p>group3</p>
+                <% 
+                    for(SocialGroup sg : groupList){
+                %>
+                <a href="#"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
+                <% 
+                    }
+                %>
             </td>
 
             <td class="content">
-                <div id="Public" class="tabcontent" align="center"> <font color="white">
+                <div id="Public" class="tabcontent"> <font color="white">
                     <% 
                         for(Post p: globalPostList){
                     %>
-                    <h1><%=p.getAuthor().getUsername()%></h1>
-                    <%=Markdown.toHtml(p.getBody())%>
-                    <hr/>
+                    <div class="post">
+                        <h3 align="center">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <%=p.getAuthor().getUsername()%>
+                        </h3>
+                        <p><%=Markdown.toHtml(p.getBody())%></p>
+                    </div>
                     <%
                         }
                     %>
                     </font></div>
 
-                <div id="Private" class="tabcontent" align="center">
+                <div id="Private" class="tabcontent">
                     <%
                         for(Post p: privatePostList){
                     %>

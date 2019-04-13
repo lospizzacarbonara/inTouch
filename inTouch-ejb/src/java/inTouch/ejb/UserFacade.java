@@ -66,6 +66,7 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
     
+    //Get a List with all the groups of an user
     public List<SocialGroup> findSocialGroups(User u) {
         try{
             List<SocialGroup> list = em.createNamedQuery("SocialGroup.findSocialGroups")
