@@ -62,6 +62,21 @@
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/perfil.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
+                                <script>
+                                        $('.correoElectronico').keyup(function()
+                                        {
+                                            var thetext = $(this).val();
+                                            alert(thetext);
+                                            if (thetext.length == 0) 
+                                            {
+                                                $('#modificarEmail').attr('disabled', 'disabled');
+                                            } 
+                                            else 
+                                            {
+                                                $('#modificarEmail').removeAttr('disabled');
+                                            }
+                                        })
+                                </script>
     </head>
     
     <body>
@@ -163,8 +178,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td rowspan="2"></td>
-                            <td colspan="3"></td>
+                            <td rowspan="2">&nbsp;</td>
+                            <td colspan="3">&nbsp;</td>
                         </tr>
                         <tr>
                             <td colspan="3">
@@ -186,24 +201,31 @@
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
                 <fieldset name="email" class="email">
                     <legend>Correo Electronico</legend>
-                    <table name="correo" class="centroPerfil">
+                    <table name="correo" class="centradoPerfil">
                         <tr>
                             <th class="alineadoDerecha">
                                 Correo Electronico:
                             </th>
                             <td>
-                                <input name="email" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
+                                <input name="email" class="correoElectronico" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                                <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
+                                <input type="submit" id="modificarEmail" disabled value="Modificar el Correo Electronico"/>
+                                <!-- <button name="modificarEmail">Modificar el Correo Electronico</button> -->
                             </td>
                         </tr>
                     </table>
+                    <br/>
+                    <br/>
                 </fieldset>
-                <br/>
-                <br/>
-                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
-                <div>
-                    <button>Guardar cambios</button>
-                </div>
             </form>
                     <button class="ok">Verificar email</button>
                     <script>
@@ -225,17 +247,18 @@
                         });
                         $(document).ready(function()
                         {
-                            $('#verification-code').keyup(function(e)
+                            $('.postMsg').keyup(function()
                             {
-                                if(this.value.length < 1)
+                                var thetext = $(this).val();
+                                if (thetext.length < 6) 
                                 {
-                                    $('#confirm-btn').addClass('disabled')
-                                }
+                                    $('#workroom_submit').attr('disabled', 'disabled');
+                                } 
                                 else 
                                 {
-                                    $('#confirm-btn').removeClass('disabled')
+                                    $('#workroom_submit').removeAttr('disabled');
                                 }
-                            });
+                            })
                         }); 
                     </script>
 
