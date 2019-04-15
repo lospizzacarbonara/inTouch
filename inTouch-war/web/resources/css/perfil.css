@@ -22,10 +22,11 @@ fieldset.datos
 fieldset.email
 {
     top: 24em;
+    height: 8em;
 }
 fieldset.seguridad
 {
-    top: 40em;
+    top: 34em;
 }
 table.centradoPerfil
 {
