@@ -19,7 +19,7 @@
         <title>Search</title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
-        <link rel="stylesheet" href="resources/css/search.css">
+        <link rel="stylesheet" href="resources/css/friends.css">
     </head>
     <body>
         <%=NavMenu.toHtml("search")%>

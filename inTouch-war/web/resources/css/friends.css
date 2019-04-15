@@ -4,7 +4,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : Apr 11, 2019, 12:07:22 PM
+    Created on : Apr 15, 2019, 10:36:41 AM
     Author     : jfaldanam
 */
 
@@ -23,4 +23,12 @@ th, td {
     position: relative;
     text-align: center;
     width: auto;
+}
+
+.thirdSize {
+    vertical-align: top;
+    height: 100%;
+    width: 30%;
+    display:inline;
+    padding-top: 1px;
 }
