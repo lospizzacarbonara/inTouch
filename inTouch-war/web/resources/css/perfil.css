@@ -17,16 +17,21 @@ fieldset
 fieldset.datos
 {
     top: 8em;
-    height: 14em;
+    height: 16em;
 }
 fieldset.email
 {
-    top: 24em;
+    top: 26em;
     height: 8em;
 }
 fieldset.seguridad
 {
-    top: 34em;
+    top: 36em;
+    height: 4em;
+}
+td
+{
+    width: 1em;
 }
 table.centradoPerfil
 {

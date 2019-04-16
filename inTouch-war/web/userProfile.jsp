@@ -62,21 +62,6 @@
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/perfil.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
-                                <script>
-                                        $('.correoElectronico').keyup(function()
-                                        {
-                                            var thetext = $(this).val();
-                                            alert(thetext);
-                                            if (thetext.length == 0) 
-                                            {
-                                                $('#modificarEmail').attr('disabled', 'disabled');
-                                            } 
-                                            else 
-                                            {
-                                                $('#modificarEmail').removeAttr('disabled');
-                                            }
-                                        })
-                                </script>
     </head>
     
     <body>
@@ -94,11 +79,11 @@
         <!-- El nombre de usuario una vez creado no se puede modificar por eso el input correspondiente
         al nombre de usuario está deshabilitado -->
         <form name="perfilDeUsuario" method="post" action="userProfileSaveServlet">
-            <fieldset name="datos_personales" class="datos">
+            <fieldset name="datosPersonales" class="datos">
                 <legend>Datos personales</legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha">
+                            <th class="alineadoDerecha" colspan="15">
                                 <label for="user">Apodo:</label>
                             </th>
                             <td colspan="3">
@@ -107,7 +92,7 @@
                             </td>
                         </tr>
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha">
+                            <th class="alineadoDerecha" colspan="15">
                                 <label for="name">Nombre:</label>
                             </th>
                             <td colspan="3">
@@ -115,7 +100,7 @@
                             </td>
                         </tr>
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha">
+                            <th class="alineadoDerecha" colspan="15">
                                 <label for="surname">Apellidos:</label>
                             </th>
                             <td colspan="3">
@@ -123,7 +108,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th class="alineadoDerecha" rowspan="2">
+                            <th class="alineadoDerecha" rowspan="2" colspan="15">
                                 Fecha de nacimiento:
                             </th>
                             <th>
@@ -178,11 +163,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td rowspan="2">&nbsp;</td>
-                            <td colspan="3">&nbsp;</td>
+                            <td rowspan="2" colspan="15">&nbsp;</td>
+                            <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td colspan="3">
+                            <td colspan="15">
                                 <button>Modificar datos personales</button>
                             </td>
                         </tr>
@@ -203,23 +188,23 @@
                     <legend>Correo Electronico</legend>
                     <table name="correo" class="centradoPerfil">
                         <tr>
-                            <th class="alineadoDerecha">
+                            <th class="alineadoDerecha" colspan="15">
                                 Correo Electronico:
                             </th>
                             <td>
-                                <input name="email" class="correoElectronico" size="50" maxsize="50" value="<%= user.getEmail() %>"/>
+                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %>"/>
                             </td>
                         </tr>
                         <tr>
-                            <td rowspan="2">&nbsp;</td>
+                            <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>
                                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                                 <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
-                                <input type="submit" id="modificarEmail" disabled value="Modificar el Correo Electronico"/>
-                                <!-- <button name="modificarEmail">Modificar el Correo Electronico</button> -->
+                                <!-- <input type="submit" id="modificarEmail" disabled value="Modificar el Correo Electronico"/> -->
+                                <button name="modificarEmail">Modificar el Correo Electronico</button> 
                             </td>
                         </tr>
                     </table>
@@ -227,48 +212,13 @@
                     <br/>
                 </fieldset>
             </form>
-                    <button class="ok">Verificar email</button>
-                    <script>
-                        $(document).ready(function()
-                        {
-                            $('.ok').click(function()
-                            {
-                                var re = /^[\w-.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
-                                var email_input = $('.email').val();
-                                if(re.test(email_input))
-                                {
-                                    alert("El correo electronico introducido es valido")
-                                }
-                                else
-                                {
-                                    alert("El correo electronico introducido es invalido")
-                                }
-                            });
-                        });
-                        $(document).ready(function()
-                        {
-                            $('.postMsg').keyup(function()
-                            {
-                                var thetext = $(this).val();
-                                if (thetext.length < 6) 
-                                {
-                                    $('#workroom_submit').attr('disabled', 'disabled');
-                                } 
-                                else 
-                                {
-                                    $('#workroom_submit').removeAttr('disabled');
-                                }
-                            })
-                        }); 
-                    </script>
-
 
         <!-- Botón para ir a la opción de cambio de contraseña -->
         <fieldset name="seguridad" class="seguridad">
             <legend>Password</legend>
-            <form name="perfilDeUsuario" method="post" action="changePasswordServlet">
-                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                <button>Cambiar la contraseña</button>
+            <form name="claveDeUsuario" method="post" action="changePasswordServlet">
+                                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
+                                <button>Cambiar la contraseña</button>
             </form>
         </fieldset>
 
