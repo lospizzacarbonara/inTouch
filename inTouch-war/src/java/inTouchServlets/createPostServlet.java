@@ -6,14 +6,14 @@
 package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
-import inTouch.ejb.UserFacade;
 import inTouch.entity.Post;
-import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,12 +27,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nellogy
  */
-@WebServlet(name = "wallServlet", urlPatterns = {"/wallServlet"})
-public class wallServlet extends HttpServlet {
+@WebServlet(name = "createPostServlet", urlPatterns = {"/createPostServlet"})
+public class createPostServlet extends HttpServlet {
 
     @EJB
-    private UserFacade userFacade;
-    @EJB 
     private PostFacade postFacade;
 
     /**
@@ -46,23 +44,34 @@ public class wallServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         int loggedUserId = (Integer) session.getAttribute("userId");
         User user = new User(loggedUserId);
         
-        List<Post> globalPostList, privatePostList;
-        List<SocialGroup> groupList;
+        String body = request.getParameter("body");
         
-        response.setContentType("text/html;charset=UTF-8");
-        privatePostList = postFacade.getPrivatePost(user); //sólo los de los amigos y grupos
-        globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
-        groupList = userFacade.findSocialGroups(user); //grupos del usuario
+        Date date = new Date();
         
+        if(request.getParameter("isPrivate") != null) {
+            //mensaje privado
+            Post post = new Post(postFacade.getLastID() + 1, date, true);
+            post.setAuthor(user);
+            post.setBody(body);
+            //Sin grupo, quizás podemos añadir un desplegable para que elija un grupo (o ninguno)
+
+            this.postFacade.create(post);
+
+        } else {
+            //mensaje publico
+            Post post = new Post(postFacade.getLastID() + 1, date, false);
+            post.setAuthor(user);
+            post.setBody(body);
+            
+            this.postFacade.create(post);
+        }
         
-        request.setAttribute("groupList", groupList);
-        request.setAttribute("globalPostList", globalPostList);
-        request.setAttribute("privatePostList", privatePostList);
-        RequestDispatcher rd = request.getRequestDispatcher("/wall.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/wallServlet");
         rd.forward(request,response);
     }
 

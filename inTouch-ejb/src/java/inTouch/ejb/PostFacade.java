@@ -54,7 +54,8 @@ public class PostFacade extends AbstractFacade<Post> {
     public List<Post> getPrivatePost(User user){
         List<SocialGroup> groupList;
         List<User> friendList;
-        List<Post> postList, resultList = new ArrayList<>();
+        List<Post> postList;
+        List<Post> resultList = new ArrayList<>();
         Query q;
         
         groupList = userFacade.findSocialGroups(user);
@@ -62,22 +63,24 @@ public class PostFacade extends AbstractFacade<Post> {
         q = this.em.createQuery("select p from Post p where p.private1 = true");
         
         postList = q.getResultList();
-        int i = 0;
         if (postList != null){
             postList.forEach((p) -> {
-                User u = friendList.get(i);
-                SocialGroup sg = groupList.get(i);
-                
-                if(p.getAuthor() == u){
-                    resultList.add(p);
-                } else if(p.getSocialGroup() == sg){
-                    resultList.add(p);
-                }
+                friendList.forEach((u) -> {
+                    if (p.getAuthor().equals(u) || p.getAuthor().equals(user)) {
+                        resultList.add(p);
+                    } else {
+                        groupList.stream().filter((sg) -> (p.getSocialGroup().equals(sg))).forEachOrdered((_item) -> {
+                            postList.add(p);
+                        });
+                    }
+                });               
             });
         }
-        //post de mis grupos
-        //post de mis amigos
         return resultList;
+    }
+    
+    public int getLastID(){
+        return (Integer)this.em.createQuery("SELECT max(p.id) from Post p").getSingleResult();
     }
     
 }

@@ -117,6 +117,10 @@
               padding-bottom: 10px;
               margin-top: 20px;
           }
+          
+          .modal{
+              display: none;
+          }
       </style>
 </head>
 
@@ -207,7 +211,48 @@
 
     <!-- Up button -->
     <button id="fixedbutton"><a href="#R1">UP</a></button>
+    
+    <!-- Post button -->
+    <button id="postButton">Post</button>
+    
+    <!-- Post form -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="postForm" method="POST" action="createPostServlet">
+                <textarea rows="5" cols="50" name="body" form="postForm">Enter text here...</textarea><br/>
+                Private <input type="checkbox" name="isPrivate" /><br/>
+                <!-- date and author on servlet -->
+                <input type="submit"/>
+            </form>
+        </div>
+    </div>
 
+    <!-- modal script -->
+    <script>
+        // Modal script
+        let modal = document.getElementById("postModal");
+        let btn = document.getElementById("postButton");
+        let span = document.getElementsByClassName("close")[0];
+        
+        btn.onclick = function() {
+            if(modal.style.display !== "block"){
+                modal.style.display = "block";
+            } else {
+                modal.style.display = "none";
+            }
+        };
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+        
+        window.onclick = function(event) {
+            if(event.target === modal){
+                modal.style.display="none";
+            }
+        };
+    </script>
 
     <!-- Script for the tabs -->
     <script>
