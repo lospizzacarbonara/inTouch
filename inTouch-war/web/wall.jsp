@@ -264,7 +264,7 @@
             <span class="close">&times;</span>
             <form id="postForm" method="POST" action="createPostServlet">
                 <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
-                Private <input type="checkbox" name="isPrivate" /><br/>
+                Make Public <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
                 <input type="submit"/>
             </form>

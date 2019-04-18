@@ -53,7 +53,7 @@ public class createPostServlet extends HttpServlet {
         
         Date date = new Date();
         
-        if(request.getParameter("isPrivate") != null) {
+        if(request.getParameter("isPublic") == null) {
             //mensaje privado
             Post post = new Post(postFacade.getLastID() + 1, date, true);
             post.setAuthor(user);
