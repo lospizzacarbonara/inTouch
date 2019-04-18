@@ -13,6 +13,7 @@ import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -58,7 +59,8 @@ public class wallServlet extends HttpServlet {
         globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
         groupList = userFacade.findSocialGroups(user); //grupos del usuario
         
-        
+        Collections.reverse(globalPostList);
+        Collections.reverse(privatePostList);
         request.setAttribute("groupList", groupList);
         request.setAttribute("globalPostList", globalPostList);
         request.setAttribute("privatePostList", privatePostList);

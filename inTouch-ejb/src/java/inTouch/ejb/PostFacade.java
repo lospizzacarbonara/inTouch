@@ -52,31 +52,30 @@ public class PostFacade extends AbstractFacade<Post> {
     
     //Return a list of all the private posts for a user
     public List<Post> getPrivatePost(User user){
-        List<SocialGroup> groupList;
-        List<User> friendList;
-        List<Post> postList;
-        List<Post> resultList = new ArrayList<>();
+        List<Post> list;
+        List<Object[]> aux;
+        int userId = user.getId();
         Query q;
         
-        groupList = userFacade.findSocialGroups(user);
-        friendList = userFacade.findFriends(user);
-        q = this.em.createQuery("select p from Post p where p.private1 = true");
-        
-        postList = q.getResultList();
-        if (postList != null){
-            postList.forEach((p) -> {
-                friendList.forEach((u) -> {
-                    if (p.getAuthor().equals(u) || p.getAuthor().equals(user)) {
-                        resultList.add(p);
-                    } else {
-                        groupList.stream().filter((sg) -> (p.getSocialGroup().equals(sg))).forEachOrdered((_item) -> {
-                            postList.add(p);
-                        });
-                    }
-                });               
-            });
-        }
-        return resultList;
+        //q = this.em.createQuery("select p from Post p where p.private1 = true");
+        q = this.em.createNativeQuery("SELECT  p.id, p.body, p.publishedDate, p.socialGroup, p.author, p.private, p.attachment\n" +
+                                    "FROM inTouch.Post p\n" +
+                                    "where (((author in (\n" +
+                                    "    select friend2\n" +
+                                    "    from Friendship\n" +
+                                    "    where friend1 = \n" + userId +
+                                    ")) or (socialGroup in (\n" +
+                                    "    select socialGroup\n" +
+                                    "    from Membership\n" +
+                                    "    where member = \n" + userId +
+                                    ")) or (author in (\n" +
+                                    "	select id\n" +
+                                    "    from User\n" +
+                                    "    where id = \n" + userId +
+                                    "))) and private = 1);", Post.class);
+              
+        list = q.getResultList();
+        return list;
     }
     
     public int getLastID(){

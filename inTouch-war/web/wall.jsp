@@ -172,7 +172,7 @@
             </td>
 
             <td class="content">
-                <div id="Public" class="tabcontent"> <font color="white">
+                <div id="Public" class="tabcontent"><font color="white">
                     <% 
                         for(Post p: globalPostList){
                     %>
@@ -186,19 +186,23 @@
                     <%
                         }
                     %>
-                    </font></div>
+                </font></div>
 
-                <div id="Private" class="tabcontent">
+                <div id="Private" class="tabcontent"><font color="white">
                     <%
                         for(Post p: privatePostList){
                     %>
-                    <h1><%=p.getAuthor().getUsername()%></h1>
-                    <%=Markdown.toHtml(p.getBody())%>
-                    <hr/>
+                    <div class="post">
+                        <h3 align="center">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <%=p.getAuthor().getUsername()%>
+                        </h3>
+                        <p><%=Markdown.toHtml(p.getBody())%></p>
+                    </div>
                     <%
                         }
                     %>
-                </div>
+                </font></div>
             </td>
 
             <td class="inviteList">
