@@ -98,7 +98,7 @@
               left: 50%;
           }
 
-          #fixedbutton {
+          .fixedButton {
               position: fixed;
               bottom: 75px;
               right: 570px;
@@ -118,9 +118,48 @@
               margin-top: 20px;
           }
           
-          .modal{
-              display: none;
-          }
+          /* The Modal (background) */
+          .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              padding-top: 100px; /* Location of the box */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+           }
+           
+           /* Modal Content */
+            .modal-content {
+              background-color: #fefefe;
+              margin: auto;
+              padding: 20px;
+              border: 1px solid #888;
+              width: 80%;
+            }
+
+            /* The Close Button */
+            .close {
+              color: #aaaaaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+            
+            #postModal{
+                color: black;
+            }
       </style>
 </head>
 
@@ -214,17 +253,17 @@
     </table>
 
     <!-- Up button -->
-    <button id="fixedbutton"><a href="#R1">UP</a></button>
+    <button class="fixedButton"><a href="#R1">UP</a></button>
     
     <!-- Post button -->
     <button id="postButton">Post</button>
     
     <!-- Post form -->
-    <div id="postModal" class="modal">
+    <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form id="postForm" method="POST" action="createPostServlet">
-                <textarea rows="5" cols="50" name="body" form="postForm">Enter text here...</textarea><br/>
+                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
                 Private <input type="checkbox" name="isPrivate" /><br/>
                 <!-- date and author on servlet -->
                 <input type="submit"/>
