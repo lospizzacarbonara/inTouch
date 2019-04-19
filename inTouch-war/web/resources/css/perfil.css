@@ -13,6 +13,8 @@ fieldset
     width: 50%;
     position: absolute;
     left: 25%;
+    text-align: center;
+    margin: auto auto;
 }
 fieldset.datos
 {
@@ -49,4 +51,8 @@ tr.filaPerfil
     height: 2em;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
+}
+tr.rowButton
+{
+    text-align: left;
 }

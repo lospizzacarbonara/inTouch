@@ -76,6 +76,8 @@ public class changePasswordServlet extends HttpServlet {
         {
             user = this.userFacade.find(idUser);
 
+            Integer errorCode = 0;
+            request.setAttribute("errorCode",errorCode);
             request.setAttribute("user",user);
             RequestDispatcher rd = request.getRequestDispatcher("/changePassword.jsp");
             rd.forward(request,response);  

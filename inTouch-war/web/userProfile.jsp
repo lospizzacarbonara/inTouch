@@ -166,8 +166,8 @@
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td colspan="15">
+                        <tr class="rowButton">
+                            <td colspan="15" >
                                 <button>Modificar datos personales</button>
                             </td>
                         </tr>
@@ -199,7 +199,7 @@
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr>
+                        <tr class="rowButton">
                             <td>
                                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                                 <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
