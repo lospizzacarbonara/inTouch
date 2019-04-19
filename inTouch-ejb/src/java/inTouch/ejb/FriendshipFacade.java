@@ -6,8 +6,11 @@
 package inTouch.ejb;
 
 import inTouch.entity.Friendship;
+import inTouch.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -29,4 +32,17 @@ public class FriendshipFacade extends AbstractFacade<Friendship> {
         super(Friendship.class);
     }
     
+    
+    public List<Friendship> findFriendshipBetweenFriends(User u1, User u2) {
+        try {
+            List<Friendship> list = em.createNamedQuery("Friendship.findFriendshipBetweenFriends")
+                .setParameter("user1", u1)
+                .setParameter("user2", u2)
+                .getResultList();
+
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

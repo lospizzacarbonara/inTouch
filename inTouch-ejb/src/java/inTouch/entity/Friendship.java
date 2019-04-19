@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Friendship.findAll", query = "SELECT f FROM Friendship f")
     , @NamedQuery(name = "Friendship.findById", query = "SELECT f FROM Friendship f WHERE f.id = :id")
-    , @NamedQuery(name = "Friendship.findFriends", query = "SELECT f.friend2 FROM Friendship f WHERE f.friend1 = :user")})
+    , @NamedQuery(name = "Friendship.findFriends", query = "SELECT f.friend2 FROM Friendship f WHERE f.friend1 = :user")
+    , @NamedQuery(name = "Friendship.findFriendshipBetweenFriends", query = "SELECT f FROM Friendship f WHERE (f.friend1 = :user1 and f.friend2 = :user2) or (f.friend1 = :user2 and f.friend2 = :user1)")})
 public class Friendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
