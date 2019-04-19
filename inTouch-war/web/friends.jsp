@@ -30,19 +30,52 @@
             if (friendsData != null){
                 friendsSet = friendsData.keySet();
             }
+            
             Map<User, Object[]> pendingFriendsData = (Map<User, Object[]>) request.getAttribute("pendingFriendsData");
             Set<User> pendingFriendsSet = null;
             if (pendingFriendsData != null){
                 pendingFriendsSet = pendingFriendsData.keySet();
             }
+            
+            Map<User, Object[]> pendingToAcceptFriendsData = (Map<User, Object[]>) request.getAttribute("pendingToAcceptFriendsData");
+            Set<User> pendingToAcceptFriendsSet = null;
+            if (pendingToAcceptFriendsData != null){
+                pendingToAcceptFriendsSet = pendingToAcceptFriendsData.keySet();
+            }
         %>
+        
         <fieldset>
-            <legend>Pendientes</legend> 
+            <legend>Pendientes de aceptar</legend> 
+            <%
+                for (User user: pendingToAcceptFriendsSet) {
+            %>
+                <fieldset class="thirdSize">
+                    <legend class="center-legend"><%=user.getUsername()%></legend>
+                    <form action="acceptFriend" method="get" name="acceptFriend">
+                            <input type="hidden" name="acceptUserId" value="<%=user.getId()%>">
+                            <input type="submit" value="Aceptar petici&oacute;n amigo">
+                    </form>
+                    <form action="cancelPendingFriend" method="get" name="cancelPendingFriend">
+                            <input type="hidden" name="cancelUserId" value="<%=user.getId()%>">
+                            <input type="submit" value="Eliminar petici&oacute;n amigo">
+                    </form>
+                </fieldset>
+            <%
+                }
+            %>
+        </fieldset>
+        
+        <fieldset>
+            <legend>Pendientes de ser aceptadas</legend> 
             <%
                 for (User user: pendingFriendsSet) {
             %>
                 <fieldset class="thirdSize">
                     <legend class="center-legend"><%=user.getUsername()%></legend>
+                    <form action="cancelPendingFriend" method="get" name="cancelPendingFriend">
+                            <input type="hidden" name="cancelUserId" value="<%=user.getId()%>">
+                            <input type="submit" value="Cancelar petici&oacute;n amigo">
+                    </form>
                 </fieldset>
             <%
                 }
@@ -56,6 +89,10 @@
             %>
                 <fieldset class="thirdSize">
                     <legend class="center-legend"><%=user.getUsername()%></legend>
+                    <form action="removeFriend" method="get" name="removeFriend">
+                            <input type="hidden" name="removeUserId" value="<%=user.getId()%>">
+                            <input type="submit" value="Eliminar amigo">
+                    </form>
                 </fieldset>
             <%
                 }

@@ -66,6 +66,18 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
     
+    public List<User> findPendingToAcceptFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("PendingFriendship.findPendingToAcceptFriends")
+                .setParameter("user", u)
+                .getResultList();
+            
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     //Get a List with all the groups of an user
     public List<SocialGroup> findSocialGroups(User u) {
         try{

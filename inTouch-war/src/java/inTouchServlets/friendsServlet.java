@@ -81,8 +81,25 @@ public class friendsServlet extends HttpServlet {
             pendingFriendsData.put(u, data);
         }
         
+        Map<User, Object[]> pendingToAcceptFriendsData = new TreeMap<User, Object[]>();
+        List<User> pendingToAcceptFriends = this.userFacade.findPendingToAcceptFriends(loggedUser);
+        
+        for (User u: pendingToAcceptFriends) {
+            Object[] data = new Object[1];
+            
+            //Posts
+            Iterator<Post> postIt = u.getPostCollection().iterator(); 
+            if (postIt.hasNext())
+                data[0] = postIt.next();
+            else
+                data[0] = null;
+            
+            pendingToAcceptFriendsData.put(u, data);
+        }
+        
         request.setAttribute("friendsData", friendsData);
         request.setAttribute("pendingFriendsData", pendingFriendsData);
+        request.setAttribute("pendingToAcceptFriendsData", pendingToAcceptFriendsData);
         
         RequestDispatcher rd = request.getRequestDispatcher("/friends.jsp");
         rd.forward(request,response);
