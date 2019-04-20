@@ -49,10 +49,11 @@ public class changePasswordSaveServlet extends HttpServlet {
         // 0 - sin novedades
         // 1 - no se introdujo la contraseña actual
         // 2 - la contraseña introducida no es la correcta
-        // 3 - no se introdujo la contraseña nueva
-        // 4 - no se repitio la contraseña nueva
-        // 5 - la repeticion de la contraseña nueva no coincide con la contraseña nueva
-        // 9 - se realizo el cambio correctamente
+        // 4 - no se introdujo la contraseña nueva
+        // 8 - no se repitio la contraseña nueva
+        // 16 - la repeticion de la contraseña nueva no coincide con la contraseña nueva
+        // 32 - se realizo el cambio correctamente
+        // el valor del error se suma al codigo de estado
         
         //leo el id de usuario del request
         try
@@ -101,15 +102,15 @@ public class changePasswordSaveServlet extends HttpServlet {
             }
             catch(NullPointerException e)
             {
-                statusCode = 1;
+                statusCode += 1;
             }
             if(password.equals(""))
             {
-                statusCode = 1;
+                statusCode += 1;
             }
             
             //si la clave vieja se ha introducido se comprueba que sea correcta
-            if(statusCode == 0)
+            if((statusCode&1) != 1)
             {
                 String sha512 = getSHA512(password);
                 Boolean correct = true;
@@ -117,60 +118,63 @@ public class changePasswordSaveServlet extends HttpServlet {
                 //si la contraseña no es la correcta se coloca en statusCode el valor 2
                 if(!correct)
                 {
-                    statusCode = 2;
+                    statusCode += 2;
                 }
             }
             String newPassword1 = "";
             String newPassword2 = "";
-            //verifico si se introdujo la contraseña nueva, sino se introdujo coloco el valor 3 en statusCode
-            if(statusCode == 0)
+            //verifico si se introdujo la contraseña nueva, sino se introdujo sumo el valor 4 a statusCode
+            try
             {
-                try
-                {
-                    newPassword1 = (new String (request.getParameter("newPassword").getBytes("ISO-8859-1"),"UTF-8")).trim();
-                }
-                catch(NullPointerException e)
-                {
-                    statusCode = 3;
-                }
-                if(newPassword1.equals(""))
-                {
-                    statusCode = 3;
-                }
+                newPassword1 = (new String (request.getParameter("newPassword").getBytes("ISO-8859-1"),"UTF-8")).trim();
             }
-            //verifico si se introdujo la repetición de la contraseña nueva, sino se introdujo coloco el valor 4 en statusCode
-            if(statusCode == 0)
+            catch(NullPointerException e)
             {
-                try
-                {
-                    newPassword2 = (new String (request.getParameter("newPasswordAgain").getBytes("ISO-8859-1"),"UTF-8")).trim();
-                }
-                catch(NullPointerException e)
-                {
-                    statusCode = 4;
-                }
-                if(newPassword2.equals(""))
-                {
-                    statusCode = 4;
-                }
+                statusCode += 4;
+            }
+            if(newPassword1.equals(""))
+            {
+                statusCode += 4;
+            }
+            //verifico si se introdujo la repetición de la contraseña nueva, sino se introdujo suma el valor 8 a statusCode
+            try
+            {
+                newPassword2 = (new String (request.getParameter("newPasswordAgain").getBytes("ISO-8859-1"),"UTF-8")).trim();
+            }
+            catch(NullPointerException e)
+            {
+                statusCode += 8;
+            }
+            if(newPassword2.equals(""))
+            {
+                statusCode += 8;
             }
             
-            //verifico si la contraseña nueva y la repetición son iguales, sino lo son coloco el valor 5 en statusCode
-            //y si son iguales se coloca el valor 9 en statusCode
-            if(statusCode == 0)
+            //verifico si la contraseña nueva y la repetición son iguales, sino lo son sumo el valor 16 a statusCode
+            if((statusCode & 4) != 4 && (statusCode & 8) != 8)
             {
                 if(!(newPassword1.equals(newPassword2)))
                 {
-                    statusCode = 5;
-                }
-                else
-                {
-                    statusCode = 9;
+                    statusCode += 16;
                 }
             }
             
+            //verifico si la nueva contraseña es igual que la vieja contraseña y si lo son sumo 32 a statusCode
+            if((statusCode&1) != 1 && (statusCode & 4) != 4)
+            {
+                if(password.equals(newPassword1))
+                {
+                    statusCode += 32;
+                }
+            }
+            
+            if(statusCode == 0)
+            {
+                statusCode = 64;
+            }
+            
             //si todo ha sido correcto se guarda la nueva contraeña en la base de datos
-            if(statusCode == 9)
+            if(statusCode == 64)
             {
                 String claveNueva = getSHA512(newPassword1);
                 user.setPassword(claveNueva);
@@ -180,15 +184,15 @@ public class changePasswordSaveServlet extends HttpServlet {
             
             //si se introdujo una contraseña y se produjo un error se vuelve a la pagina de cambio de contraseña con los valores introducidos
             //si todo ha ido correctamente no se devuelve ningun valor y se muestra la pagina con los campos en blanco y con un mensaje de exito
-            if(statusCode > 1 && statusCode < 9)
+            if((statusCode&1) != 1 && statusCode != 64)
             {
                 request.setAttribute("oldPassword",password);
             }
-            if(statusCode > 3 && statusCode < 9)
+            if((statusCode&4) != 4 && statusCode != 64)
             {
                 request.setAttribute("newPassword1",newPassword1);
             }
-            if(statusCode > 4 && statusCode < 9)
+            if((statusCode&8) != 8 && statusCode != 64)
             {
                 request.setAttribute("newPassword2",newPassword2);
             }

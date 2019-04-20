@@ -123,32 +123,74 @@
                     <button>Modificar la contraseña</button>
                     <br/><br/>
                     <%  
-                        String status = "";
-                        switch(statusCode)
+                        if((statusCode & 1) == 1)
                         {
-                            case 0: status = ""; break;
-                            case 1: status = "No se ha introducido la contraseña actual"; break;
-                            case 2: status = "La contraseña introducida no es correcta"; break;
-                            case 3: status = "No se ha introducido la contraseña nueva"; break;
-                            case 4: status = "No se ha introducido la repetición de la contraseña nueva"; break;
-                            case 5: status = "Debe introducir la misma contraseña en ambos campos de la contraseña nueva"; break;
-                        }
-                        if(statusCode > 0 && statusCode < 9)
-                        {
+                        %>
+                            <div class="estadoError">
+                                Error : No se ha introducido la contraseña actual
+                            </div>
+                        <% 
+                            }
                     %>
-                    <div class="estadoError">
-                    Error <%= statusCode %>: <%= status %>
-                    </div>
-                    <%
-                        }
-                        else if(statusCode == 9)
+                    <%  
+                        if((statusCode & 2) == 2)
                         {
+                        %>
+                            <div class="estadoError">
+                                Error : La contraseña introducida no es correcta
+                            </div>
+                        <% 
+                            }
                     %>
-                    <div class="estadoCorrecto">
-                    La contraseña se ha cambiado correctamente
-                    </div>
-                    <%
-                        }
+                    <%  
+                        if((statusCode & 4) == 4)
+                        {
+                        %>
+                            <div class="estadoError">
+                                Error : No se ha introducido la contraseña nueva
+                            </div>
+                        <% 
+                            }
+                    %>
+                    <%  
+                        if((statusCode & 8) == 8)
+                        {
+                        %>
+                            <div class="estadoError">
+                                Error : No se ha introducido la repetición de la contraseña nueva
+                            </div>
+                        <% 
+                            }
+                    %>
+                    <%  
+                        if((statusCode & 16) == 16)
+                        {
+                        %>
+                            <div class="estadoError">
+                                Error : Debe introducir la misma contraseña en ambos campos de la contraseña nueva
+                            </div>
+                        <% 
+                            }
+                    %>
+                    <%  
+                        if((statusCode & 32) == 32)
+                        {
+                        %>
+                            <div class="estadoError">
+                                Error : La contraseña nueva es la misma que la contraseña actual
+                            </div>
+                        <% 
+                            }
+                    %>
+                    <%  
+                        if((statusCode & 64) == 64)
+                        {
+                        %>
+                            <div class="estadoCorrecto">
+                                Exito: La contraseña se ha cambiado correctamente
+                            </div>
+                        <% 
+                            }
                     %>
                     
                 </fieldset>
