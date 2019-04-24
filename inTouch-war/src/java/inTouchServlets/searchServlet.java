@@ -5,15 +5,12 @@
  */
 package inTouchServlets;
 
+import inTouch.ejb.SocialGroupFacade;
 import inTouch.ejb.UserFacade;
-import inTouch.entity.Friendship;
-import inTouch.entity.PendingFriendship;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.Post;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +33,8 @@ public class searchServlet extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
+    @EJB
+    private SocialGroupFacade groupFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,7 +60,7 @@ public class searchServlet extends HttpServlet {
         List<User> pendingFriends = this.userFacade.findPendingFriends(loggedUser);
         
         if (searchText != null) {
-            userList = this.userFacade.findByusername(searchText);
+            userList = this.userFacade.findByUsername(searchText);
             for (User u: userList) {
                 Object[] data = new Object[2];
                 
@@ -89,7 +88,42 @@ public class searchServlet extends HttpServlet {
             userData = null;
         }
         
+        List<SocialGroup> groupList = null;
+        Map<SocialGroup, Object[]> groupData = new TreeMap<SocialGroup, Object[]>();
+        List<SocialGroup> groups = this.userFacade.findSocialGroups(loggedUser);
+        List<SocialGroup> pendingGroups = this.userFacade.findPendingMemberships(loggedUser);
+        
+        if (searchText != null) {
+            groupList = this.groupFacade.findByName(searchText);
+            for (SocialGroup g: groupList) {
+                Object[] data = new Object[2];
+                
+                //Posts
+                Iterator<Post> postIt = g.getPostCollection().iterator(); 
+                if (postIt.hasNext())
+                    data[0] = postIt.next();
+                else
+                    data[0] = null;
+                
+                //Membership
+                if (groups.contains(g))
+                    data[1] = SocialGroup.membershipStatus.member;
+                else if (pendingGroups.contains(g))
+                    data[1] = SocialGroup.membershipStatus.pending;
+                else
+                    data[1] = SocialGroup.membershipStatus.unrelated;
+                
+                
+                groupData.put(g, data);
+            }
+            
+      
+        } else {
+            groupData = null;
+        }
+        
         request.setAttribute("userData", userData);
+        request.setAttribute("groupData", groupData);
         
         RequestDispatcher rd = request.getRequestDispatcher("/search.jsp");
         rd.forward(request,response);

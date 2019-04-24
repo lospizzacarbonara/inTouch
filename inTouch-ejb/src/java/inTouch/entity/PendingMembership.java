@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "PendingMembership.findAll", query = "SELECT p FROM PendingMembership p")
     , @NamedQuery(name = "PendingMembership.findById", query = "SELECT p FROM PendingMembership p WHERE p.id = :id")
-    , @NamedQuery(name = "PendingMembership.findByInvitation", query = "SELECT p FROM PendingMembership p WHERE p.invitation = :invitation")})
+    , @NamedQuery(name = "PendingMembership.findByInvitation", query = "SELECT p FROM PendingMembership p WHERE p.invitation = :invitation")
+    , @NamedQuery(name = "PendingMembership.findPendingSocialGroups", query = "SELECT p.socialGroup FROM PendingMembership p WHERE p.user = :user")})
 public class PendingMembership implements Serializable {
 
     private static final long serialVersionUID = 1L;

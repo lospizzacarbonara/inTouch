@@ -34,14 +34,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "SocialGroup.findAll", query = "SELECT s FROM SocialGroup s")
     , @NamedQuery(name = "SocialGroup.findById", query = "SELECT s FROM SocialGroup s WHERE s.id = :id")
-    , @NamedQuery(name = "SocialGroup.findByName", query = "SELECT s FROM SocialGroup s WHERE s.name = :name")
+    , @NamedQuery(name = "SocialGroup.findByName", query = "SELECT s FROM SocialGroup s WHERE s.name like :name")
     , @NamedQuery(name = "SocialGroup.findByCreationDate", query = "SELECT s FROM SocialGroup s WHERE s.creationDate = :creationDate")
     , @NamedQuery(name = "SocialGroup.findByDescription", query = "SELECT s FROM SocialGroup s WHERE s.description = :description")
     , @NamedQuery(name = "SocialGroup.findByType", query = "SELECT s FROM SocialGroup s WHERE s.type = :type")
     , @NamedQuery(name = "SocialGroup.findSocialGroups", query = "SELECT sg FROM SocialGroup sg JOIN Membership m WHERE m.member1 = :user")})
     // findSocialGroups => SELECT SocialGroup.* FROM inTouch.SocialGroup JOIN Membership where Membership.member = "user";
-public class SocialGroup implements Serializable {
+public class SocialGroup implements Serializable, Comparable {
 
+    public enum membershipStatus {
+        member, pending, unrelated;
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -173,6 +177,12 @@ public class SocialGroup implements Serializable {
     @Override
     public String toString() {
         return "inTouch.entity.SocialGroup[ id=" + id + " ]";
+    }
+    
+    @Override
+    public int compareTo(Object o) {
+        SocialGroup other = (SocialGroup)o;
+        return Integer.compare(other.getId(), this.getId());
     }
     
 }

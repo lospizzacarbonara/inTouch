@@ -6,8 +6,10 @@
 package inTouch.ejb;
 
 import inTouch.entity.SocialGroup;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -29,4 +31,13 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
         super(SocialGroup.class);
     }
     
+    public List<SocialGroup> findByName(String name) {
+        try {
+            return em.createNamedQuery("SocialGroup.findByName")
+                .setParameter("name", "%" + name + "%")
+                .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

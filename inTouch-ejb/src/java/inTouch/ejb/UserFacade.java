@@ -32,7 +32,7 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
-    public List<User> findByusername(String username) {
+    public List<User> findByUsername(String username) {
         try {
             return em.createNamedQuery("User.findByUsername")
                 .setParameter("username", "%" + username + "%")
@@ -82,6 +82,18 @@ public class UserFacade extends AbstractFacade<User> {
     public List<SocialGroup> findSocialGroups(User u) {
         try{
             List<SocialGroup> list = em.createNamedQuery("SocialGroup.findSocialGroups")
+                    .setParameter("user", u)
+                    .getResultList();
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    //Get a List with all the pending groups of an user
+    public List<SocialGroup> findPendingMemberships(User u) {
+        try{
+            List<SocialGroup> list = em.createNamedQuery("PendingMembership.findPendingSocialGroups")
                     .setParameter("user", u)
                     .getResultList();
             return list;

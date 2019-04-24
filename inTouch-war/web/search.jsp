@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="markdownj.Markdown"%>
 <%@page import="java.util.Set"%>
@@ -36,6 +37,12 @@
             if (userData != null){
                 userSet = userData.keySet();
             }
+            
+            Map<SocialGroup, Object[]> groupData = (Map<SocialGroup, Object[]>) request.getAttribute("groupData");
+            Set<SocialGroup> groupSet = null;
+            if (groupData != null){
+                groupSet = groupData.keySet();
+            }
         %>
         <div align="center">
             <form action="search" method="post" name="searchField">
@@ -46,6 +53,7 @@
                     </fieldset>
     
             </form>
+            <!-- Groups -->
             <table>
                 <%
                    if (userSet != null) {
@@ -86,6 +94,63 @@
                                 %>
                                     <div class="italic">
                                         <%=user.getUsername()%> aun no ha  hecho ningun post
+                                    </div>
+                                <%
+                                    }
+                                %>
+                            </fieldset>
+                        </form>
+                    </td>
+                </tr>
+                <%
+                            }
+                        }
+                    }
+                %>
+
+                </tr>
+            </table>
+            <!-- Groups -->
+            <table>
+                <%
+                   if (groupSet != null) {
+                    for (SocialGroup group: groupSet) {
+                        if (group != null) {
+                %>
+                <tr>
+                    <td>
+                        <form action="joinGroup" method="get" name="joinGroup">
+                            <input type="hidden" name="groupId" value="<%=group.getId()%>">
+                            <fieldset>
+                                <legend class="center-legend">
+                                        <%=group.getName()%>
+                                        <%
+                                            SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
+                                            if (memberStatus == SocialGroup.membershipStatus.member) { 
+                                        %>
+                                            <input type="submit" value="Ya eres miembro" disabled>  
+                                        <%
+                                            } else if (memberStatus == SocialGroup.membershipStatus.pending) {
+                                        %>
+                                            <input type="submit" value="Peticion enviada" disabled>
+                                        <%
+                                            } else {
+                                        %>
+                                            <input type="submit" value="Unirse a grupo">
+                                        <%
+                                            }
+                                        %>
+                                </legend>
+                                <%
+                                    Post p = (Post)groupData.get(group)[0];
+                                    if (p != null) {
+                                %>
+                                <%=Markdown.toHtml(p.getBody())%>
+                                <%
+                                    } else {
+                                %>
+                                    <div class="italic">
+                                        <%=group.getName()%> aun no ha  hecho ningun post
                                     </div>
                                 <%
                                     }
