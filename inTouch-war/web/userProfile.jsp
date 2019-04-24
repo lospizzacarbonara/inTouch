@@ -8,13 +8,23 @@
 <!DOCTYPE html>
 <%
     User user;
+    Boolean myProfile = false;
+    Boolean myFriend = false;
+    Boolean myGroup = false;
+    
     try
     {
         user = (User)request.getAttribute("user");
+        myProfile = (Boolean)request.getAttribute("myProfile");
+        myFriend = (Boolean)request.getAttribute("myFriend");
+        myGroup = (Boolean)request.getAttribute("myGroup");
     }
     catch(NullPointerException e)
     {
         user = new User();
+        myProfile = false;
+        myFriend = false;
+        myGroup = false;
     }
     
     
@@ -53,7 +63,12 @@
             fechaNacimiento = day + "/" + month + "/" + year;
         }
     }
-
+    
+    String inputDisabled = "";
+    if(!myProfile)
+    {
+        inputDisabled = "disable=\"disabled\"";
+    }
 %>
 <html>
     <head>
@@ -96,7 +111,7 @@
                                 <label for="name">Nombre:</label>
                             </th>
                             <td colspan="3">
-                                <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %>"/>
+                                <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %> <%= inputDisabled %>/>
                             </td>
                         </tr>
                         <tr class="filaPerfil">
@@ -104,7 +119,7 @@
                                 <label for="surname">Apellidos:</label>
                             </th>
                             <td colspan="3">
-                                <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %>"/>
+                                <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %> <%= inputDisabled %>"/>
                             </td>
                         </tr>
                         <tr>
@@ -121,6 +136,10 @@
                                 <label for="yearBirth">Año</label>
                             </th>
                         </tr>
+                        <%
+                            if(myProfile || myFriend || myGroup)
+                            {
+                        %>
                         <tr>
                             <td>
                                 <select name="dayBirth">
@@ -129,7 +148,7 @@
                                         {
                                             String selected = (i==day)?"selected":" ";
                                     %>
-                                        <option value="<%= i %>" <%= selected %>> <%= (i>0)?i:"" %> </option>
+                                        <option value="<%= i %>" <%= selected %> <%= inputDisabled %> > <%= (i>0)?i:""   %> </option>
                                     <%
                                         }
                                     %>
@@ -142,7 +161,7 @@
                                         {
                                             String selected = (i==month)?"selected":" ";
                                     %>
-                                        <option value="<%= i %>" <%= selected %>> <%= (i>0)?meses[i-1]:"" %> </option>
+                                        <option value="<%= i %>" <%= selected %> <%= inputDisabled %>> <%= (i>0)?meses[i-1]:""  %> </option>
                                     <%
                                         }
                                     %>
@@ -155,22 +174,32 @@
                                         {
                                             String selected = (i==year)?"selected":" ";
                                     %>
-                                        <option value="<%= i %>" <%= selected %>> <%= i %> </option>
+                                        <option value="<%= i %>" <%= selected %> <%= inputDisabled %>> <%= i  %> </option>
                                     <%
                                         }
                                     %>
                                 </select>
                             </td>
                         </tr>
+                        <%
+                            }
+                        %>
                         <tr>
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
+                        <% 
+                            if(myProfile)
+                            {
+                        %>
                         <tr class="rowButton">
                             <td colspan="15" >
                                 <button>Modificar datos personales</button>
                             </td>
                         </tr>
+                        <%
+                            }
+                        %>
                     </table>
                     <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                     <input type="hidden" name="user" value="<%=alias%> "/>
@@ -183,6 +212,11 @@
 
             <!-- Opción para realizar el cambio del correo electronico asociado a la cuenta del
             usario -->
+            
+            <%
+                if(myProfile || myFriend)
+                {
+            %>
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
                 <fieldset name="email" class="email">
                     <legend>Correo Electronico</legend>
@@ -199,6 +233,10 @@
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
+                         <% 
+                            if(myProfile)
+                            {
+                        %>
                         <tr class="rowButton">
                             <td>
                                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
@@ -207,12 +245,22 @@
                                 <button name="modificarEmail">Modificar el Correo Electronico</button> 
                             </td>
                         </tr>
+                        <%
+                            }
+                        %>
                     </table>
                     <br/>
                     <br/>
                 </fieldset>
             </form>
-
+            <%
+                }
+            %>
+            
+        <% 
+            if(myProfile)
+            {
+        %>        
         <!-- Botón para ir a la opción de cambio de contraseña -->
         <fieldset name="seguridad" class="seguridad">
             <legend>Password</legend>
@@ -221,7 +269,9 @@
                                 <button>Cambiar la contraseña</button>
             </form>
         </fieldset>
-
+        <% 
+            }
+        %>
 
     </body>
 </html>

@@ -47,6 +47,30 @@ public class userProfileLoadServlet extends HttpServlet {
         {
             str = obj.toString();
             myProfile = false;
+            
+            
+            obj = request.getAttribute("myFriend");
+            
+            if(obj != null)
+            {
+                myFriend = (Boolean)obj;
+            }
+            else
+            {
+                myFriend = false;
+            }
+            
+            obj = request.getAttribute("myGroup");
+            
+            if(obj != null)
+            {
+                myGroup = (Boolean)obj;
+            }
+            else
+            {
+                myGroup = false;
+            }
+            
         }
         else
         {
