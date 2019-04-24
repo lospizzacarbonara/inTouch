@@ -226,7 +226,7 @@
                                 Correo Electronico:
                             </th>
                             <td>
-                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %>"/>
+                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %> <%= inputDisabled %>"/>
                             </td>
                         </tr>
                         <tr>
