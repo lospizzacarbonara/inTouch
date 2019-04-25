@@ -45,4 +45,8 @@ public class FriendshipFacade extends AbstractFacade<Friendship> {
             return null;
         }
     }
+    
+    public boolean areFriends(User u1, User u2) {
+        return findFriendshipBetweenFriends(u1, u2).size() == 2;
+    }
 }
