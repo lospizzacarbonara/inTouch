@@ -52,7 +52,9 @@
                     for (User user: pendingToAcceptFriendsSet) {
                 %>
                     <fieldset class="thirdSize">
-                        <legend class="center-legend"><%=user.getUsername()%></legend>
+                        <legend class="center-legend">
+                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                        </legend>
                         <form action="acceptFriend" method="get" name="acceptFriend">
                                 <input type="hidden" name="acceptUserId" value="<%=user.getId()%>">
                                 <input type="submit" value="Aceptar petici&oacute;n amigo">
@@ -78,7 +80,9 @@
                     for (User user: pendingFriendsSet) {
                 %>
                     <fieldset class="thirdSize">
-                        <legend class="center-legend"><%=user.getUsername()%></legend>
+                        <legend class="center-legend">
+                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                        </legend>
                         <form action="cancelPendingFriend" method="get" name="cancelPendingFriend">
                                 <input type="hidden" name="cancelUserId" value="<%=user.getId()%>">
                                 <input type="submit" value="Cancelar petici&oacute;n amigo">
@@ -100,7 +104,9 @@
                     for (User user: friendsSet) {
                 %>
                     <fieldset class="thirdSize">
-                        <legend class="center-legend"><%=user.getUsername()%></legend>
+                        <legend class="center-legend">
+                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                        </legend>
                         <form action="removeFriend" method="get" name="removeFriend">
                                 <input type="hidden" name="removeUserId" value="<%=user.getId()%>">
                                 <input type="submit" value="Eliminar amigo">

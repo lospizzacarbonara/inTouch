@@ -66,7 +66,7 @@
                             <input type="hidden" name="addUserId" value="<%=user.getId()%>">
                             <fieldset>
                                 <legend class="center-legend">
-                                        <%=user.getUsername()%>
+                                        <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
                                         <%
                                             User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
                                             if (friendStatus == User.friendStatus.friends) { 
