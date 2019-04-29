@@ -51,6 +51,7 @@ fieldset {
 }
 
 input[type="button"], input[type="submit"] {
+    color: black;
     background-color: silver;
     border: none;
     border-radius: 12px;
