@@ -53,7 +53,6 @@ public class PostFacade extends AbstractFacade<Post> {
     //Return a list of all the private posts for a user
     public List<Post> getPrivatePost(User user){
         List<Post> list;
-        int userId = user.getId();
         Query q = em.createNamedQuery("Post.findPrivatePosts")
                 .setParameter("user", user);
         list = q.getResultList();
