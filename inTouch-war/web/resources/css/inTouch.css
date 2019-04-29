@@ -50,7 +50,7 @@ fieldset {
     border-radius:8px;	
 }
 
-input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"], button{
     color: black;
     background-color: silver;
     border: none;
@@ -59,4 +59,9 @@ input[type="button"], input[type="submit"] {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    margin-top: 5px;
+}
+
+input[type="button"]:disabled, input[type="submit"]:disabled, button:disabled {
+    /*Poner que solo se muestre el borde del boton*/
 }
