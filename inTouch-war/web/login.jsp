@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
         <title>Login inTouch</title>
         <style type="text/css">
             #Error {color: red}
