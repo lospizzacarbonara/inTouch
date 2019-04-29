@@ -50,6 +50,7 @@
               background-color: #555;
               color: white;
               border: none;
+              border-radius: 8px;
               outline: none;
               cursor: pointer;
               padding: 14px 16px;

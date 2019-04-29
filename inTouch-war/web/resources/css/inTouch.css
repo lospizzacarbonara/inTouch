@@ -49,3 +49,14 @@ fieldset {
     -webkit-border-radius:8px;	
     border-radius:8px;	
 }
+
+input[type="button"], input[type="submit"] {
+    background-color: silver;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    padding: 5px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
