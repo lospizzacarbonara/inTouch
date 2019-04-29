@@ -21,7 +21,6 @@ public class NavMenu {
             "                <li><a href=" + ((activo.equals("myProfile")) ? active : "\"/inTouch-war/userProfileLoadServlet\"") + ">Profile</a></li>\n" +
             "                <li><a href=" + ((activo.equals("friends")) ? active : "\"/inTouch-war/friends\"") + ">Friends</a></li>\n" +
             "                <li><a href=" + ((activo.equals("search")) ? active : "\"/inTouch-war/search\"") + ">Search</a></li>\n" +
-            "                <li><a href=" + ((activo.equals("options")) ? active : "\"/inTouch-war/options\"") + ">Options</a></li>\n" +
             "            </ul>\n" +
             "        </div>";
         
