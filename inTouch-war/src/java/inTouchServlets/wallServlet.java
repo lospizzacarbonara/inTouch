@@ -59,8 +59,6 @@ public class wallServlet extends HttpServlet {
         globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
         groupList = userFacade.findSocialGroups(user); //grupos del usuario
         
-        Collections.reverse(globalPostList);
-        Collections.reverse(privatePostList);
         request.setAttribute("groupList", groupList);
         request.setAttribute("globalPostList", globalPostList);
         request.setAttribute("privatePostList", privatePostList);
