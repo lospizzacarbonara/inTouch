@@ -10,7 +10,12 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Random;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,8 +60,7 @@ public class signUpServlet extends HttpServlet {
         user.setName(name);
         user.setSurname(surname);
         
-        //user.setBirthdate( new Date(Date.valueOf(date).getTime()+24*60*60*1000) );
-        //No esta implementada la fecha
+        user.setBirthdate( new Date(Date.valueOf(date).getTime()+24*60*60*1000) );
         
         this.userFacade.create(user);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");

@@ -9,6 +9,7 @@
 <html>
     <head>
         <title>Login inTouch</title>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
         <style type="text/css">
             #Error {color: red}
         </style>
