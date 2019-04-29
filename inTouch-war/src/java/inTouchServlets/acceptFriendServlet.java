@@ -53,6 +53,10 @@ public class acceptFriendServlet extends HttpServlet {
         int userId = (Integer)session.getAttribute("userId");
         User receiver = this.userFacade.find(userId);
         
+        String pageURL = request.getParameter("pageURL");
+        if (pageURL == null)
+            pageURL = "friends";
+        
         String acceptFriendStr = request.getParameter("acceptUserId");
         int acceptFriendId = -1;       
         try {
@@ -78,7 +82,7 @@ public class acceptFriendServlet extends HttpServlet {
         friendship2.setFriend2(sender);
         this.friendshipFacade.create(friendship2);
         
-        response.sendRedirect("friends");
+        response.sendRedirect(pageURL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

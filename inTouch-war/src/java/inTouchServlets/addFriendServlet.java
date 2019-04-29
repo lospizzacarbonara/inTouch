@@ -48,6 +48,10 @@ public class addFriendServlet extends HttpServlet {
         int userId = (Integer)session.getAttribute("userId");
         User sender = this.userFacade.find(userId);
         
+        String pageURL = request.getParameter("pageURL");
+        if (pageURL == null)
+            pageURL = "search";
+        
         String addUserStr = request.getParameter("addUserId");
         int addUserId = -1;       
         try {
@@ -65,7 +69,7 @@ public class addFriendServlet extends HttpServlet {
         
         this.pendingFriendshipFacade.create(pending);
          
-        RequestDispatcher rd = request.getRequestDispatcher("search");
+        RequestDispatcher rd = request.getRequestDispatcher(pageURL);
         rd.forward(request, response);
         
     }

@@ -51,6 +51,10 @@ public class joinGroupServlet extends HttpServlet {
         int userId = (Integer)session.getAttribute("userId");
         User loggedUser = this.userFacade.find(userId);
         
+        String pageURL = request.getParameter("pageURL");
+        if (pageURL == null)
+            pageURL = "search";
+        
         String groupStr = request.getParameter("groupId");
         int groupId = -1;       
         try {
@@ -70,7 +74,7 @@ public class joinGroupServlet extends HttpServlet {
                 
         this.pendingMembershipFacade.create(pending);
         
-        RequestDispatcher rd = request.getRequestDispatcher("search");
+        RequestDispatcher rd = request.getRequestDispatcher(pageURL);
         rd.forward(request, response);
     }
 

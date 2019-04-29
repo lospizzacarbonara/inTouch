@@ -48,6 +48,10 @@ public class removeFriendServlet extends HttpServlet {
         int userId = (Integer)session.getAttribute("userId");
         User friend1 = this.userFacade.find(userId);
         
+        String pageURL = request.getParameter("pageURL");
+        if (pageURL == null)
+            pageURL = "friends";
+        
         String removeFriendStr = request.getParameter("removeUserId");
         int removeFriendId = -1;       
         try {
@@ -63,7 +67,7 @@ public class removeFriendServlet extends HttpServlet {
         for (Friendship friendship: friendships)
             this.friendshipFacade.remove(friendship);
         
-        response.sendRedirect("friends");
+        response.sendRedirect(pageURL);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
