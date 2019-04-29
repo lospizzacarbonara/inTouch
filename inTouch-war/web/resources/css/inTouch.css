@@ -54,9 +54,8 @@ input[type="button"], input[type="submit"] {
     color: black;
     background-color: silver;
     border: none;
-    border-radius: 12px;
-    color: white;
-    padding: 5px 11px;
+    border-radius: 8px;
+    padding: 4px 9px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
