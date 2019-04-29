@@ -44,7 +44,7 @@ public class PostFacade extends AbstractFacade<Post> {
     public List<Post> getPublicPost(){
         List<Post> list;
         Query q;
-        q = this.em.createQuery("select p from Post p where p.private1 = false order by p.id DESC");
+        q = this.em.createQuery("select p from Post p where p.private1 = false order by p.publishedDate DESC");
         
         list = q.getResultList();
         return list;
@@ -72,7 +72,7 @@ public class PostFacade extends AbstractFacade<Post> {
                                     "    from User\n" +
                                     "    where id = \n" + userId +
                                     "))) and private = 1) \n" +
-                                    "ORDER BY p.id DESC", Post.class);
+                                    "ORDER BY p.publishedDate DESC", Post.class);
               
         list = q.getResultList();
         return list;
