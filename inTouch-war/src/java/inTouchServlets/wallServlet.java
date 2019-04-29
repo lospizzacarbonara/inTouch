@@ -7,13 +7,12 @@ package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
 import inTouch.ejb.UserFacade;
+import inTouch.entity.PendingFriendship;
+import inTouch.entity.PendingMembership;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -53,15 +52,21 @@ public class wallServlet extends HttpServlet {
         
         List<Post> globalPostList, privatePostList;
         List<SocialGroup> groupList;
+        List<User> friendInvites;
+        List<SocialGroup> groupInvites;
         
         response.setContentType("text/html;charset=UTF-8");
         privatePostList = postFacade.getPrivatePost(user); //sólo los de los amigos y grupos
         globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
         groupList = userFacade.findSocialGroups(user); //grupos del usuario
+        friendInvites = userFacade.findPendingToAcceptFriends(user);
+        groupInvites = userFacade.findPendingMemberships(user);
         
         request.setAttribute("groupList", groupList);
         request.setAttribute("globalPostList", globalPostList);
         request.setAttribute("privatePostList", privatePostList);
+        request.setAttribute("friendInviteList", friendInvites);
+        request.setAttribute("groupInviteList", groupInvites);
         RequestDispatcher rd = request.getRequestDispatcher("/wall.jsp");
         rd.forward(request,response);
     }

@@ -17,6 +17,8 @@
     List<Post> globalPostList = (List<Post>)request.getAttribute("globalPostList");
     List<Post> privatePostList = (List<Post>)request.getAttribute("privatePostList");
     List<SocialGroup> groupList = (List<SocialGroup>)request.getAttribute("groupList");
+    List<User> friendInviteList = (List<User>)request.getAttribute("friendInviteList");
+    List<SocialGroup> groupInviteList = (List<SocialGroup>)request.getAttribute("groupInviteList");
     
 %>
 
@@ -27,13 +29,8 @@
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>inTouch</title>
     <style>
-          body {
-              font-family: "Lato", sans-serif;
-              background: #263238;
-              color: white;
-          }
-
           td {
               border-top: 1px solid white;
           }
@@ -71,10 +68,6 @@
               padding: 50px;
           }
 
-          .content{
-              height:1000px;
-          }
-
           .wallTable {
               border-collapse: separate;
               border-spacing: 5px 5px;
@@ -104,20 +97,6 @@
               right: 570px;
           }
 
-          .personalInfo{
-
-          }
-          
-          .post {
-              background: #37474f;
-              border-radius: 8px;
-              padding-left: 20px;
-              padding-right: 20px;
-              padding-top: 5px;
-              padding-bottom: 10px;
-              margin-top: 20px;
-          }
-          
           /* The Modal (background) */
           .modal {
               display: none; /* Hidden by default */
@@ -211,43 +190,79 @@
             </td>
 
             <td class="content">
-                <div id="Public" class="tabcontent"><font color="white">
+                <div id="Public" class="tabcontent">
                     <% 
                         for(Post p: globalPostList){
                     %>
-                    <div class="post">
-                        <h3 align="center">
-                            <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            <%=p.getAuthor().getUsername()%>
+                    <div class="box">
+                        <h3 align="center">                
+                            <a href="getProfile?userId=<%=p.getAuthor().getId()%>">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <%=p.getAuthor().getUsername()%></a>
                         </h3>
                         <p><%=Markdown.toHtml(p.getBody())%></p>
                     </div>
                     <%
                         }
                     %>
-                </font></div>
+                </div>
 
-                <div id="Private" class="tabcontent"><font color="white">
+                <div id="Private" class="tabcontent">
                     <%
                         for(Post p: privatePostList){
                     %>
-                    <div class="post">
+                    <div class="box">
                         <h3 align="center">
-                            <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            <%=p.getAuthor().getUsername()%>
+                            <a href="getProfile?userId=<%=p.getAuthor().getId()%>">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <%=p.getAuthor().getUsername()%></a>
                         </h3>
                         <p><%=Markdown.toHtml(p.getBody())%></p>
                     </div>
                     <%
                         }
                     %>
-                </font></div>
+                </div>
             </td>
 
             <td class="inviteList">
-                <p>invite1</p>
-                <p>invite2</p>
-                <p>invite3</p>
+                <%
+                    for (User user: friendInviteList) {
+                %>
+                    <fieldset class="thirdSize">
+                        <legend class="center-legend"><%=user.getUsername()%></legend>
+                        <form action="acceptFriend" method="post" name="acceptFriend">
+                                <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
+                                <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                <input type="submit" value="Aceptar"/>
+                        </form>
+                        <form action="cancelPendingFriend" method="post" name="cancelPendingFriend">
+                                <input type="hidden" name="cancelUserId" value="<%=user.getId()%>"/>
+                                <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                <input type="submit" value="Rechazar"/>
+                        </form>
+                    </fieldset>
+                <%
+                    }
+                %>
+                <hr/>
+                <%
+                    for (SocialGroup sg: groupInviteList) {
+                %>
+                    <fieldset class="thirdSize">
+                        <legend class="center-legend"><%=sg.getName()%></legend>
+                        <form action="wallServlet" method="post" name="acceptGroup">
+                                <input type="hidden" name="acceptUserId" value="<%=sg.getId()%>">
+                                <input type="submit" value="Aceptar">
+                        </form>
+                        <form action="wallServlet" method="get" name="rejectGroup">
+                                <input type="hidden" name="cancelUserId" value="<%=sg.getId()%>">
+                                <input type="submit" value="Rechazar">
+                        </form>
+                    </fieldset>
+                <%
+                    }
+                %>
             </td>
         </tr>
     </table>

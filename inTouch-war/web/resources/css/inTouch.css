@@ -7,9 +7,44 @@ and open the template in the editor.
     Created on : Apr 11, 2019, 12:03:07 PM
     Author     : jfaldanam
 */
+body {
+    font-family: "Lato", sans-serif;
+    background: #263238;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* unvisited link */
+a:link {
+  color: #00FFFF;
+}
+
+/* visited link */
+a:visited {
+  color: pink;
+}
+
+/* mouse over link */
+a:hover {
+  color: white;
+}
+
+.box {
+    background: #37474f;
+    color: white;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin-top: 20px;
+}
 
 fieldset {
-    border:2px solid purple;
+    border:2px solid #e59400;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;	
     border-radius:8px;	
