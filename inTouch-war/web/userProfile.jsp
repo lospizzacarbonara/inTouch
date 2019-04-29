@@ -67,7 +67,7 @@
     String inputDisabled = "";
     if(!myProfile)
     {
-        inputDisabled = "disable=\"disabled\"";
+        inputDisabled = "disabled=\"disabled\"";
     }
 %>
 <html>
@@ -111,7 +111,7 @@
                                 <label for="name">Nombre:</label>
                             </th>
                             <td colspan="3">
-                                <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %> <%= inputDisabled %>/>
+                                <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %>" <%= inputDisabled %>/>
                             </td>
                         </tr>
                         <tr class="filaPerfil">
