@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Post.findByBody", query = "SELECT p FROM Post p WHERE p.body = :body")
     , @NamedQuery(name = "Post.findByPublishedDate", query = "SELECT p FROM Post p WHERE p.publishedDate = :publishedDate")
     , @NamedQuery(name = "Post.findByPrivate1", query = "SELECT p FROM Post p WHERE p.private1 = :private1")
-    , @NamedQuery(name = "Post.findByAttachment", query = "SELECT p FROM Post p WHERE p.attachment = :attachment")})
+    , @NamedQuery(name = "Post.findByAttachment", query = "SELECT p FROM Post p WHERE p.attachment = :attachment")
+    , @NamedQuery(name = "Post.findPrivatePosts", query = "SELECT p FROM Post p WHERE (p.author in (SELECT f.friend2 FROM Friendship f where f.friend1 = :user)) or (p.socialGroup in (SELECT m.socialGroup FROM Membership m WHERE m.member1 = :user)) or (p.author = :user and p.private1 = TRUE) ORDER BY p.publishedDate DESC")})
 public class Post implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -54,26 +54,8 @@ public class PostFacade extends AbstractFacade<Post> {
     public List<Post> getPrivatePost(User user){
         List<Post> list;
         int userId = user.getId();
-        Query q;
-        
-        //q = this.em.createQuery("select p from Post p where p.private1 = true");
-        q = this.em.createNativeQuery("SELECT  p.id, p.body, p.publishedDate, p.socialGroup, p.author, p.private, p.attachment\n" +
-                                    "FROM inTouch.Post p\n" +
-                                    "where (((author in (\n" +
-                                    "    select friend2\n" +
-                                    "    from Friendship\n" +
-                                    "    where friend1 = \n" + userId +
-                                    ")) or (socialGroup in (\n" +
-                                    "    select socialGroup\n" +
-                                    "    from Membership\n" +
-                                    "    where member = \n" + userId +
-                                    ")) or (author in (\n" +
-                                    "	select id\n" +
-                                    "    from User\n" +
-                                    "    where id = \n" + userId +
-                                    "))) and private = 1) \n" +
-                                    "ORDER BY p.publishedDate DESC", Post.class);
-              
+        Query q = em.createNamedQuery("Post.findPrivatePosts")
+                .setParameter("user", user);
         list = q.getResultList();
         return list;
     }
