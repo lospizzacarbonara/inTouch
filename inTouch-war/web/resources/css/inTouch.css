@@ -24,7 +24,7 @@ a:link {
 
 /* visited link */
 a:visited {
-  color: pink;
+  color: violet;
 }
 
 /* mouse over link */
@@ -44,7 +44,7 @@ a:hover {
 }
 
 fieldset {
-    border:2px solid #e59400;
+    border:2px solid silver;
     -moz-border-radius:8px;
     -webkit-border-radius:8px;	
     border-radius:8px;	
@@ -65,7 +65,7 @@ input[type="button"], input[type="submit"], button{
 }
 
 input[type="button"]:hover, input[type="submit"]:hover, button:hover {
-    background-color: #e59400;
+    background-color: #9b30ff;
 }
 
 input[type="button"]:disabled, input[type="submit"]:disabled, button:disabled {
