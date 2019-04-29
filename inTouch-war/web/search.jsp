@@ -53,120 +53,134 @@
                     </fieldset>
     
             </form>
-            <!-- Groups -->
-            <table>
-                <%
-                   if (userSet != null) {
-                    for (User user: userSet) {
-                        if (user != null && user.getId() != loggedUserId) {
-                %>
-                <tr>
-                    <td>
-                        <form action="addFriend" method="get" name="addFriend">
-                            <input type="hidden" name="addUserId" value="<%=user.getId()%>">
-                            <fieldset>
-                                <legend class="center-legend">
-                                        <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
-                                        <%
-                                            User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
-                                            if (friendStatus == User.friendStatus.friends) { 
-                                        %>
-                                            <input type="submit" value="Ya sois amigos" disabled>  
-                                        <%
-                                            } else if (friendStatus == User.friendStatus.pending) {
-                                        %>
-                                            <input type="submit" value="Peticion enviada" disabled>
-                                        <%
-                                            } else {
-                                        %>
-                                            <input type="submit" value="A&ntilde;adir amigo">
-                                        <%
-                                            }
-                                        %>
-                                </legend>
-                                <%
-                                    Post p = (Post)userData.get(user)[0];
-                                    if (p != null) {
-                                %>
-                                <%=Markdown.toHtml(p.getBody())%>
-                                <%
-                                    } else {
-                                %>
-                                    <div class="italic">
-                                        <%=user.getUsername()%> aun no ha  hecho ningun post
-                                    </div>
-                                <%
-                                    }
-                                %>
-                            </fieldset>
-                        </form>
-                    </td>
-                </tr>
-                <%
+            <!-- Friends -->
+            <%
+                if (userSet != null) {
+            %>
+            <fieldset>
+                <legend>Amigos</legend> 
+                <table>
+                    <%
+                        for (User user: userSet) {
+                            if (user != null && user.getId() != loggedUserId) {
+                    %>
+                    <tr>
+                        <td>
+                            <form action="addFriend" method="get" name="addFriend">
+                                <input type="hidden" name="addUserId" value="<%=user.getId()%>">
+                                <fieldset>
+                                    <legend class="center-legend">
+                                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                                            <%
+                                                User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
+                                                if (friendStatus == User.friendStatus.friends) { 
+                                            %>
+                                                <input type="submit" value="Ya sois amigos" disabled>  
+                                            <%
+                                                } else if (friendStatus == User.friendStatus.pending) {
+                                            %>
+                                                <input type="submit" value="Peticion enviada" disabled>
+                                            <%
+                                                } else {
+                                            %>
+                                                <input type="submit" value="A&ntilde;adir amigo">
+                                            <%
+                                                }
+                                            %>
+                                    </legend>
+                                    <%
+                                        Post p = (Post)userData.get(user)[0];
+                                        if (p != null) {
+                                    %>
+                                    <%=Markdown.toHtml(p.getBody())%>
+                                    <%
+                                        } else {
+                                    %>
+                                        <div class="italic">
+                                            <%=user.getUsername()%> aun no ha  hecho ningun post
+                                        </div>
+                                    <%
+                                        }
+                                    %>
+                                </fieldset>
+                            </form>
+                        </td>
+                    </tr>
+                    <%
                             }
                         }
-                    }
-                %>
+                    %>
 
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </fieldset>
+            <%
+                }
+            %>
             <!-- Groups -->
-            <table>
-                <%
-                   if (groupSet != null) {
-                    for (SocialGroup group: groupSet) {
-                        if (group != null) {
-                %>
-                <tr>
-                    <td>
-                        <form action="joinGroup" method="get" name="joinGroup">
-                            <input type="hidden" name="groupId" value="<%=group.getId()%>">
-                            <fieldset>
-                                <legend class="center-legend">
-                                        <%=group.getName()%>
-                                        <%
-                                            SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
-                                            if (memberStatus == SocialGroup.membershipStatus.member) { 
-                                        %>
-                                            <input type="submit" value="Ya eres miembro" disabled>  
-                                        <%
-                                            } else if (memberStatus == SocialGroup.membershipStatus.pending) {
-                                        %>
-                                            <input type="submit" value="Peticion enviada" disabled>
-                                        <%
-                                            } else {
-                                        %>
-                                            <input type="submit" value="Unirse a grupo">
-                                        <%
-                                            }
-                                        %>
-                                </legend>
-                                <%
-                                    Post p = (Post)groupData.get(group)[0];
-                                    if (p != null) {
-                                %>
-                                <%=Markdown.toHtml(p.getBody())%>
-                                <%
-                                    } else {
-                                %>
-                                    <div class="italic">
-                                        <%=group.getName()%> aun no ha  hecho ningun post
-                                    </div>
-                                <%
-                                    }
-                                %>
-                            </fieldset>
-                        </form>
-                    </td>
-                </tr>
-                <%
+            <%
+                if (groupSet != null) {
+            %>
+            <fieldset>
+                <legend>Grupos</legend> 
+                <table>
+                    <%
+                        for (SocialGroup group: groupSet) {
+                            if (group != null) {
+                    %>
+                    <tr>
+                        <td>
+                            <form action="joinGroup" method="get" name="joinGroup">
+                                <input type="hidden" name="groupId" value="<%=group.getId()%>">
+                                <fieldset>
+                                    <legend class="center-legend">
+                                            <%=group.getName()%>
+                                            <%
+                                                SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
+                                                if (memberStatus == SocialGroup.membershipStatus.member) { 
+                                            %>
+                                                <input type="submit" value="Ya eres miembro" disabled>  
+                                            <%
+                                                } else if (memberStatus == SocialGroup.membershipStatus.pending) {
+                                            %>
+                                                <input type="submit" value="Peticion enviada" disabled>
+                                            <%
+                                                } else {
+                                            %>
+                                                <input type="submit" value="Unirse a grupo">
+                                            <%
+                                                }
+                                            %>
+                                    </legend>
+                                    <%
+                                        Post p = (Post)groupData.get(group)[0];
+                                        if (p != null) {
+                                    %>
+                                    <%=Markdown.toHtml(p.getBody())%>
+                                    <%
+                                        } else {
+                                    %>
+                                        <div class="italic">
+                                            <%=group.getName()%> aun no ha  hecho ningun post
+                                        </div>
+                                    <%
+                                        }
+                                    %>
+                                </fieldset>
+                            </form>
+                        </td>
+                    </tr>
+                    <%
                             }
                         }
-                    }
-                %>
+                    %>
 
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </fieldset>
+            <%
+                }
+            %>
         </div>
     </body>
 </html>
