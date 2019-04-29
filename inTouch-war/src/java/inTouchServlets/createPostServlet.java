@@ -9,10 +9,6 @@ import inTouch.ejb.PostFacade;
 import inTouch.entity.Post;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -55,7 +51,7 @@ public class createPostServlet extends HttpServlet {
         
         if(request.getParameter("isPublic") == null) {
             //mensaje privado
-            Post post = new Post(postFacade.getLastID() + 1, date, true);
+            Post post = new Post(0, date, true);
             post.setAuthor(user);
             post.setBody(body);
             //Sin grupo, quizás podemos añadir un desplegable para que elija un grupo (o ninguno)
@@ -64,7 +60,7 @@ public class createPostServlet extends HttpServlet {
 
         } else {
             //mensaje publico
-            Post post = new Post(postFacade.getLastID() + 1, date, false);
+            Post post = new Post(0, date, false);
             post.setAuthor(user);
             post.setBody(body);
             
