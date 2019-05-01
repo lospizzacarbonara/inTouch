@@ -95,9 +95,22 @@
           .fixedButton {
               position: fixed;
               bottom: 75px;
-              right: 570px;
+              right: 380px;
+          }
+          
+          #postButton {
+              position: fixed;
+              bottom: 75px;
+              right: 310px;
           }
 
+          textArea {
+              background: #b0bec5;
+              border: none;
+              border-radius: 4px;
+                  
+          }
+          
           /* The Modal (background) */
           .modal {
               display: none; /* Hidden by default */
@@ -115,11 +128,13 @@
            
            /* Modal Content */
             .modal-content {
-              background-color: #fefefe;
+              background-color: #37474f;
               margin: auto;
               padding: 20px;
               border: 1px solid #888;
+              border-radius: 8px;
               width: 80%;
+              color:white;
             }
 
             /* The Close Button */
