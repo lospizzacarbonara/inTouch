@@ -37,12 +37,10 @@
           
           .groupList{
               vertical-align: top;
-              border-right: 1px solid white;
           }
           
           .inviteList{
               vertical-align: top;
-              border-left: 1px solid white;
               text-align: right;
           }
 
@@ -246,7 +244,9 @@
                     for (User user: friendInviteList) {
                 %>
                     <fieldset class="thirdSize">
-                        <legend class="center-legend"><%=user.getUsername()%></legend>
+                        <legend class="center-legend">
+                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                        </legend>
                         <form action="acceptFriend" method="post" name="acceptFriend">
                                 <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
                                 <input type="hidden" name="pageURL" value="/wall.jsp"/>
@@ -266,7 +266,9 @@
                     for (SocialGroup sg: groupInviteList) {
                 %>
                     <fieldset class="thirdSize">
-                        <legend class="center-legend"><%=sg.getName()%></legend>
+                        <legend class="center-legend">
+                            <a href="#"><%=sg.getName()%></a>
+                        </legend>
                         <form action="wallServlet" method="post" name="acceptGroup">
                                 <input type="hidden" name="acceptUserId" value="<%=sg.getId()%>">
                                 <input type="submit" value="Aceptar">
