@@ -269,7 +269,7 @@
     </table>
 
     <!-- Up button -->
-    <button class="fixedButton"><a href="#R1">UP</a></button>
+    <a href="#R1"><button class="fixedButton">UP</button></a>
     
     <!-- Post button -->
     <button id="postButton">Post</button>
