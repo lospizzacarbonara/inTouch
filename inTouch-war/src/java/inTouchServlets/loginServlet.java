@@ -26,8 +26,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
 public class loginServlet extends HttpServlet {
-@EJB
+    @EJB
     private UserFacade userFacade;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -51,12 +52,19 @@ public class loginServlet extends HttpServlet {
         int id=-1;
         String sha512 = getSHA512(password);
         Boolean login = false;
+       /* User user = this.userFacade.findByUsernameAndPassword(username, sha512);
+        if(user!=null && user.getUsername().equals(username) && user.getPassword().equals(sha512)){
+            id=user.getId();
+            login=true;
+        }
+        */
         for (User user : this.userFacade.findAll()) {
             if(user.getUsername().equals(username) && user.getPassword().equals(sha512)){
                 id=user.getId();
                 login=true;
             }
         }
+        
         session.setAttribute("userId", id);
         request.setAttribute("login", login);
         String redirect="/wallServlet";
