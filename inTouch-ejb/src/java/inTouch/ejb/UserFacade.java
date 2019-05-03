@@ -45,8 +45,8 @@ public class UserFacade extends AbstractFacade<User> {
     public User findByUsernameAndPassword(String username, String hash) {
         try {
             return (User) em.createNamedQuery("User.findByUsernameAndPassword")
-                .setParameter("username", "%" + username + "%")
-                .setParameter("hash", "%" + hash + "%")
+                .setParameter("username",  username )
+                .setParameter("hash", hash )
                 .getSingleResult();
         } catch (NoResultException e) {
             return null;
