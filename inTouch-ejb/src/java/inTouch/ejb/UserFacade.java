@@ -44,6 +44,17 @@ public class UserFacade extends AbstractFacade<User> {
         }
     }
     
+    public User findByUsernameAndPassword(String username, String hash) {
+        try {
+            return (User) em.createNamedQuery("User.findByUsernameAndPassword")
+                .setParameter("username",  username )
+                .setParameter("hash", hash )
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
     public List<User> findFriends(User u) {
         try {
             List<User> list = em.createNamedQuery("Friendship.findFriends")

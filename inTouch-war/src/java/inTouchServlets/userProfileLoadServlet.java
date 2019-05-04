@@ -1,6 +1,7 @@
 package inTouchServlets;
 
 
+import inTouch.ejb.FriendshipFacade;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
@@ -19,6 +20,9 @@ import javax.servlet.http.HttpSession;
 public class userProfileLoadServlet extends HttpServlet {
 
     @EJB
+    private FriendshipFacade friendshipFacade;
+
+    @EJB
     private UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,55 +38,21 @@ public class userProfileLoadServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         Integer idUser = null;
+        Integer idUserOther = null;
         User user = new User();
+        User userOther = new User();
         Boolean myProfile = true;
         Boolean myFriend = false;
         Boolean myGroup = false;
         String str = null;
         
-        Object obj =  request.getAttribute("userId");
-         
-        
+        HttpSession session = request.getSession(false);
+        Object obj = session.getAttribute("userId");
         if(obj != null)
         {
             str = obj.toString();
-            myProfile = false;
-            
-            
-            obj = request.getAttribute("myFriend");
-            
-            if(obj != null)
-            {
-                myFriend = (Boolean)obj;
-            }
-            else
-            {
-                myFriend = false;
-            }
-            
-            obj = request.getAttribute("myGroup");
-            
-            if(obj != null)
-            {
-                myGroup = (Boolean)obj;
-            }
-            else
-            {
-                myGroup = false;
-            }
-            
         }
-        else
-        {
-            HttpSession session = request.getSession(false);
-            obj = session.getAttribute("userId");
-            
-            if(obj != null)
-            {
-                str = obj.toString();
-            }
-        }
-
+        
         if(obj != null)
         {
             try
@@ -92,15 +62,52 @@ public class userProfileLoadServlet extends HttpServlet {
             }
             catch(NumberFormatException msg)
             {
-                System.out.println("Formato de id de usuario incorrecto: " + msg);
+                String error = " ERROR: Formato de id de usuario (session) incorrecto: " + msg + "(str es: " + str + ")";
+                request.setAttribute("exception", error);
+                RequestDispatcher rd = request.getRequestDispatcher("/error");
+                rd.forward(request,response); 
             }
         }
         
         
         
-        
+        obj =  request.getAttribute("userId");
+         
+        if(obj != null)
+        {
+            str = obj.toString();
+            
+            try
+            {
+                idUserOther = Integer.parseInt(str);
+                if(idUserOther != idUser)
+                {
+                    userOther = this.userFacade.find(idUserOther);
+                    myProfile = false;
+                    
+                    myFriend = this.friendshipFacade.areFriends(user, userOther);
+                }
+            }
+            catch(NumberFormatException msg)
+            {
+                String error = " ERROR: Formato de id de usuario (request) incorrecto: " + msg + "(str es: " + str + ")";
+                request.setAttribute("exception", error);
+                RequestDispatcher rd = request.getRequestDispatcher("/error");
+                rd.forward(request,response); 
+            }
+        }
 
-        request.setAttribute("user",user);
+        
+        
+        if(myProfile)
+        {
+           request.setAttribute("user",user);
+        }
+        else
+        {
+           request.setAttribute("user",userOther); 
+        }
+        
         request.setAttribute("myProfile",myProfile);
         request.setAttribute("myFriend",myFriend);
         request.setAttribute("myGroup",myGroup);
