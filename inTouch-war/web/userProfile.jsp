@@ -119,9 +119,13 @@
                                 <label for="surname">Apellidos:</label>
                             </th>
                             <td colspan="3">
-                                <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %> <%= inputDisabled %>"/>
+                                <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %>" <%= inputDisabled %>/>
                             </td>
                         </tr>
+                        <%
+                            if(myProfile || myFriend || myGroup)
+                            {
+                        %>
                         <tr>
                             <th class="alineadoDerecha" rowspan="2" colspan="15">
                                 Fecha de nacimiento:
@@ -136,10 +140,6 @@
                                 <label for="yearBirth">Año</label>
                             </th>
                         </tr>
-                        <%
-                            if(myProfile || myFriend || myGroup)
-                            {
-                        %>
                         <tr>
                             <td>
                                 <select name="dayBirth">
@@ -200,6 +200,18 @@
                         <%
                             }
                         %>
+                        <%
+                            if(myFriend)
+                            {
+                        %>
+                        <tr class="rowButton">
+                            <td colspan="30" >
+                                <%= user.getUsername() %> es mi amigo
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
                     </table>
                     <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                     <input type="hidden" name="user" value="<%=alias%> "/>
@@ -226,7 +238,7 @@
                                 Correo Electronico:
                             </th>
                             <td>
-                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %> <%= inputDisabled %>"/>
+                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %>" <%= inputDisabled %>/>
                             </td>
                         </tr>
                         <tr>
