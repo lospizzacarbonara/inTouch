@@ -7,11 +7,13 @@ package inTouch.ejb;
 
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
+import inTouch.entity.Membership;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -100,5 +102,14 @@ public class UserFacade extends AbstractFacade<User> {
         } catch (NoResultException e) {
             return null;
         }
+    }
+    
+    public List<User> getUserList(SocialGroup group){
+        List<User> list;
+        Query q;
+        q = this.em.createQuery("select m.member1 FROM Membership m where m.socialGroup = :sg ")
+                .setParameter("sg", group);
+        list = q.getResultList();
+        return list;
     }
 }

@@ -5,12 +5,15 @@
  */
 package inTouch.ejb;
 
+import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
+import inTouch.entity.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -30,7 +33,7 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
     public SocialGroupFacade() {
         super(SocialGroup.class);
     }
-    
+        
     public List<SocialGroup> findByName(String name) {
         try {
             return em.createNamedQuery("SocialGroup.findByName")
