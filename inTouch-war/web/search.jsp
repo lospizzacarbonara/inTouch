@@ -134,7 +134,7 @@
                                 <input type="hidden" name="groupId" value="<%=group.getId()%>">
                                 <fieldset>
                                     <legend class="center-legend">
-                                            <%=group.getName()%>
+                                            <a href="groupWallServlet?groupId=<%=group.getId()%>"><%=group.getName()%></a>
                                             <%
                                                 SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
                                                 if (memberStatus == SocialGroup.membershipStatus.member) { 
