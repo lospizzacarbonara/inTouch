@@ -2,10 +2,13 @@ package inTouchServlets;
 
 
 import inTouch.ejb.FriendshipFacade;
+import inTouch.ejb.MembershipFacade;
 import inTouch.ejb.UserFacade;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +21,9 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/userProfileLoadServlet"})
 public class userProfileLoadServlet extends HttpServlet {
+
+    @EJB
+    private MembershipFacade membershipFacade;
 
     @EJB
     private FriendshipFacade friendshipFacade;
@@ -43,7 +49,7 @@ public class userProfileLoadServlet extends HttpServlet {
         User userOther = new User();
         Boolean myProfile = true;
         Boolean myFriend = false;
-        Boolean myGroup = false;
+        List<SocialGroup> myGroup = null;
         String str = null;
         
         HttpSession session = request.getSession(false);
@@ -86,6 +92,9 @@ public class userProfileLoadServlet extends HttpServlet {
                     myProfile = false;
                     
                     myFriend = this.friendshipFacade.areFriends(user, userOther);
+                    
+                    myGroup = this.membershipFacade.findGroupsBetweenUsers(user, userOther);
+                    
                 }
             }
             catch(NumberFormatException msg)

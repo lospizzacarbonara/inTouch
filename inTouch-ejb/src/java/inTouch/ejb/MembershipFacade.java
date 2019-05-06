@@ -6,8 +6,12 @@
 package inTouch.ejb;
 
 import inTouch.entity.Membership;
+import inTouch.entity.SocialGroup;
+import inTouch.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -29,4 +33,16 @@ public class MembershipFacade extends AbstractFacade<Membership> {
         super(Membership.class);
     }
     
+    public List<SocialGroup> findGroupsBetweenUsers(User u1, User u2) {
+        try {
+            List<SocialGroup> list = em.createNamedQuery("Membership.groupsInCommon")
+                .setParameter("user1", u1)
+                .setParameter("user2", u2)
+                .getResultList();
+
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

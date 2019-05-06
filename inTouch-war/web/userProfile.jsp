@@ -1,3 +1,5 @@
+<%@page import="inTouch.entity.SocialGroup"%>
+<%@page import="java.util.List"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="java.util.Scanner"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -10,21 +12,21 @@
     User user;
     Boolean myProfile = false;
     Boolean myFriend = false;
-    Boolean myGroup = false;
+    List<SocialGroup> myGroup = null;
     
     try
     {
         user = (User)request.getAttribute("user");
         myProfile = (Boolean)request.getAttribute("myProfile");
         myFriend = (Boolean)request.getAttribute("myFriend");
-        myGroup = (Boolean)request.getAttribute("myGroup");
+        myGroup = (List)request.getAttribute("myGroup");
     }
     catch(NullPointerException e)
     {
         user = new User();
         myProfile = false;
         myFriend = false;
-        myGroup = false;
+        myGroup = null;
     }
     
     
@@ -123,7 +125,7 @@
                             </td>
                         </tr>
                         <%
-                            if(myProfile || myFriend || myGroup)
+                            if(myProfile || myFriend || !myGroup.isEmpty())
                             {
                         %>
                         <tr>
@@ -208,6 +210,26 @@
                             <td colspan="30" >
                                 <%= user.getUsername() %> es mi amigo
                             </td>
+                        </tr>
+                        <%
+                            }
+                            if(!myGroup.isEmpty())
+                            {
+                        %>
+                        <tr class="rowButton">
+                            <td colspan="15" >
+                            Grupos en comun: 
+                            </td>
+                            <td colspan="15">
+                        <%
+                                for(SocialGroup grupo: myGroup)
+                                {
+                        %>
+                                    <%= grupo.getName() %> ... 
+                        <%
+                                }
+                        %>
+                             </td>
                         </tr>
                         <%
                             }
