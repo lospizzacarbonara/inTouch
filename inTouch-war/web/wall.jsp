@@ -19,6 +19,7 @@
     List<SocialGroup> groupList = (List<SocialGroup>)request.getAttribute("groupList");
     List<User> friendInviteList = (List<User>)request.getAttribute("friendInviteList");
     List<SocialGroup> groupInviteList = (List<SocialGroup>)request.getAttribute("groupInviteList");
+    User loggedUser = (User)request.getAttribute("user");
     
 %>
 
@@ -163,7 +164,7 @@
     
     <!-- Personal info  -->
     <div class="personalInfo" align="center">
-        <h1>INFORMACION DEL USUARIO</h1>
+        <h1>User: <%=loggedUser.getUsername()%></h1>
     </div>
 
     <!-- Div for the wall on the main page (public/private) -->

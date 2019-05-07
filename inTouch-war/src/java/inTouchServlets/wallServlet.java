@@ -48,8 +48,8 @@ public class wallServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         int loggedUserId = (Integer) session.getAttribute("userId");
-        User user = new User(loggedUserId);
         
+        User user = userFacade.find(loggedUserId);
         List<Post> globalPostList, privatePostList;
         List<SocialGroup> groupList;
         List<User> friendInvites;
@@ -62,6 +62,7 @@ public class wallServlet extends HttpServlet {
         friendInvites = userFacade.findPendingToAcceptFriends(user);
         groupInvites = userFacade.findPendingMemberships(user);
         
+        request.setAttribute("user", user);
         request.setAttribute("groupList", groupList);
         request.setAttribute("globalPostList", globalPostList);
         request.setAttribute("privatePostList", privatePostList);
