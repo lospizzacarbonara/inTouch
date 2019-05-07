@@ -197,7 +197,7 @@
                 <% 
                     for(SocialGroup sg : groupList){
                 %>
-                <a href="#"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
+                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
                 <br/>
                 <% 
                     }
@@ -230,7 +230,19 @@
                         <h3 align="center">
                             <a href="getProfile?userId=<%=p.getAuthor().getId()%>">
                                 <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                <%=p.getAuthor().getUsername()%></a>
+                                <%=p.getAuthor().getUsername()%>
+                            </a>
+                            <%
+                                if(p.getSocialGroup() != null){   
+                                    SocialGroup sg = p.getSocialGroup();                     
+                            %>
+                                &nbsp;-&nbsp;
+                                <a href="groupWallServlet?groupId=<%=sg.getId()%>">
+                                    <%=sg.getName()%>
+                                </a>
+                            <%
+                                }
+                            %>
                         </h3>
                         <p><%=Markdown.toHtml(p.getBody())%></p>
                     </div>
