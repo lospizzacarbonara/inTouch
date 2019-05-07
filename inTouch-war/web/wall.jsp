@@ -198,6 +198,7 @@
                     for(SocialGroup sg : groupList){
                 %>
                 <a href="#"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
+                <br/>
                 <% 
                     }
                 %>
