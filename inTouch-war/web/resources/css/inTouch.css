@@ -24,7 +24,7 @@ a:link {
 
 /* visited link */
 a:visited {
-  color: violet;
+  color: #00FFFF; /*before was violet*/
 }
 
 /* mouse over link */
