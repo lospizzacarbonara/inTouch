@@ -36,13 +36,16 @@
               border-top: 1px solid white;
           }
           
+          h1{
+              text-align: center;
+          }
+          
           .groupList{
               vertical-align: top;
           }
           
           .inviteList{
               vertical-align: top;
-              text-align: right;
           }
 
           .tablink {
@@ -254,6 +257,9 @@
             </td>
 
             <td class="inviteList">
+                <br/>
+                <h3>Friends</h3>
+                <hr/>
                 <%
                     for (User user: friendInviteList) {
                 %>
@@ -275,6 +281,8 @@
                 <%
                     }
                 %>
+                <br/>
+                <h3>Groups</h3>
                 <hr/>
                 <%
                     for (SocialGroup sg: groupInviteList) {
