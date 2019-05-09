@@ -58,21 +58,23 @@ public class groupWallServlet extends HttpServlet {
         //int loggedUserId = (Integer) session.getAttribute("userId");
         //User user = new User(loggedUserId);
         //int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
-        int currentGroupId = 1;
+        int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
         SocialGroup group = socialGroupFacade.find(currentGroupId);
         
         List<Post> groupPostList;
         List<User> userList;
-        
+        String groupDescription;
         
         response.setContentType("text/html;charset=UTF-8");
         //groupPostList = new ArrayList<Post>();
         //userList = new ArrayList<User>();
         groupPostList = postFacade.getGroupPost(group); //grupos del usuario
         userList = userFacade.getUserList(group);
+        groupDescription=group.getDescription();
         //hacer query inversa
         request.setAttribute("groupPostList", groupPostList);
         request.setAttribute("userList", userList);
+        request.setAttribute("groupDescription",groupDescription);
         RequestDispatcher rd = request.getRequestDispatcher("/groupWall.jsp");
         rd.forward(request,response);
         }
