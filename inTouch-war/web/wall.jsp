@@ -257,50 +257,56 @@
             </td>
 
             <td class="inviteList">
-                <br/>
-                <h3>Friends</h3>
-                <hr/>
-                <%
-                    for (User user: friendInviteList) {
+                <% if(!friendInviteList.isEmpty()){
                 %>
-                    <fieldset class="thirdSize">
-                        <legend class="center-legend">
-                            <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
-                        </legend>
-                        <form action="acceptFriend" method="post" name="acceptFriend">
-                                <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
-                                <input type="hidden" name="pageURL" value="/wall.jsp"/>
-                                <input type="submit" value="Aceptar"/>
-                        </form>
-                        <form action="cancelPendingFriend" method="post" name="cancelPendingFriend">
-                                <input type="hidden" name="cancelUserId" value="<%=user.getId()%>"/>
-                                <input type="hidden" name="pageURL" value="/wall.jsp"/>
-                                <input type="submit" value="Rechazar"/>
-                        </form>
-                    </fieldset>
+                    <br/>
+                    <h3>Friends</h3>
+                    <hr/>
+                    <%
+                        for (User user: friendInviteList) {
+                    %>
+                        <fieldset class="thirdSize">
+                            <legend class="center-legend">
+                                <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
+                            </legend>
+                            <form action="acceptFriend" method="post" name="acceptFriend">
+                                    <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
+                                    <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                    <input type="submit" value="Aceptar"/>
+                            </form>
+                            <form action="cancelPendingFriend" method="post" name="cancelPendingFriend">
+                                    <input type="hidden" name="cancelUserId" value="<%=user.getId()%>"/>
+                                    <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                    <input type="submit" value="Rechazar"/>
+                            </form>
+                        </fieldset>
                 <%
+                        }
                     }
-                %>
-                <br/>
-                <h3>Groups</h3>
-                <hr/>
+
+                    if(!groupInviteList.isEmpty()){
+                %>        
+                    <br/>
+                    <h3>Groups</h3>
+                    <hr/>
+                    <%
+                        for (SocialGroup sg: groupInviteList) {
+                    %>
+                        <fieldset class="thirdSize">
+                            <legend class="center-legend">
+                                <a href="#"><%=sg.getName()%></a>
+                            </legend>
+                            <form action="wallServlet" method="post" name="acceptGroup">
+                                    <input type="hidden" name="acceptUserId" value="<%=sg.getId()%>">
+                                    <input type="submit" value="Aceptar">
+                            </form>
+                            <form action="wallServlet" method="get" name="rejectGroup">
+                                    <input type="hidden" name="cancelUserId" value="<%=sg.getId()%>">
+                                    <input type="submit" value="Rechazar">
+                            </form>
+                        </fieldset>
                 <%
-                    for (SocialGroup sg: groupInviteList) {
-                %>
-                    <fieldset class="thirdSize">
-                        <legend class="center-legend">
-                            <a href="#"><%=sg.getName()%></a>
-                        </legend>
-                        <form action="wallServlet" method="post" name="acceptGroup">
-                                <input type="hidden" name="acceptUserId" value="<%=sg.getId()%>">
-                                <input type="submit" value="Aceptar">
-                        </form>
-                        <form action="wallServlet" method="get" name="rejectGroup">
-                                <input type="hidden" name="cancelUserId" value="<%=sg.getId()%>">
-                                <input type="submit" value="Rechazar">
-                        </form>
-                    </fieldset>
-                <%
+                        }
                     }
                 %>
             </td>
