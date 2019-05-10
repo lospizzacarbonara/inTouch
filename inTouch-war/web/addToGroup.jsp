@@ -14,7 +14,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
             Map<User, Object[]> userData = (Map<User, Object[]>) request.getAttribute("userData");
-            int loggedUserId = (Integer) session.getAttribute("userId");
+            int loggedUserId = (Integer)session.getAttribute("userId");
+            int currentGroupId = (Integer)request.getAttribute("groupId");
 
             Set<User> userSet = null;
             if (userData != null){
@@ -43,7 +44,7 @@
                     %>
                     <tr>
                         <td>
-                            <form action="addToGroupServlet" method="get" name="sendMembershipInvitation">
+                            <form action="addToGroupServlet?groupId=<%=currentGroupId%>" method="get" name="sendMembershipInvitation">
                                 <input type="hidden" name="addUserId" value="<%=user.getId()%>">
                                 <fieldset>
                                     <legend class="center-legend">
