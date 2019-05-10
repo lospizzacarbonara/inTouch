@@ -43,4 +43,22 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
             return null;
         }
     }
+    public List<User> getMembers(SocialGroup group){
+        List<User> list;
+        Query q;
+        //q = this.em.createQuery("select p from Post p where socialGroup = 1");
+        q = this.em.createQuery("select m.member from Membership m where m.socialGroup =:sg")
+        .setParameter("sg", group);
+        list = q.getResultList();
+        return list;   
+    }
+        public List<User> getPendingMembers(SocialGroup group){
+        List<User> list;
+        Query q;
+        //q = this.em.createQuery("select p from Post p where socialGroup = 1");
+        q = this.em.createQuery("select p.user from PendingMembership p where p.socialGroup = :sg")
+        .setParameter("sg", group);
+        list = q.getResultList();
+        return list;   
+    }
 }

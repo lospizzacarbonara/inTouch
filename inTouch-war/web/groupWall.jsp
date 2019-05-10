@@ -32,13 +32,30 @@
 
 <body> 
     <!-- Options header -->
-    <%=NavMenu.toHtml("home")%>
+    <%=NavMenu.toHtml("")%>
     
     <!-- Group info  -->
     <div class="Descripcion del grupo" align="center">
         <h1><%=group.getName()%></h1><br>
         <%=groupDescription%>
     </div>
+    
+                    <div class="memberList"align="left">
+                    <div class="Members">
+                        <h2>Members</h2>
+
+                    <%
+                        for(User u: userList){
+                    %>
+                            <a href="getProfile?userId=<%=u.getId() %>">             
+                                <%=u.getUsername()%></a>
+                       
+                    <%
+                        }
+                    %>
+                     </div>
+                     
+                </div>
         
         <table class="groupWallTable" align="center">
             <tr id="R1">
@@ -67,24 +84,11 @@
 
                <!-- <div id="Private" class="tabcontent"><font color="white"> -->
              <!-- Un grupo podria poner post publicos o solo privados? -->
-          </table>   
-                <td class="memberList">
-                    <div class="Members" align="right">
-                        <h2>Members</h2>
+             
 
-                    <%
-                        for(User u: userList){
-                    %>
-                            <a href="getProfile?userId=<%=u.getId() %>">             
-                                <%=u.getUsername()%></a>
-                       
-                    <%
-                        }
-                    %>
-                     </div>
-                 </td>
+             </table>    
             
-        </tr>
+        
     
                 <!-- Up button -->
     <button class="fixedButton"><a href="#R1">UP</a></button>

@@ -72,6 +72,7 @@ public class groupWallServlet extends HttpServlet {
         request.setAttribute("groupDescription",groupDescription);
         RequestDispatcher rd = request.getRequestDispatcher("/groupWall.jsp");
         rd.forward(request,response);
+        //select m.admin from Membership m where m.socialGroup= :group and m.member= :user;
         }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
