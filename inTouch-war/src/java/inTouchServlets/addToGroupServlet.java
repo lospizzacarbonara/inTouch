@@ -5,18 +5,16 @@
  */
 package inTouchServlets;
 
-import inTouch.ejb.PostFacade;
+import inTouch.ejb.PendingMembershipFacade;
 import inTouch.ejb.SocialGroupFacade;
 import inTouch.ejb.UserFacade;
-import inTouch.entity.Post;
+import inTouch.entity.PendingFriendship;
+import inTouch.entity.PendingMembership;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.console;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,21 +22,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author darioarrebola
  */
-@WebServlet(name = "groupWallServlet", urlPatterns = {"/groupWallServlet"})
-public class groupWallServlet extends HttpServlet {
-    
+@WebServlet(name = "addToGroupServlet", urlPatterns = {"/addToGroupServlet"})
+public class addToGroupServlet extends HttpServlet {
+
+    @EJB
+    private PendingMembershipFacade pendingMembershipFacade;
+
     @EJB
     private UserFacade userFacade;
-    @EJB 
-    private PostFacade postFacade;
+
     @EJB
     private SocialGroupFacade socialGroupFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,33 +52,45 @@ public class groupWallServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        //HttpSession session = request.getSession();
-        //int currentGroupId = (Integer) session.getAttribute("groupId");
-        //int loggedUserId = (Integer) session.getAttribute("userId");
-        //User user = new User(loggedUserId);
-        //int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
-        int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
-        SocialGroup group = socialGroupFacade.find(currentGroupId);
-        
-        List<Post> groupPostList;
-        List<User> userList;
-        String groupDescription;
-        
         response.setContentType("text/html;charset=UTF-8");
-        //groupPostList = new ArrayList<Post>();
-        //userList = new ArrayList<User>();
-        groupPostList = postFacade.getGroupPost(group); //grupos del usuario
-        userList = userFacade.getUserList(group);
-        groupDescription=group.getDescription();
-        request.setAttribute("groupPostList", groupPostList);
-        request.setAttribute("userList", userList);
-        request.setAttribute("group", group);
-        request.setAttribute("groupDescription",groupDescription);
-        RequestDispatcher rd = request.getRequestDispatcher("/groupWall.jsp");
-        rd.forward(request,response);
+        
+        int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
+        SocialGroup group = socialGroupFacade.find(currentGroupId);/*poner un boton en el jsp que pase el grupo*/
+        
+        String pageURL = request.getParameter("pageURL");
+        if (pageURL == null)
+            pageURL = "search"; /*no creo que me haga falta esto*/
+        
+        String addUserStr = request.getParameter("addUserId");
+        int addUserId = -1;       
+        try {
+            addUserId = Integer.parseInt(addUserStr);
+        } catch(NumberFormatException e) {
+            request.setAttribute("exception", e);
+            RequestDispatcher rd = request.getRequestDispatcher("error");
+            rd.forward(request, response);
         }
+        User receiver = this.userFacade.find(addUserId);
+        
+        PendingMembership pending = new PendingMembership(new Random().nextInt());
+        pending.setSocialGroup(group);
+        pending.setUser(receiver);
+        
+        this.pendingMembershipFacade.create(pending);
+         
+        RequestDispatcher rd = request.getRequestDispatcher(pageURL);
+        rd.forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -109,6 +122,3 @@ public class groupWallServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-    
-
-    

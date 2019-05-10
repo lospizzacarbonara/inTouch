@@ -7,16 +7,12 @@ package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
 import inTouch.ejb.SocialGroupFacade;
-import inTouch.ejb.UserFacade;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.console;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -30,15 +26,15 @@ import javax.servlet.http.HttpSession;
  *
  * @author darioarrebola
  */
-@WebServlet(name = "groupWallServlet", urlPatterns = {"/groupWallServlet"})
-public class groupWallServlet extends HttpServlet {
-    
-    @EJB
-    private UserFacade userFacade;
-    @EJB 
-    private PostFacade postFacade;
+@WebServlet(name = "createGroupPostServlet", urlPatterns = {"/createGroupPostServlet"})
+public class createGroupPostServlet extends HttpServlet {
+
     @EJB
     private SocialGroupFacade socialGroupFacade;
+
+    @EJB
+    private PostFacade postFacade;
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,33 +47,42 @@ public class groupWallServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+
         
-        
-        //HttpSession session = request.getSession();
-        //int currentGroupId = (Integer) session.getAttribute("groupId");
-        //int loggedUserId = (Integer) session.getAttribute("userId");
-        //User user = new User(loggedUserId);
-        //int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
+        //int currentGroupId = (Integer)request.getAttribute("groupId");
         int currentGroupId = Integer.parseInt(request.getParameter("groupId"));
         SocialGroup group = socialGroupFacade.find(currentGroupId);
+
         
-        List<Post> groupPostList;
-        List<User> userList;
-        String groupDescription;
+        int loggedUserId = (Integer) session.getAttribute("userId");
+        User user = new User(loggedUserId);
         
-        response.setContentType("text/html;charset=UTF-8");
-        //groupPostList = new ArrayList<Post>();
-        //userList = new ArrayList<User>();
-        groupPostList = postFacade.getGroupPost(group); //grupos del usuario
-        userList = userFacade.getUserList(group);
-        groupDescription=group.getDescription();
-        request.setAttribute("groupPostList", groupPostList);
-        request.setAttribute("userList", userList);
-        request.setAttribute("group", group);
-        request.setAttribute("groupDescription",groupDescription);
-        RequestDispatcher rd = request.getRequestDispatcher("/groupWall.jsp");
+        String body = request.getParameter("body");
+        
+        Date date = new Date();
+        
+        Post post = new Post(0,date,true);
+        post.setAuthor(user);
+        post.setBody(body);
+        post.setSocialGroup(group);
+        
+        this.postFacade.create(post);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/groupWallServlet");
         rd.forward(request,response);
-        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -109,6 +114,3 @@ public class groupWallServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-    
-
-    

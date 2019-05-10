@@ -12,15 +12,19 @@
 <%@page import="java.util.List"%>
 <%@page import="inTouch.entity.Post"%>
 <%@page import="inTouch.entity.User"%>
+
+
 <!DOCTYPE html>
 <%
         List<User> userList = (List<User>)request.getAttribute("userList");
         List<Post> groupPostList = (List<Post>)request.getAttribute("groupPostList");
         String groupDescription = (String)request.getAttribute("groupDescription");
-
+        SocialGroup group = (SocialGroup)request.getAttribute("group");
 %>
 <html> 
     <head>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/navmenu.css">
         <style>
 
       </style>
@@ -32,7 +36,7 @@
     
     <!-- Group info  -->
     <div class="Descripcion del grupo" align="center">
-        <h1>INFORMACION DEL GRUPO</h1><br>
+        <h1><%=group.getName()%></h1><br>
         <%=groupDescription%>
     </div>
         
@@ -87,13 +91,12 @@
     
     <!-- Post button -->
     <button id="postButton">Post</button>
-    <!-- Post form Este no tengo ni muy claro como va-->
     <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form id="postForm" method="POST" action="createPostServlet">
+            <form id="postForm" method="POST" action="createGroupPostServlet?groupId=<%=(String)group.getId().toString()%>">
                 <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
-                Make Public <input type="checkbox" name="isPublic" /><br/>
+                <!--Make Public <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
                 <input type="submit"/>
             </form>
