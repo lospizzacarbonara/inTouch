@@ -50,6 +50,7 @@
                             <form action="addToGroupServlet" method="get" name="sendMembershipInvitation">
                                 <input type="hidden" name="addUserId" value="<%=user.getId()%>">
                                 <input type="hidden" name="groupId" value="<%=currentGroupId%>">
+                                <input type="hidden" name="pageURL" value="groupWallServlet">
                                 <fieldset>
                                     <legend class="center-legend">
                                             <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
