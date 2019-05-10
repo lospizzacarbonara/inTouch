@@ -98,7 +98,7 @@
     <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form id="postForm" method="POST" action="createGroupPostServlet?groupId=<%=(String)group.getId().toString()%>">
+            <form id="postForm" method="POST" action="createGroupPostServlet?groupId=<%=group.getId()%>">
                 <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
                 <!--Make Public <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
@@ -106,6 +106,16 @@
             </form>
         </div>
     </div>
+                <h3>Buscar usuarios para añadir</h3>    
+                <form action="searchFromGroupServlet?groupId=<%=group.getId()%>>" method="post" name="busqueda">
+                    <fieldset>
+                        <legend>Busqueda de usuarios</legend> 
+                        username: <input type="text" name="searchText" value=""><br>
+                        <input type="submit" value="Buscar">
+                    </fieldset>
+    
+            </form>
+                
     <!-- modal script -->
     <script>
         // Modal script
