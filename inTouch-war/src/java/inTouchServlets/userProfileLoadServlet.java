@@ -7,6 +7,7 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -48,7 +49,7 @@ public class userProfileLoadServlet extends HttpServlet {
         User userOther = null;
         Boolean myProfile = true;
         Boolean myFriend = false;
-        List<SocialGroup> myGroup = null;
+        List<SocialGroup> myGroup = Collections.emptyList();
         
         HttpSession session = request.getSession(false);
         idUser = (Integer)session.getAttribute("userId");

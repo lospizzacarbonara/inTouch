@@ -1,3 +1,4 @@
+<%@page import="java.util.Collections"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="java.util.List"%>
@@ -13,7 +14,7 @@
     User user;
     Boolean miPerfil = false;
     Boolean myFriend = false;
-    List<SocialGroup> myGroup = new ArrayList<SocialGroup>();
+    List<SocialGroup> myGroup = Collections.emptyList();
     
     try
     {
@@ -48,7 +49,7 @@
     }
     catch(NullPointerException e)
     {
-        myGroup = new ArrayList<SocialGroup>();
+        myGroup = Collections.emptyList();
     }
     
     
@@ -110,7 +111,7 @@
 
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">Perfil de usuario</h1>
+            <h1  align="center">Perfil de usuario - miPerfil = <%= miPerfil %> - myFriend = <%= myFriend %> - myGroup.isEmpty() = <%= myGroup.isEmpty() %></h1>
         </div>
         <br/>
         
@@ -235,6 +236,8 @@
                         </tr>
                         <%
                             }
+                        %>
+                        <%
                             if(!myGroup.isEmpty())
                             {
                         %>
@@ -270,7 +273,7 @@
             usario -->
             
             <%
-                if(miPerfil)
+                if(miPerfil || myFriend)
                 {
             %>
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
@@ -290,7 +293,7 @@
                             <td>&nbsp;</td>
                         </tr>
                          <% 
-                            if(myFriend || !myGroup.isEmpty())
+                            if(miPerfil)
                             {
                         %>
                         <tr class="rowButton">
