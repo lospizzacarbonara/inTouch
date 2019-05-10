@@ -111,7 +111,7 @@
 
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">Perfil de usuario - miPerfil = <%= miPerfil %> - myFriend = <%= myFriend %> - myGroup.isEmpty() = <%= myGroup.isEmpty() %></h1>
+            <h1  align="center">Perfil de usuario</h1>
         </div>
         <br/>
         
