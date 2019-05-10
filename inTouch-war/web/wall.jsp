@@ -273,12 +273,12 @@
                             </legend>
                             <form action="acceptFriend" method="post" name="acceptFriend">
                                     <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
-                                    <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                    <input type="hidden" name="pageURL" value="wallServlet"/>
                                     <input type="submit" value="Aceptar"/>
                             </form>
                             <form action="cancelPendingFriend" method="post" name="cancelPendingFriend">
                                     <input type="hidden" name="cancelUserId" value="<%=user.getId()%>"/>
-                                    <input type="hidden" name="pageURL" value="/wall.jsp"/>
+                                    <input type="hidden" name="pageURL" value="wallServlet"/>
                                     <input type="submit" value="Rechazar"/>
                             </form>
                         </fieldset>
@@ -296,14 +296,16 @@
                     %>
                         <fieldset class="thirdSize">
                             <legend class="center-legend">
-                                <a href="#"><%=sg.getName()%></a>
+                                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a>
                             </legend>
                             <form action="wallServlet" method="post" name="acceptGroup">
-                                    <input type="hidden" name="acceptUserId" value="<%=sg.getId()%>">
+                                    <input type="hidden" name="acceptGroupId" value="<%=sg.getId()%>">
+                                    <input type="hidden" name="pageURL" value="wallServlet"/>
                                     <input type="submit" value="Aceptar">
                             </form>
-                            <form action="wallServlet" method="get" name="rejectGroup">
-                                    <input type="hidden" name="cancelUserId" value="<%=sg.getId()%>">
+                            <form action="cancelPendingInvitation" method="get" name="rejectGroup">
+                                    <input type="hidden" name="cancelGroupId" value="<%=sg.getId()%>">
+                                    <input type="hidden" name="pageURL" value="wallServlet"/>
                                     <input type="submit" value="Rechazar">
                             </form>
                         </fieldset>
