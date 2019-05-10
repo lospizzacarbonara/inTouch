@@ -95,8 +95,9 @@ public class searchFromGroupServlet extends HttpServlet {
         }
            
         request.setAttribute("userData", userData);
+        request.setAttribute("loggedUserId",loggedUserId);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/search.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/addToGroup.jsp");
         rd.forward(request,response);
     }
     
