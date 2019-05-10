@@ -58,7 +58,7 @@ public class wallServlet extends HttpServlet {
         globalPostList = postFacade.getPublicPost(); //sólo los mensajes globales (públicos)
         groupList = userFacade.findSocialGroups(user); //grupos del usuario
         friendInvites = userFacade.findPendingToAcceptFriends(user);
-        groupInvites = userFacade.findPendingMemberships(user);
+        groupInvites = userFacade.findPendingInvitationMemberships(user);
         
         request.setAttribute("user", user);
         request.setAttribute("groupList", groupList);
