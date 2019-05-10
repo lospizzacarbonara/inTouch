@@ -4,6 +4,7 @@
     Author     : darioarrebola
 --%>
 
+<%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="inTouch.entity.Post"%>
 <%@page import="markdownj.Markdown"%>
 <%@page import="java.util.Set"%>
@@ -48,18 +49,18 @@
                                     <legend class="center-legend">
                                             <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
                                             <%
-                                                User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
-                                                if (friendStatus == User.friendStatus.friends) { 
+                                                SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)userData.get(user)[1];
+                                                if (memberStatus == SocialGroup.membershipStatus.member) { 
                                             %>
-                                                <input type="submit" value="Ya sois amigos" disabled>  
+                                                <input type="submit" value="Ya es socios" disabled>  
                                             <%
-                                                } else if (friendStatus == User.friendStatus.pending) {
+                                                } else if (memberStatus == SocialGroup.membershipStatus.pending) {
                                             %>
                                                 <input type="submit" value="Peticion enviada" disabled>
                                             <%
                                                 } else {
                                             %>
-                                                <input type="submit" value="A&ntilde;adir amigo">
+                                                <input type="submit" value="A&ntilde;adir miembro">
                                             <%
                                                 }
                                             %>

@@ -107,7 +107,7 @@
         </div>
     </div>
                 <h3>Buscar usuarios para añadir</h3>    
-                <form action="searchFromGroupServlet?groupId=<%=group.getId()%>>" method="post" name="busqueda">
+                <form action="searchFromGroupServlet?groupId=<%=group.getId()%>" method="post" name="busqueda">
                     <fieldset>
                         <legend>Busqueda de usuarios</legend> 
                         username: <input type="text" name="searchText" value=""><br>

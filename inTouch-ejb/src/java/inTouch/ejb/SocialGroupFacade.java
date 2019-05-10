@@ -47,7 +47,7 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
         List<User> list;
         Query q;
         //q = this.em.createQuery("select p from Post p where socialGroup = 1");
-        q = this.em.createQuery("select m.member from Membership m where m.socialGroup =:sg")
+        q = this.em.createQuery("select m.member1 from Membership m where m.socialGroup =:sg")
         .setParameter("sg", group);
         list = q.getResultList();
         return list;   
