@@ -25,11 +25,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <%=NavMenu.toHtml("")%>
+            
+                   <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/navmenu.css">
 
             <title>Result list</title>
     </head>
     <body>
+        <%=NavMenu.toHtml("")%>
         <h1>Result list</h1>
         <!-- Friends -->
             <%
@@ -44,8 +47,9 @@
                     %>
                     <tr>
                         <td>
-                            <form action="addToGroupServlet?groupId=<%=currentGroupId%>" method="get" name="sendMembershipInvitation">
+                            <form action="addToGroupServlet" method="get" name="sendMembershipInvitation">
                                 <input type="hidden" name="addUserId" value="<%=user.getId()%>">
+                                <input type="hidden" name="groupId" value="<%=currentGroupId%>">
                                 <fieldset>
                                     <legend class="center-legend">
                                             <a href="getProfile?userId=<%=user.getId()%>"><%=user.getUsername()%></a>
