@@ -5,14 +5,16 @@
  */
 package inTouchServlets;
 
+import inTouch.ejb.MembershipFacade;
 import inTouch.ejb.PendingMembershipFacade;
 import inTouch.ejb.SocialGroupFacade;
 import inTouch.ejb.UserFacade;
-import inTouch.entity.PendingFriendship;
+import inTouch.entity.Membership;
 import inTouch.entity.PendingMembership;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -27,8 +29,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author jfaldanam
  */
-@WebServlet(name = "cancelPendingInvitation", urlPatterns = {"/cancelPendingInvitation"})
-public class cancelPendingInvitation extends HttpServlet {
+@WebServlet(name = "acceptPendingInvitation", urlPatterns = {"/acceptPendingInvitation"})
+public class acceptPendingInvitation extends HttpServlet {
 
     @EJB
     private UserFacade userFacade;
@@ -36,6 +38,8 @@ public class cancelPendingInvitation extends HttpServlet {
     private SocialGroupFacade socialGroupFacade;
     @EJB
     private PendingMembershipFacade pendingMembershipFacade;
+    @EJB
+    private MembershipFacade membershipFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,20 +60,25 @@ public class cancelPendingInvitation extends HttpServlet {
         if (pageURL == null)
             pageURL = "wallServlet";
         
-        String cancelGroupStr = request.getParameter("cancelGroupId");
-        int cancelGroupId = -1;       
+        String acceptGroupStr = request.getParameter("acceptGroupId");
+        int acceptGroupId = -1;       
         try {
-            cancelGroupId = Integer.parseInt(cancelGroupStr);
+            acceptGroupId = Integer.parseInt(acceptGroupStr);
         } catch(NumberFormatException e) {
             request.setAttribute("exception", e);
             RequestDispatcher rd = request.getRequestDispatcher("error");
             rd.forward(request, response);
         }
-        SocialGroup g = this.socialGroupFacade.find(cancelGroupId);
+        SocialGroup g = this.socialGroupFacade.find(acceptGroupId);
         
         List<PendingMembership> pendingMemberships = this.pendingMembershipFacade.findPendingFriendship(u, g);
         for (PendingMembership pendingMembership: pendingMemberships)
             this.pendingMembershipFacade.remove(pendingMembership);
+        
+        Membership mem = new Membership(0, false);
+        mem.setMember1(u);
+        mem.setSocialGroup(g);
+        membershipFacade.create(mem);
         
         response.sendRedirect(pageURL);
     }
