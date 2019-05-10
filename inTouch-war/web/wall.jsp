@@ -97,13 +97,15 @@
           .fixedButton {
               position: fixed;
               bottom: 75px;
-              right: 380px;
+              right: 408px;
+              padding: 12px 28px;
           }
           
           #postButton {
               position: fixed;
               bottom: 75px;
               right: 310px;
+              padding: 12px 28px;
           }
 
           textArea {
@@ -167,7 +169,7 @@
     
     <!-- Personal info  -->
     <div class="personalInfo" align="center">
-        <h1>User: <%=loggedUser.getUsername()%></h1>
+        <h1>Welcome: <%=loggedUser.getName()%> <%=loggedUser.getSurname()%> (<%=loggedUser.getUsername()%>)</h1>
     </div>
 
     <!-- Div for the wall on the main page (public/private) -->
@@ -182,9 +184,9 @@
 
             <td class="tabButtons">
                 <div align="center">
-                    <button class="tablink" onclick="openChat('Private', this, 'purple')" id="defaultOpen">Private</button>
+                    <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen">Private</button>
 
-                    <button class="tablink" onclick="openChat('Public', this, 'blue')">Public</button>
+                    <button class="tablink" onclick="openChat('Public', this)">Public</button>
                 </div>
             </td>
 
@@ -360,7 +362,7 @@
 
     <!-- Script for the tabs -->
     <script>
-        function openChat(chatName, place, color) {
+        function openChat(chatName, place) {
             let i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -371,7 +373,7 @@
                 tablinks[i].style.backgroundColor = "";
             }
             document.getElementById(chatName).style.display = "block";
-            place.style.backgroundColor = color;
+            place.style.backgroundColor = '#9b30ff';
 
         }
         

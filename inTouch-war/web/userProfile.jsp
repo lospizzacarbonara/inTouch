@@ -1,3 +1,5 @@
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="java.util.List"%>
 <%@page import="componentesHtml.NavMenu"%>
@@ -10,23 +12,44 @@
 <!DOCTYPE html>
 <%
     User user;
-    Boolean myProfile = false;
+    Boolean miPerfil = false;
     Boolean myFriend = false;
-    List<SocialGroup> myGroup = null;
+    List<SocialGroup> myGroup = Collections.emptyList();
     
     try
     {
         user = (User)request.getAttribute("user");
-        myProfile = (Boolean)request.getAttribute("myProfile");
-        myFriend = (Boolean)request.getAttribute("myFriend");
-        myGroup = (List)request.getAttribute("myGroup");
     }
     catch(NullPointerException e)
     {
         user = new User();
-        myProfile = false;
+    }
+    
+    try
+    {
+        miPerfil = (Boolean)request.getAttribute("myProfile");
+    }
+    catch(NullPointerException e)
+    {
+        miPerfil = false;
+    }
+    
+    try
+    {
+        myFriend = (Boolean)request.getAttribute("myFriend");
+    }
+    catch(NullPointerException e)
+    {
         myFriend = false;
-        myGroup = null;
+    }
+    
+    try
+    {
+        myGroup = (List)request.getAttribute("myGroup");
+    }
+    catch(NullPointerException e)
+    {
+        myGroup = Collections.emptyList();
     }
     
     
@@ -67,7 +90,7 @@
     }
     
     String inputDisabled = "";
-    if(!myProfile)
+    if(!miPerfil)
     {
         inputDisabled = "disabled=\"disabled\"";
     }
@@ -125,7 +148,7 @@
                             </td>
                         </tr>
                         <%
-                            if(myProfile || myFriend || !myGroup.isEmpty())
+                            if(miPerfil || myFriend || !myGroup.isEmpty())
                             {
                         %>
                         <tr>
@@ -191,7 +214,7 @@
                             <td>&nbsp;</td>
                         </tr>
                         <% 
-                            if(myProfile)
+                            if(miPerfil)
                             {
                         %>
                         <tr class="rowButton">
@@ -213,6 +236,8 @@
                         </tr>
                         <%
                             }
+                        %>
+                        <%
                             if(!myGroup.isEmpty())
                             {
                         %>
@@ -248,7 +273,7 @@
             usario -->
             
             <%
-                if(myProfile || myFriend)
+                if(miPerfil || myFriend)
                 {
             %>
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
@@ -268,7 +293,7 @@
                             <td>&nbsp;</td>
                         </tr>
                          <% 
-                            if(myProfile)
+                            if(miPerfil)
                             {
                         %>
                         <tr class="rowButton">
@@ -292,7 +317,7 @@
             %>
             
         <% 
-            if(myProfile)
+            if(miPerfil)
             {
         %>        
         <!-- Botón para ir a la opción de cambio de contraseña -->

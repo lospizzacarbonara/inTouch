@@ -7,6 +7,7 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -44,69 +45,36 @@ public class userProfileLoadServlet extends HttpServlet {
         
         Integer idUser = null;
         Integer idUserOther = null;
-        User user = new User();
-        User userOther = new User();
+        User user = null;
+        User userOther = null;
         Boolean myProfile = true;
         Boolean myFriend = false;
-        List<SocialGroup> myGroup = null;
-        String str = null;
+        List<SocialGroup> myGroup = Collections.emptyList();
         
         HttpSession session = request.getSession(false);
-        Object obj = session.getAttribute("userId");
-        if(obj != null)
-        {
-            str = obj.toString();
-        }
-        
-        if(obj != null)
-        {
-            try
-            {
-                idUser = Integer.parseInt(str);
-                user = this.userFacade.find(idUser);
-            }
-            catch(NumberFormatException msg)
-            {
-                String error = " ERROR: Formato de id de usuario (session) incorrecto: " + msg + "(str es: " + str + ")";
-                request.setAttribute("exception", error);
-                RequestDispatcher rd = request.getRequestDispatcher("/error");
-                rd.forward(request,response); 
-            }
-        }
+        idUser = (Integer)session.getAttribute("userId");
+        user = this.userFacade.find(idUser);
+               
         
         
-        
-        obj =  request.getAttribute("userId");
+        idUserOther = (Integer)request.getAttribute("userId");
          
-        if(obj != null)
+        if(idUserOther != null)
         {
-            str = obj.toString();
-            
-            try
+          
+            if(idUserOther != idUser)
             {
-                idUserOther = Integer.parseInt(str);
-                if(idUserOther != idUser)
-                {
-                    userOther = this.userFacade.find(idUserOther);
-                    myProfile = false;
-                    
-                    myFriend = this.friendshipFacade.areFriends(user, userOther);
-                    
-                    myGroup = this.membershipFacade.findGroupsBetweenUsers(user, userOther);
-                    
-                }
-            }
-            catch(NumberFormatException msg)
-            {
-                String error = " ERROR: Formato de id de usuario (request) incorrecto: " + msg + "(str es: " + str + ")";
-                request.setAttribute("exception", error);
-                RequestDispatcher rd = request.getRequestDispatcher("/error");
-                rd.forward(request,response); 
+                userOther = this.userFacade.find(idUserOther);
+                myProfile = false;
+
+                myFriend = this.friendshipFacade.areFriends(user, userOther);
+
+                myGroup = this.membershipFacade.findGroupsBetweenUsers(user, userOther);
+
             }
         }
 
-        
-        
+
         if(myProfile)
         {
            request.setAttribute("user",user);
