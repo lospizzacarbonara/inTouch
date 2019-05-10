@@ -10,8 +10,6 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.PendingFriendship;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -63,7 +61,7 @@ public class addFriendServlet extends HttpServlet {
         }
         User receiver = this.userFacade.find(addUserId);
         
-        PendingFriendship pending = new PendingFriendship(new Random().nextInt());
+        PendingFriendship pending = new PendingFriendship(0);
         pending.setSender(sender);
         pending.setReceiver(receiver);
         

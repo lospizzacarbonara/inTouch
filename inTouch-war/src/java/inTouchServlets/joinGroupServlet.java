@@ -12,7 +12,6 @@ import inTouch.entity.PendingMembership;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -67,7 +66,7 @@ public class joinGroupServlet extends HttpServlet {
         
         SocialGroup group = this.groupFacade.find(groupId);
         
-        PendingMembership pending = new PendingMembership(new Random().nextInt());
+        PendingMembership pending = new PendingMembership(0);
         pending.setInvitation(false);
         pending.setUser(loggedUser);
         pending.setSocialGroup(group);

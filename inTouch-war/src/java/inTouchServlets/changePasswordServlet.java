@@ -8,7 +8,6 @@ package inTouchServlets;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

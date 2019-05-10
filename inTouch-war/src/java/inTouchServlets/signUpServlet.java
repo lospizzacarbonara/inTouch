@@ -10,12 +10,6 @@ import inTouch.ejb.UserFacade;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,7 +50,7 @@ public class signUpServlet extends HttpServlet {
         String password = new String (request.getParameter("password").getBytes("ISO-8859-1"),"UTF-8");
         
         password = getSHA512(password);
-        User user = new User(new Random().nextInt(),username,password,email);
+        User user = new User(0,username,password,email);
         user.setName(name);
         user.setSurname(surname);
         

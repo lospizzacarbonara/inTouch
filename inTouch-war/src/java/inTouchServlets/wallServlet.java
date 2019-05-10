@@ -7,8 +7,6 @@ package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
 import inTouch.ejb.UserFacade;
-import inTouch.entity.PendingFriendship;
-import inTouch.entity.PendingMembership;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;

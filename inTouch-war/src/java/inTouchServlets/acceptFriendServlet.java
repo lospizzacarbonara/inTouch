@@ -13,7 +13,6 @@ import inTouch.entity.PendingFriendship;
 import inTouch.entity.User;
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -72,12 +71,12 @@ public class acceptFriendServlet extends HttpServlet {
         for (PendingFriendship pendingFriendship: pendingFriendships)
             this.pendingFriendshipFacade.remove(pendingFriendship);
         
-        Friendship friendship = new Friendship(new Random().nextInt());
+        Friendship friendship = new Friendship(0);
         friendship.setFriend1(sender);
         friendship.setFriend2(receiver);
         this.friendshipFacade.create(friendship);
         
-        Friendship friendship2 = new Friendship(new Random().nextInt());
+        Friendship friendship2 = new Friendship(0);
         friendship2.setFriend1(receiver);
         friendship2.setFriend2(sender);
         this.friendshipFacade.create(friendship2);
