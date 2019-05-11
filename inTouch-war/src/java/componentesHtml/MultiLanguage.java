@@ -5,11 +5,10 @@
  */
 package componentesHtml;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import json.simple.*;
 import json.simple.parser.*;
+import lang.English;
+import lang.Spanish;
 
 /**
  *
@@ -25,14 +24,21 @@ public class MultiLanguage {
         this.language = language;
         this.page = page;
         
+        String content = "";
+        
+        switch(language) {
+            case "english":
+                content = English.text;
+                break;
+            case "spanish":
+                content = Spanish.text;
+                break;
+        }
+        
         JSONParser parser = new JSONParser();
         try {
-            JSONObject full = (JSONObject) parser.parse(new FileReader("../lang/" + language + ".json"));
+            JSONObject full = (JSONObject) parser.parse(content);
             pageJson = (JSONObject)  full.get(page);
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found" + ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println("IO exception" + ex.getMessage());
         } catch (ParseException ex) {
             System.out.println("Parse Error" + ex.getMessage());
         }
@@ -46,10 +52,10 @@ public class MultiLanguage {
         MultiLanguage ml = new MultiLanguage("english", "login");
         
         System.out.println(ml.get("title"));
-        
-        MultiLanguage ml2 = new MultiLanguage("spanish", "login");
-        
-        System.out.println(ml2.get("title"));
+        System.out.println(ml.get("welcome"));
+        System.out.println(ml.get("introduceData"));
+        System.out.println(ml.get("title"));
+
     }
     
 }
