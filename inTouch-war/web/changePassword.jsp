@@ -1,4 +1,5 @@
-
+ 
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -53,12 +54,16 @@
     {
         passwordNueva2 = "";
     }
+    String lang = (String) session.getAttribute("lang");
+            if (lang == null)
+            lang = "english";
+            MultiLanguage ml = new MultiLanguage(lang, "addToGroup");
 
 %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cambio de contraseña</title>
+        <title><%=ml.get("updatePassword")%></title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/perfil.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
@@ -71,19 +76,19 @@
         
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">Cambio de contraseña</h1>
+            <h1  align="center"><%=ml.get("updatePassword")%></h1>
         </div>
         <br/>
 
         <form name="cambioDeClave" method="post" action="changePasswordSaveServlet">
             <fieldset name="cambioClave1" class="clave">
-                <legend>Cambio de contraseña</legend>
+                <legend><%=ml.get("updatePassword")%></legend>
                 <fieldset class="claveVieja">
-                    <legend>Contraseña vieja</legend>
+                    <legend><%=ml.get("OldPassword")%></legend>
                     <table name="clave" class="centradoClave">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="oldPassword">Contraseña actual:</label>
+                                <label for="oldPassword"><%=ml.get("currentPassword")%>:</label>
                             </th>
                             <td colspan="3">
                                 <input type="password" name="oldPassword" size="28" maxsize="28" value="<%= passwordVieja %>"/>
@@ -93,11 +98,11 @@
                 </fieldset>
     
                 <fieldset class="claveNueva">
-                    <legend>Introduzca la contraseña nueva</legend>
+                    <legend><%=ml.get("enterNewPassword")%></legend>
                     <table name="cambioClave2" class="centradoClave">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="newPassword">Contraseña nueva:</label>
+                                <label for="newPassword"><%=ml.get("newPassword")%>:</label>
                             </th>
                             <td colspan="3">
                                 <input type="password"  name="newPassword" size="28" maxsize="28" value="<%= passwordNueva1 %>"/>
@@ -105,7 +110,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="newPasswordAgain">Repita la contraseña nueva:</label>
+                                <label for="newPasswordAgain"><%=ml.get("repeatPassword")%>:</label>
                             </th>
                             <td colspan="3">
                                 <input type="password" name="newPasswordAgain" size="28" maxsize="28" value="<%= passwordNueva2 %>"/>
@@ -120,14 +125,14 @@
 
                 <fieldset name="cambioClave3" class="boton">
                     <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                    <button>Modificar la contraseña</button>
+                    <button><%=ml.get("submitChanges")%></button>
                     <br/><br/>
                     <%  
                         if((statusCode & 1) == 1)
                         {
                         %>
                             <div class="estadoError">
-                                Error : No se ha introducido la contraseña actual
+                                <%=ml.get("errorNoPassword")%>
                             </div>
                         <% 
                             }
@@ -137,7 +142,7 @@
                         {
                         %>
                             <div class="estadoError">
-                                Error : La contraseña introducida no es correcta
+                                <%=ml.get("errorIncorrectPassword")%>
                             </div>
                         <% 
                             }
@@ -147,7 +152,7 @@
                         {
                         %>
                             <div class="estadoError">
-                                Error : No se ha introducido la contraseña nueva
+                                <%=ml.get("errorNoNewPassword")%>
                             </div>
                         <% 
                             }
@@ -157,7 +162,7 @@
                         {
                         %>
                             <div class="estadoError">
-                                Error : No se ha introducido la repetición de la contraseña nueva
+                               <%=ml.get("errorNoRepeatedPassword")%>
                             </div>
                         <% 
                             }
@@ -167,7 +172,7 @@
                         {
                         %>
                             <div class="estadoError">
-                                Error : Debe introducir la misma contraseña en ambos campos de la contraseña nueva
+                                <%=ml.get("errorNoMatchPassword")%>
                             </div>
                         <% 
                             }
@@ -177,7 +182,7 @@
                         {
                         %>
                             <div class="estadoError">
-                                Error : La contraseña nueva es la misma que la contraseña actual
+                                <%=ml.get("errorSamePassword")%>
                             </div>
                         <% 
                             }
@@ -187,7 +192,7 @@
                         {
                         %>
                             <div class="estadoCorrecto">
-                                Exito: La contraseña se ha cambiado correctamente
+                                <%=ml.get("successPassword")%>
                             </div>
                         <% 
                             }

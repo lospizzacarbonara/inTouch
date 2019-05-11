@@ -1,3 +1,4 @@
+<%@page import="componentesHtml.MultiLanguage"%>
 <%-- 
     Document   : addToGroup
     Created on : 10-may-2019, 21:19:22
@@ -21,25 +22,30 @@
             if (userData != null){
                 userSet = userData.keySet();
             }
+               
+            String lang = (String) session.getAttribute("lang");
+            if (lang == null)
+            lang = "english";
+            MultiLanguage ml = new MultiLanguage(lang, "addToGroup");
 %>
 <!DOCTYPE html>
 <html>
     <head>
             
-                   <link rel="stylesheet" href="resources/css/inTouch.css">
+        <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
 
-            <title>Result list</title>
+            <title><%=ml.get("title_resultList")%></title>
     </head>
     <body>
         <%=NavMenu.toHtml("")%>
-        <h1>Result list</h1>
+        <h1><%=ml.get("resultList")%></h1>
         <!-- Friends -->
             <%
                 if (userSet != null) {
             %>
             <fieldset>
-                <legend>Amigos</legend> 
+                <legend><%=ml.get("friends")%></legend> 
                 <table>
                     <%
                         for (User user: userSet) {
@@ -58,15 +64,15 @@
                                                 SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)userData.get(user)[1];
                                                 if (memberStatus == SocialGroup.membershipStatus.member) { 
                                             %>
-                                                <input type="submit" value="Ya es socios" disabled>  
+                                                <input type="submit" value="<%=ml.get("alreadyMember") %>" disabled>  
                                             <%
                                                 } else if (memberStatus == SocialGroup.membershipStatus.pending) {
                                             %>
-                                                <input type="submit" value="Peticion enviada" disabled>
+                                                <input type="submit" value="<%=ml.get("petitionSent") %>" disabled>
                                             <%
                                                 } else {
                                             %>
-                                                <input type="submit" value="A&ntilde;adir miembro">
+                                                <input type="submit" value="<%=ml.get("addMember") %>">
                                             <%
                                                 }
                                             %>
@@ -80,7 +86,7 @@
                                         } else {
                                     %>
                                         <div class="italic">
-                                            <%=user.getUsername()%> aun no ha  hecho ningun post
+                                            <%=user.getUsername()%> <%ml.get("noPostYet"); %>
                                         </div>
                                     <%
                                         }
