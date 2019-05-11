@@ -20,6 +20,9 @@
         List<Post> groupPostList = (List<Post>)request.getAttribute("groupPostList");
         String groupDescription = (String)request.getAttribute("groupDescription");
         SocialGroup group = (SocialGroup)request.getAttribute("group");
+        //int currentGroupId = (Integer) session.getAttribute("groupId");
+        int loggedUserId = (Integer) session.getAttribute("userId");
+        //User user = new User(loggedUserId);
 %>
 <html> 
     <head>
@@ -40,9 +43,9 @@
         <%=groupDescription%>
     </div>
     
-                    <div class="memberList"align="left">
+                    <div class="memberList"align="center">
                     <div class="Members">
-                        <h2>Members</h2>
+                        <h2>Miembros</h2>
 
                     <%
                         for(User u: userList){
@@ -114,7 +117,16 @@
                         <input type="submit" value="Buscar">
                     </fieldset>
     
-            </form>
+                </form>
+                
+                    <h3>Salir de este grupo</h3>
+                    <form action="exitGroupServlet" method="post" name="exitGroup">
+                        <input type="hidden" name="userId" value="<%=loggedUserId%>">
+                        <input type="hidden" name="groupId" value="<%=group.getId()%>">
+                        <input type="hidden" name="pageURL" value="wallServlet">
+                        <input type="submit" value="Salir">
+
+                    </form>
                 
     <!-- modal script -->
     <script>
