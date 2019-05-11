@@ -1,0 +1,118 @@
+{
+    "addToGroup": {
+        "title_resultList": "Result list",
+        "resultList": "Result list",
+        "friends": "Friends",
+        "alreadyMember": "Already a member of the club",
+        "petitionSent": "Petition sent",
+        "addMember": "Send request to join the club",
+        "noPostYet": "This user has not made posts yet"
+    },
+    "changePassword": {
+        "updatePassword": "Update password",
+        "oldPassword": "Previous Password",
+        "currentPassword": "Current password",
+        "enterNewPassword": "Enter the new password",
+        "newPassword": "New password",
+        "repeatPassword": "Type again your new password",
+        "submitChanges": "Submit new password",
+        "errorNoPassword": "Error : missing current password",
+        "errorIncorrectPassword": "Error : the password was incorrect",
+        "errorNoNewPassword": "Error : missing new password",
+        "errorNoRepeatedPassword": "Error : new password repetition missing",
+        "errorNoMatchPassword": "Error : fields for the new password must match",
+        "errorSamePassword": "Error : The new password is the same as the current one",
+        "successPassword": "Success : the password has been updated"
+    },
+    "error":{
+        "thisError": "This is an error",
+        "noInfo": "There is no information about this error",
+        "moreDetails": "More details"
+    },
+    "friends":{
+        "pendingFriends": "Pending friendships requests",
+        "acceptFriend": "Accept friendship request",
+        "removeFriendship": "Delete friendship request",
+        "pendingAccepted": "Pending request to be accepted",
+        "cancelRequest": "Cancel friendship request",
+        "friends": "Friends",
+        "removeFriend": "Remove friend",
+        "noFriendsYet": "You have no friends yet",
+        "searchThem": "Go and meet them"
+    },
+    "wall": {
+        "title": "inTouch",
+        "welcome": "Welcome",
+        "groups": "Groups",
+        "invites": "Invites"
+    },
+    "userProfile": {
+        "title": "Your profile",
+        "userProfile": "User Profile",
+        "personalData": "Personal data",
+        "username": "Username",
+        "name": "Name",
+        "surname": "Surname:",
+        "birthDate": "Birth date",
+        "day": "Day",
+        "month": "Month",
+        "year": "Year",
+        "modifyData": "Modify personal data",
+        "isMyFriend": " is my friend",
+        "groupInCommon": "Groups in common",
+        "email": "E-mail",
+        "modifyEmail": "Modify e-mail",
+        "password": "Password",
+        "changePassword": "Change password"
+    },
+    "signUp": {
+        "title": "Sign up inTouch",
+        "registerHere": "Register here!",
+        "introduceData": "Introduce your data",
+        "name": "Name",
+        "surname": "Surname",
+        "email": "E-mail",
+        "birthDate": "Birth date",
+        "username": "Username",
+        "warningNoChange": "* This username can't be changed later",
+        "password": "Password",
+        "send": "Send"
+    },
+    "search": {
+        "title": "Search",
+        "userSearch": "Search for users and groups",
+        "search": "Search",
+        "users": "Users",
+        "alreadyFriend": "Already friends",
+        "petitionSent": "Petition send",
+        "addFriend": "Add as friend",
+        "noPostYet": " has not made posts yet",
+        "groups": "Groups",
+        "alreadyMember": "Already member",
+        "joinGroup": "Petition to join group"
+    },
+    "login": {
+        "title": "Log in inTouch",
+        "welcome": "Welcome to inTouch",
+        "introduceData": "Introduce log in data",
+        "username": "Username",
+        "password": "Password",
+        "logIn": "Log in",
+        "errorUsernameOrPassword": "Username and/or password are incorrect",
+        "registerApplication": "Register in our application",
+        "register": "Register"
+    },
+    "groupWall": {
+        "title": "Group wall",
+        "members": "Members",
+        "publications": "Publications",
+        "up": "Up",
+        "post": "Post",
+        "searchUserToAdd": "Search users to invite group",
+        "searchUser": "Search users",
+        "username": "Username",
+        "search": "Search",
+        "exitGroup": "Exit group",
+        "exit": "Exit"
+    }
+}

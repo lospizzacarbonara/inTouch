@@ -1,0 +1,118 @@
+{
+    "addToGroup": {
+        "title_resultList": "Resultados",
+        "resultList": "Resultados",
+        "friends": "Amigos",
+        "alreadyMember": "Ya es miembro",
+        "petitionSent": "Peticion enviada",
+        "addMember": "Enviar invitación al grupo",
+        "noPostYet": "este usuario aún no ha publicado nada"
+    },
+    "changePassword": {
+        "updatePassword": "Cambiar contrase&ntilde;a",
+        "oldPassword": "Contrase&ntilde;a antigua",
+        "currentPassword": "Contrase&ntilde;a actual",
+        "enterNewPassword": "Introduce la nueva contrase&ntilde;a",
+        "newPassword": "Nueva contrase&ntilde;a",
+        "repeatPassword": "Vuelve a escribir tu nueva contrase&ntilde;a",
+        "submitChanges": "Modificar mi contrase&ntilde;a",
+        "errorNoPassword": "Error : Por favor, escribe tu contrase&ntilde;a actual",
+        "errorIncorrectPassword": "Error : la contrase&ntilde;a no es correcta",
+        "errorNoNewPassword": "Error : Por favor, introduce tu nueva contrase&ntilde;a",
+        "errorNoRepeatedPassword": "Error : Por favor, repite tu nueva contrase&ntilde;a",
+        "errorNoMatchPassword": "Error : las contrase&ntilde;as no coinciden",
+        "errorSamePassword": "Error : La nueva contrase&ntilde;a y la actual son identicas",
+        "successPassword": "Exito : La contrase&ntilde;a ha sido modificada"
+    },
+    "error":{
+        "thisError": "Esto es un error",
+        "noInfo": "No hay informacion acerca de este error",
+        "moreDetails": "Mas detalles"
+    },
+    "friends":{
+        "pendingFriends": "Peticiones de amistad pendientes",
+        "acceptFriend": "Aceptar peticcion de amistad",
+        "removeFriendship": "Borrar peticion de amistad",
+        "pendingAccepted": "Peticion esperando confirmacion",
+        "cancelRequest": "Cancelar peticion de amistad",
+        "friends": "Amigos",
+        "removeFriend": "Eliminar amigo",
+        "noFriendsYet": "No tienes amigos por el momento",
+        "searchThem": "Vamos a conocerlos"
+    },
+    "wall": {
+        "title": "inTouch",
+        "welcome": "Bienvenidos",
+        "groups": "Grupos",
+        "invites": "Invitaciones"
+    },
+    "userProfile": {
+        "title": "Tu perfil",
+        "userProfile": "Perfil de usuario",
+        "personalData": "Informacion personal",
+        "username": "Nombre de usuario",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "birthDate": "Fecha de nacimiento",
+        "day": "Dia",
+        "month": "Mes",
+        "year": "a&ntilde;o",
+        "modifyData": "Modificar informacion personal",
+        "isMyFriend": " es mi amigo",
+        "groupInCommon": "Grupos en comun",
+        "email": "E-mail",
+        "modifyEmail": "Modificar e-mail",
+        "password": "Contrase&ntilde;a",
+        "changePassword": "Cambiar contrase&ntilde;a"
+    },
+    "signUp": {
+        "title": "Darse de alta en inTouch",
+        "registerHere": "Registrate aqui!",
+        "introduceData": "Introduce tus datos",
+        "name": "Nombre",
+        "surname": "Apellido",
+        "email": "E-mail",
+        "birthDate": "Fecha de nacimiento",
+        "username": "Nombre de usuario",
+        "warningNoChange": "* No podrás cambiar tu nombre de usuario despues",
+        "password": "Contrase&ntilde;a",
+        "send": "Enviar"
+    },
+    "search": {
+        "title": "Buscar",
+        "userSearch": "Buscar usuarios y grupos",
+        "search": "Buscar",
+        "users": "Usuarios",
+        "alreadyFriend": "Ya sois amigos",
+        "petitionSent": "Peticion enviada",
+        "addFriend": "A&ntilde;adir como amigo",
+        "noPostYet": " aun no ha publicado nada",
+        "groups": "Grupos",
+        "alreadyMember": "Ya es miembro",
+        "joinGroup": "Peticion para unirse al grupo"
+    },
+    "login": {
+        "title": "Entrar a inTouch",
+        "welcome": "Bienvenido a inTouch",
+        "introduceData": "Introduce tus datos",
+        "username": "Nombre de usuario",
+        "password": "Contrase&ntilde;a",
+        "logIn": "Accede",
+        "errorUsernameOrPassword": "Usuario y/o contrase&ntilde;a incorrectos",
+        "registerApplication": "Registrate en nuestra aplicacion",
+        "register": "Registrate"
+    },
+    "groupWall": {
+        "title": "Perfil del grupo",
+        "members": "Miembros",
+        "publications": "Publicaciones",
+        "up": "Arriba",
+        "post": "Publicaciones",
+        "searchUserToAdd": "Buscar usuarios para a&ntilde;adirlos al grupo",
+        "searchUser": "Buscar usuarios",
+        "username": "Nombre de usuario",
+        "search": "Buscar",
+        "exitGroup": "Salir del grupo",
+        "exit": "Salir"
+    }
+}
