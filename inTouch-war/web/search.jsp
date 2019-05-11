@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="markdownj.Markdown"%>
@@ -15,9 +16,15 @@
 <%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
+    <%
+        String lang = (String) session.getAttribute("lang");
+        if (lang == null)
+            lang = "english";
+        MultiLanguage ml = new MultiLanguage(lang, "search");
+    %>
 <html>
     <head>
-        <title>Search</title>
+        <title><%=ml.get("title")%></title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <link rel="stylesheet" href="resources/css/friends.css">
@@ -47,9 +54,9 @@
         <div align="center">
             <form action="search" method="post" name="searchField">
                     <fieldset>
-                        <legend>Busqueda de usuarios</legend> 
-                        username: <input type="text" name="searchText" value=<%=searchText%>><br>
-                        <input type="submit" value="Buscar">
+                        <legend><%=ml.get("userSearch")%></legend> 
+                        <%=ml.get("search")%>: <input type="text" name="searchText" value=<%=searchText%>><br>
+                        <input type="submit" value="<%=ml.get("search")%>">
                     </fieldset>
     
             </form>
@@ -58,7 +65,7 @@
                 if (userSet != null) {
             %>
             <fieldset>
-                <legend>Amigos</legend> 
+                <legend><%=ml.get("users")%></legend> 
                 <table>
                     <%
                         for (User user: userSet) {
@@ -75,15 +82,15 @@
                                                 User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
                                                 if (friendStatus == User.friendStatus.friends) { 
                                             %>
-                                                <input type="submit" value="Ya sois amigos" disabled>  
+                                                <input type="submit" value="<%=ml.get("alreadyFriend")%>" disabled>  
                                             <%
                                                 } else if (friendStatus == User.friendStatus.pending) {
                                             %>
-                                                <input type="submit" value="Peticion enviada" disabled>
+                                                <input type="submit" value="<%=ml.get("petitionSent")%>" disabled>
                                             <%
                                                 } else {
                                             %>
-                                                <input type="submit" value="A&ntilde;adir amigo">
+                                                <input type="submit" value="<%=ml.get("addFriend")%>">
                                             <%
                                                 }
                                             %>
@@ -97,7 +104,7 @@
                                         } else {
                                     %>
                                         <div class="italic">
-                                            <%=user.getUsername()%> aun no ha  hecho ningun post
+                                            <%=user.getUsername()%><%=ml.get("noPostYet")%>
                                         </div>
                                     <%
                                         }
@@ -122,7 +129,7 @@
                 if (groupSet != null) {
             %>
             <fieldset>
-                <legend>Grupos</legend> 
+                <legend><%=ml.get("groups")%></legend> 
                 <table>
                     <%
                         for (SocialGroup group: groupSet) {
@@ -139,15 +146,15 @@
                                                 SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
                                                 if (memberStatus == SocialGroup.membershipStatus.member) { 
                                             %>
-                                                <input type="submit" value="Ya eres miembro" disabled>  
+                                                <input type="submit" value="<%=ml.get("alreadyMember")%>" disabled>  
                                             <%
                                                 } else if (memberStatus == SocialGroup.membershipStatus.pending) {
                                             %>
-                                                <input type="submit" value="Peticion enviada" disabled>
+                                                <input type="submit" value="<%=ml.get("petitionSent")%>" disabled>
                                             <%
                                                 } else {
                                             %>
-                                                <input type="submit" value="Unirse a grupo">
+                                                <input type="submit" value="<%=ml.get("joinGroup")%>">
                                             <%
                                                 }
                                             %>
@@ -161,7 +168,7 @@
                                         } else {
                                     %>
                                         <div class="italic">
-                                            <%=group.getName()%> aun no ha  hecho ningun post
+                                            <%=group.getName()%><%=ml.get("noPostYet")%>
                                         </div>
                                     <%
                                         }

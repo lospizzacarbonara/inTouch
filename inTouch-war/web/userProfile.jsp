@@ -1,3 +1,4 @@
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="inTouch.entity.SocialGroup"%>
@@ -10,6 +11,12 @@
 <%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null)
+        lang = "english";
+    MultiLanguage ml = new MultiLanguage(lang, "userProfile");
+%>
 <%
     User user;
     Boolean miPerfil = false;
@@ -98,7 +105,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Perfil de usuario</title>
+        <title><%=ml.get("title")%></title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/perfil.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
@@ -111,7 +118,7 @@
 
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">Perfil de usuario</h1>
+            <h1  align="center"><%=ml.get("userProfile")%></h1>
         </div>
         <br/>
         
@@ -120,11 +127,11 @@
         al nombre de usuario está deshabilitado -->
         <form name="perfilDeUsuario" method="post" action="userProfileSaveServlet">
             <fieldset name="datosPersonales" class="datos">
-                <legend>Datos personales</legend>
+                <legend><%=ml.get("personalData")%></legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="user">Apodo:</label>
+                                <label for="user"><%=ml.get("username")%>:</label>
                             </th>
                             <td colspan="3">
                                 <!-- el nombre de usuario no se puede modificar -->
@@ -133,7 +140,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="name">Nombre:</label>
+                                <label for="name"><%=ml.get("name")%>:</label>
                             </th>
                             <td colspan="3">
                                 <input type="text"  name="name" size="28" maxsize="28" value="<%= nombre %>" <%= inputDisabled %>/>
@@ -141,7 +148,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="surname">Apellidos:</label>
+                                <label for="surname"><%=ml.get("surname")%>:</label>
                             </th>
                             <td colspan="3">
                                 <input type="text" name="surname" size="28" maxsize="28" value="<%= apellido %>" <%= inputDisabled %>/>
@@ -153,16 +160,16 @@
                         %>
                         <tr>
                             <th class="alineadoDerecha" rowspan="2" colspan="15">
-                                Fecha de nacimiento:
+                                <%=ml.get("birthDate")%>:
                             </th>
                             <th>
-                                <label for="dayBirth">Día</label>
+                                <label for="dayBirth"><%=ml.get("day")%></label>
                             </th>
                             <th>
-                                <label for="monthBirth">Mes</label>
+                                <label for="monthBirth"><%=ml.get("month")%></label>
                             </th>
                             <th>
-                                <label for="yearBirth">Año</label>
+                                <label for="yearBirth"><%=ml.get("year")%></label>
                             </th>
                         </tr>
                         <tr>
@@ -219,7 +226,7 @@
                         %>
                         <tr class="rowButton">
                             <td colspan="15" >
-                                <button>Modificar datos personales</button>
+                                <button><%=ml.get("modifyData")%></button>
                             </td>
                         </tr>
                         <%
@@ -231,7 +238,7 @@
                         %>
                         <tr class="rowButton">
                             <td colspan="30" >
-                                <%= user.getUsername() %> es mi amigo
+                                <%= user.getUsername() %><%=ml.get("isMyFriend")%>
                             </td>
                         </tr>
                         <%
@@ -243,7 +250,7 @@
                         %>
                         <tr class="rowButton">
                             <td colspan="15" >
-                            Grupos en comun: 
+                            <%=ml.get("groupInCommon")%>
                             </td>
                             <td colspan="15">
                         <%
@@ -278,11 +285,11 @@
             %>
             <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
                 <fieldset name="email" class="email">
-                    <legend>Correo Electronico</legend>
+                    <legend><%=ml.get("email")%></legend>
                     <table name="correo" class="centradoPerfil">
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                Correo Electronico:
+                                <%=ml.get("email")%>:
                             </th>
                             <td>
                                 <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %>" <%= inputDisabled %>/>
@@ -301,7 +308,7 @@
                                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
                                 <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
                                 <!-- <input type="submit" id="modificarEmail" disabled value="Modificar el Correo Electronico"/> -->
-                                <button name="modificarEmail">Modificar el Correo Electronico</button> 
+                                <button name="modificarEmail"><%=ml.get("modifyEmail")%></button> 
                             </td>
                         </tr>
                         <%
@@ -322,10 +329,10 @@
         %>        
         <!-- Botón para ir a la opción de cambio de contraseña -->
         <fieldset name="seguridad" class="seguridad">
-            <legend>Password</legend>
+            <legend><%=ml.get("password")%></legend>
             <form name="claveDeUsuario" method="post" action="changePasswordServlet">
                                 <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                                <button>Cambiar la contraseña</button>
+                                <button><%=ml.get("changePassword")%></button>
             </form>
         </fieldset>
         <% 

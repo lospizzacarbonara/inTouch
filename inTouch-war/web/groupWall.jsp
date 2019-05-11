@@ -4,6 +4,7 @@
     Author     : darioarrebola
 --%>
 
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="inTouch.entity.SocialGroup"%>
@@ -15,6 +16,12 @@
 
 
 <!DOCTYPE html>
+    <%
+        String lang = (String) session.getAttribute("lang");
+        if (lang == null)
+            lang = "english";
+        MultiLanguage ml = new MultiLanguage(lang, "groupWall");
+    %>
 <%
         List<User> userList = (List<User>)request.getAttribute("userList");
         List<Post> groupPostList = (List<Post>)request.getAttribute("groupPostList");
@@ -26,6 +33,7 @@
 %>
 <html> 
     <head>
+        <title><%=ml.get("title")%></title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <style>
@@ -45,7 +53,7 @@
     
                     <div class="memberList"align="center">
                     <div class="Members">
-                        <h2>Miembros</h2>
+                        <h2><%=ml.get("members")%></h2>
 
                     <%
                         for(User u: userList){
@@ -65,7 +73,7 @@
 
             <tr>
             <div class="Publicaciones" align="center">
-                 <h1>Publicaciones</h1>
+                 <h1><%=ml.get("publications")%></h1>
             </div>
             <td class="content">
                 <div id="Public" class="tabcontent">
@@ -94,10 +102,10 @@
         
     
                 <!-- Up button -->
-    <button class="fixedButton"><a href="#R1">UP</a></button>
+    <button class="fixedButton"><a href="#R1"><%=ml.get("up")%></a></button>
     
     <!-- Post button -->
-    <button id="postButton">Post</button>
+    <button id="postButton"><%=ml.get("post")%></button>
     <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -109,22 +117,22 @@
             </form>
         </div>
     </div>
-                <h3>Buscar usuarios para añadir</h3>    
+                <h3><%=ml.get("searchUserToAdd")%></h3>    
                 <form action="searchFromGroupServlet?groupId=<%=group.getId()%>" method="post" name="busqueda">
                     <fieldset>
-                        <legend>Busqueda de usuarios</legend> 
-                        username: <input type="text" name="searchText" value=""><br>
-                        <input type="submit" value="Buscar">
+                        <legend><%=ml.get("searchUser")%></legend> 
+                        <%=ml.get("username")%>: <input type="text" name="searchText" value=""><br>
+                        <input type="submit" value="<%=ml.get("search")%>">
                     </fieldset>
     
                 </form>
                 
-                    <h3>Salir de este grupo</h3>
+                    <h3><%=ml.get("exitGroup")%></h3>
                     <form action="exitGroupServlet" method="post" name="exitGroup">
                         <input type="hidden" name="userId" value="<%=loggedUserId%>">
                         <input type="hidden" name="groupId" value="<%=group.getId()%>">
                         <input type="hidden" name="pageURL" value="wallServlet">
-                        <input type="submit" value="Salir">
+                        <input type="submit" value="<%=ml.get("exit")%>">
 
                     </form>
                 

@@ -44,7 +44,13 @@
         "title": "inTouch",
         "welcome": "Bienvenidos",
         "groups": "Grupos",
-        "invites": "Invitaciones"
+        "friends": "Amigos",
+        "invites": "Invitaciones",
+        "accept": "Aceptar",
+        "deny": "Rechazar",
+        "up": "Subir",
+        "post": "Post",
+        "public": "Hacer publico"
     },
     "userProfile": {
         "title": "Tu perfil",
@@ -99,6 +105,7 @@
         "password": "Contrase&ntilde;a",
         "logIn": "Accede",
         "errorUsernameOrPassword": "Usuario y/o contrase&ntilde;a incorrectos",
+        "or": "&oacute;",
         "registerApplication": "Registrate en nuestra aplicacion",
         "register": "Registrate"
     },

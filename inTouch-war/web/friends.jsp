@@ -4,6 +4,7 @@
     Author     : jfaldanam
 --%>
 
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="markdownj.Markdown"%>
 <%@page import="inTouch.entity.Post"%>
 <%@page import="java.util.Set"%>
@@ -13,10 +14,16 @@
 <%@page import="componentesHtml.NavMenu"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+    <%
+        String lang = (String) session.getAttribute("lang");
+        if (lang == null)
+            lang = "english";
+        MultiLanguage ml = new MultiLanguage(lang, "friends");
+    %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Friends</title>
+        <title><%=ml.get("title")%></title>
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <link rel="stylesheet" href="resources/css/friends.css">
@@ -47,7 +54,7 @@
             if (pendingToAcceptFriendsSet.size() != 0) {
         %>
             <fieldset>
-                <legend>Pendientes de aceptar</legend> 
+                <legend><%=ml.get("pendingFriends")%></legend> 
                 <%
                     for (User user: pendingToAcceptFriendsSet) {
                 %>
@@ -57,11 +64,11 @@
                         </legend>
                         <form action="acceptFriend" method="get" name="acceptFriend">
                                 <input type="hidden" name="acceptUserId" value="<%=user.getId()%>">
-                                <input type="submit" value="Aceptar petici&oacute;n amigo">
+                                <input type="submit" value="<%=ml.get("acceptFriend")%>">
                         </form>
                         <form action="cancelPendingFriend" method="get" name="cancelPendingFriend">
                                 <input type="hidden" name="cancelUserId" value="<%=user.getId()%>">
-                                <input type="submit" value="Eliminar petici&oacute;n amigo">
+                                <input type="submit" value="<%=ml.get("removeFriendship")%>">
                         </form>
                     </fieldset>
                 <%
@@ -75,7 +82,7 @@
             if (pendingFriendsSet.size() != 0) {
         %>
             <fieldset>
-                <legend>Pendientes de ser aceptadas</legend> 
+                <legend><%=ml.get("pendingAccepted")%></legend> 
                 <%
                     for (User user: pendingFriendsSet) {
                 %>
@@ -85,7 +92,7 @@
                         </legend>
                         <form action="cancelPendingFriend" method="get" name="cancelPendingFriend">
                                 <input type="hidden" name="cancelUserId" value="<%=user.getId()%>">
-                                <input type="submit" value="Cancelar petici&oacute;n amigo">
+                                <input type="submit" value="<%=ml.get("cancelRequest")%>">
                         </form>
                     </fieldset>
                 <%
@@ -99,7 +106,7 @@
             if (friendsSet.size() != 0) {
         %>
             <fieldset>
-                <legend>Amigos</legend> 
+                <legend><%=ml.get("friends")%></legend> 
                 <%
                     for (User user: friendsSet) {
                 %>
@@ -109,7 +116,7 @@
                         </legend>
                         <form action="removeFriend" method="get" name="removeFriend">
                                 <input type="hidden" name="removeUserId" value="<%=user.getId()%>">
-                                <input type="submit" value="Eliminar amigo">
+                                <input type="submit" value="<%=ml.get("removeFriend")%>">
                         </form>
                     </fieldset>
                 <%
@@ -120,8 +127,8 @@
             } else {
         %>
             <fieldset>
-                <legend>Amigos</legend> 
-                No tienes aun ningun amigo. <a href="search">Buscalos</a>
+                <legend><%=ml.get("friends")%></legend> 
+                <%=ml.get("noFriendsYet")%> <a href="search"><%=ml.get("searchThem")%></a>
             </fieldset>
         <%
             }

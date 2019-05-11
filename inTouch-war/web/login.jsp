@@ -7,21 +7,21 @@
 <%@page import="componentesHtml.MultiLanguage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login inTouch</title>
-        <link rel="stylesheet" href="resources/css/inTouch.css">
-        <style type="text/css">
-            #Error {color: red}
-        </style>
-        <meta charset="UTF-8">
-    </head>
     <%
         String lang = (String) session.getAttribute("lang");
         if (lang == null)
             lang = "english";
         MultiLanguage ml = new MultiLanguage(lang, "login");
     %>
+<html>
+    <head>
+        <title><%=ml.get("title")%></title>
+        <link rel="stylesheet" href="resources/css/inTouch.css">
+        <style type="text/css">
+            #Error {color: red}
+        </style>
+        <meta charset="UTF-8">
+    </head>
     <body>
  
         <h1 align="center"><%=ml.get("welcome")%></h1>
@@ -50,11 +50,11 @@
          <%
                        }
          %> 
-         <h3 align="center"> &oacute; </h3>  
+         <h3 align="center"> <%=ml.get("or")%> </h3>  
          
         <h2 align="center"><%=ml.get("registerApplication")%></h2>
             <p align="center">
-            <button class="enlace" role="link" onclick="window.location='signUp.html'"><%=ml.get("register")%></button>
+            <button class="enlace" role="link" onclick="window.location='signUp.jsp'"><%=ml.get("register")%></button>
             </p>
     </body>
 </html>

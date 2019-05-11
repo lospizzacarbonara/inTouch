@@ -56,7 +56,13 @@ public class English {
 "        \"title\": \"inTouch\",\n" +
 "        \"welcome\": \"Welcome\",\n" +
 "        \"groups\": \"Groups\",\n" +
-"        \"invites\": \"Invites\"\n" +
+"        \"friends\": \"Friends\",\n" +
+"        \"invites\": \"Invites\",\n" +
+"        \"accept\": \"Accept\",\n" +
+"        \"deny\": \"Deny\",\n" +
+"        \"up\": \"Up\",\n" +
+"        \"post\": \"Post\",\n" +
+"        \"public\": \"Make public\"\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Your profile\",\n" +
@@ -111,6 +117,7 @@ public class English {
 "        \"password\": \"Password\",\n" +
 "        \"logIn\": \"Log in\",\n" +
 "        \"errorUsernameOrPassword\": \"Username and/or password are incorrect\",\n" +
+"        \"or\": \"or\",\n" +
 "        \"registerApplication\": \"Register in our application\",\n" +
 "        \"register\": \"Register\"\n" +
 "    },\n" +

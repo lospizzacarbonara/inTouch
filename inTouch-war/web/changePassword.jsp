@@ -57,7 +57,7 @@
     String lang = (String) session.getAttribute("lang");
             if (lang == null)
             lang = "english";
-            MultiLanguage ml = new MultiLanguage(lang, "addToGroup");
+            MultiLanguage ml = new MultiLanguage(lang, "changePassword");
 
 %>
 <html>
@@ -84,7 +84,7 @@
             <fieldset name="cambioClave1" class="clave">
                 <legend><%=ml.get("updatePassword")%></legend>
                 <fieldset class="claveVieja">
-                    <legend><%=ml.get("OldPassword")%></legend>
+                    <legend><%=ml.get("oldPassword")%></legend>
                     <table name="clave" class="centradoClave">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">

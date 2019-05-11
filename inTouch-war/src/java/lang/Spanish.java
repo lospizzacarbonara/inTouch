@@ -56,7 +56,13 @@ public class Spanish {
 "        \"title\": \"inTouch\",\n" +
 "        \"welcome\": \"Bienvenidos\",\n" +
 "        \"groups\": \"Grupos\",\n" +
-"        \"invites\": \"Invitaciones\"\n" +
+"        \"friends\": \"Amigos\",\n" +
+"        \"invites\": \"Invitaciones\",\n" +
+"        \"accept\": \"Aceptar\",\n" +
+"        \"deny\": \"Rechazar\",\n" +
+"        \"up\": \"Subir\",\n" +
+"        \"post\": \"Post\",\n" +
+"        \"public\": \"Hacer publico\"\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Tu perfil\",\n" +
@@ -111,6 +117,7 @@ public class Spanish {
 "        \"password\": \"Contrase&ntilde;a\",\n" +
 "        \"logIn\": \"Accede\",\n" +
 "        \"errorUsernameOrPassword\": \"Usuario y/o contrase&ntilde;a incorrectos\",\n" +
+"        \"or\": \"&oacute;\",\n" +
 "        \"registerApplication\": \"Registrate en nuestra aplicacion\",\n" +
 "        \"register\": \"Registrate\"\n" +
 "    },\n" +

@@ -3,6 +3,7 @@
     Created on : Apr 1, 2019, 9:29:09 AM
     Author     : Nellogy
 --%>
+<%@page import="componentesHtml.MultiLanguage"%>
 <%@page import="inTouch.entity.SocialGroup"%>
 <%@page import="componentesHtml.NavMenu"%>
 <%@page import="markdownj.Markdown"%>
@@ -11,7 +12,12 @@
 <%@page import="inTouch.entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<%
+    String lang = (String) session.getAttribute("lang");
+    if (lang == null)
+        lang = "english";
+    MultiLanguage ml = new MultiLanguage(lang, "wall");
+%>
 <%
     
     List<Post> globalPostList = (List<Post>)request.getAttribute("globalPostList");
@@ -30,7 +36,7 @@
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>inTouch</title>
+        <title><%=ml.get("title")%></title>
     <style>
           td {
               border-top: 1px solid white;
@@ -169,7 +175,7 @@
     
     <!-- Personal info  -->
     <div class="personalInfo" align="center">
-        <h1>Welcome: <%=loggedUser.getName()%> <%=loggedUser.getSurname()%> (<%=loggedUser.getUsername()%>)</h1>
+        <h1><%=ml.get("welcome")%>: <%=loggedUser.getName()%> <%=loggedUser.getSurname()%> (<%=loggedUser.getUsername()%>)</h1>
     </div>
 
     <!-- Div for the wall on the main page (public/private) -->
@@ -178,7 +184,7 @@
             <td class="groupHeader">
                 <!-- Groups div -->
                 <div>
-                    <h1>GROUPS</h1>
+                    <h1><%=ml.get("groups")%></h1>
                 </div>
             </td>
 
@@ -193,7 +199,7 @@
             <td class="inviteHeader">
                 <!-- Invites div -->
                 <div>
-                    <h1>INVITES</h1>
+                    <h1><%=ml.get("invites")%></h1>
                 </div>
             </td>
         </tr>
@@ -262,7 +268,7 @@
                 <% if(!friendInviteList.isEmpty()){
                 %>
                     <br/>
-                    <h3>Friends</h3>
+                    <h3><%=ml.get("friends")%></h3>
                     <hr/>
                     <%
                         for (User user: friendInviteList) {
@@ -274,12 +280,12 @@
                             <form action="acceptFriend" method="post" name="acceptFriend">
                                     <input type="hidden" name="acceptUserId" value="<%=user.getId()%>"/>
                                     <input type="hidden" name="pageURL" value="wallServlet"/>
-                                    <input type="submit" value="Aceptar"/>
+                                    <input type="submit" value="<%=ml.get("accept")%>"/>
                             </form>
                             <form action="cancelPendingFriend" method="post" name="cancelPendingFriend">
                                     <input type="hidden" name="cancelUserId" value="<%=user.getId()%>"/>
                                     <input type="hidden" name="pageURL" value="wallServlet"/>
-                                    <input type="submit" value="Rechazar"/>
+                                    <input type="submit" value="<%=ml.get("deny")%>"/>
                             </form>
                         </fieldset>
                 <%
@@ -289,7 +295,7 @@
                     if(!groupInviteList.isEmpty()){
                 %>        
                     <br/>
-                    <h3>Groups</h3>
+                    <h3><%=ml.get("groups")%></h3>
                     <hr/>
                     <%
                         for (SocialGroup sg: groupInviteList) {
@@ -301,12 +307,12 @@
                             <form action="acceptPendingInvitation" method="post" name="acceptGroup">
                                     <input type="hidden" name="acceptGroupId" value="<%=sg.getId()%>">
                                     <input type="hidden" name="pageURL" value="wallServlet"/>
-                                    <input type="submit" value="Aceptar">
+                                    <input type="submit" value="<%=ml.get("accept")%>">
                             </form>
                             <form action="cancelPendingInvitation" method="post" name="rejectGroup">
                                     <input type="hidden" name="cancelGroupId" value="<%=sg.getId()%>">
                                     <input type="hidden" name="pageURL" value="wallServlet"/>
-                                    <input type="submit" value="Rechazar">
+                                    <input type="submit" value="<%=ml.get("deny")%>">
                             </form>
                         </fieldset>
                 <%
@@ -318,10 +324,10 @@
     </table>
 
     <!-- Up button -->
-    <a href="#R1"><button class="fixedButton">UP</button></a>
+    <a href="#R1"><button class="fixedButton"><%=ml.get("up")%></button></a>
     
     <!-- Post button -->
-    <button id="postButton">Post</button>
+    <button id="postButton"><%=ml.get("post")%></button>
     
     <!-- Post form -->
     <div id="postModal" class="modal" align="center">
@@ -329,7 +335,7 @@
             <span class="close">&times;</span>
             <form id="postForm" method="POST" action="createPostServlet">
                 <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
-                Make Public <input type="checkbox" name="isPublic" /><br/>
+                <%=ml.get("public")%> <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
                 <input type="submit"/>
             </form>
