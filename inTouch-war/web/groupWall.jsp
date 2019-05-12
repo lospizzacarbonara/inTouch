@@ -37,6 +37,12 @@
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <style>
+                      .fixedButton {
+              position: fixed;
+              bottom: 75px;
+              right: 380px;
+              padding: 12px 28px;
+          }
 
       </style>
 </head>
@@ -62,7 +68,7 @@
                         for(User u: userList){
                     %>
                             <a href="getProfile?userId=<%=u.getId() %>">             
-                                <%=u.getUsername()%></a>
+                                <%=u.getUsername()%></a>  -  
                        
                     <%
                         }
