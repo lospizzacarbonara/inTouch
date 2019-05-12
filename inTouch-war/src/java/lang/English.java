@@ -42,6 +42,7 @@ public class English {
 "        \"moreDetails\": \"More details\"\n" +
 "    },\n" +
 "    \"friends\":{\n" +
+"        \"title\": \"Friends\",\n" +
 "        \"pendingFriends\": \"Pending friendships requests\",\n" +
 "        \"acceptFriend\": \"Accept friendship request\",\n" +
 "        \"removeFriendship\": \"Delete friendship request\",\n" +
@@ -63,6 +64,14 @@ public class English {
 "        \"up\": \"Up\",\n" +
 "        \"post\": \"Post\",\n" +
 "        \"public\": \"Make public\"\n" +
+"        \"submit\": \"Publish\",\n" +
+"        \"message\": \"Write your message:\",\n" +
+"        \"createGroup\": \"New Group\",\n" +
+"        \"groupName\": \"Group Name:\",\n" +
+"        \"groupDesc\": \"Group Description:\",\n" +
+"        \"submitGroup\": \"Create group\",\n" +
+"        \"public\": \"Public\",\n" +
+"        \"private\": \"Private\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Your profile\",\n" +
@@ -105,6 +114,7 @@ public class English {
 "        \"petitionSent\": \"Petition send\",\n" +
 "        \"addFriend\": \"Add as friend\",\n" +
 "        \"noPostYet\": \" has not made posts yet\",\n" +
+"        \"noResultFound\": \" No results found\",\n" +
 "        \"groups\": \"Groups\",\n" +
 "        \"alreadyMember\": \"Already member\",\n" +
 "        \"joinGroup\": \"Petition to join group\"\n" +

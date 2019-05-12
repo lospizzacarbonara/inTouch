@@ -103,22 +103,30 @@
           .fixedButton {
               position: fixed;
               bottom: 75px;
-              right: 408px;
+              right: 380px;
               padding: 12px 28px;
           }
           
           #postButton {
               position: fixed;
               bottom: 75px;
-              right: 310px;
+              right: 280px;
               padding: 12px 28px;
           }
 
           textArea {
+              font-family: Arial, Helvetica, sans-serif;
+              color: black;
               background: #b0bec5;
               border: none;
               border-radius: 4px;
                   
+          }
+          
+          .groupName {
+              background: #b0bec5;
+              border: none;
+              border-radius: 4px;
           }
           
           /* The Modal (background) */
@@ -165,6 +173,10 @@
             #postModal{
                 color: black;
             }
+            
+            #createGroupModal{
+                color: black;
+            }
       </style>
 </head>
 
@@ -190,9 +202,9 @@
 
             <td class="tabButtons">
                 <div align="center">
-                    <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen">Private</button>
+                    <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen"><%=ml.get("private")%></button>
 
-                    <button class="tablink" onclick="openChat('Public', this)">Public</button>
+                    <button class="tablink" onclick="openChat('Public', this)"><%=ml.get("public")%></button>
                 </div>
             </td>
 
@@ -206,14 +218,18 @@
 
         <tr>
             <td class="groupList">
+                <br/>
                 <% 
                     for(SocialGroup sg : groupList){
                 %>
-                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
+                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a>
                 <br/>
                 <% 
                     }
                 %>
+                <!-- createGroup button -->
+                <br/>
+                <button id="createGroupButton"><%=ml.get("createGroup")%></button>
             </td>
 
             <td class="content">
@@ -333,21 +349,43 @@
     <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
+            <div align="center"><p><%=ml.get("message")%></p></div>
             <form id="postForm" method="POST" action="createPostServlet">
-                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
+                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/><br/>
                 <%=ml.get("public")%> <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
-                <input type="submit"/>
+                <input type="submit" value="<%=ml.get("submit")%>"/>
+            </form>
+        </div>
+    </div>
+            
+    <!-- Create group form -->
+    <div id="createGroupModal" class="modal" align="center">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="createGroupForm" method="POST" action="createGroupServlet">
+                <div align="center"><p><%=ml.get("groupName")%></p></div>
+                <input type="text" class="groupName" name="groupName" />
+                <br/><br/><br/>
+                <div align="center"><p><%=ml.get("groupDesc")%></p></div>
+                <textarea rows="5" cols="50" name="body" form="createGroupForm"></textarea><br/><br/>
+                <!-- date and author on servlet -->
+                <input type="submit" value="<%=ml.get("submitGroup")%>"/>
             </form>
         </div>
     </div>
 
-    <!-- modal script -->
+    <!-- post modal script -->
     <script>
         // Modal script
         let modal = document.getElementById("postModal");
         let btn = document.getElementById("postButton");
         let span = document.getElementsByClassName("close")[0];
+        
+        // Modal script
+        let cgModal = document.getElementById("createGroupModal");
+        let cgBtn = document.getElementById("createGroupButton");
+        let cgSpan = document.getElementsByClassName("close")[1];
         
         btn.onclick = function() {
             if(modal.style.display !== "block"){
@@ -357,13 +395,29 @@
             }
         };
         
+        cgBtn.onclick = function() {
+            if(cgModal.style.display !== "block"){
+                cgModal.style.display = "block";
+            } else {
+                cgModal.style.display = "none";
+            }
+        };
+        
         span.onclick = function() {
             modal.style.display = "none";
+        };
+        
+        cgSpan.onclick = function() {
+            cgModal.style.display = "none";
         };
         
         window.onclick = function(event) {
             if(event.target === modal){
                 modal.style.display="none";
+            }
+            
+            if(event.target === cgModal){
+                cgModal.style.display="none";
             }
         };
     </script>
