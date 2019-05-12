@@ -49,3 +49,10 @@
      -moz-border-radius: 20px;
      -o-border-radius: 20px;
 }
+
+select {
+    border-radius: 8px;
+    color: white;
+    background: #565656;
+    padding: 3px;
+}

@@ -13,6 +13,12 @@ public class NavMenu {
     private final static String active = "\"#\" class=\"active\"";
     
     public static String toHtml(String activo) {
+        String langOption = "<li><select name=\"language\" onchange=\"location = this.value;\">\n" +
+"                <option value=\"#\" selected>Language</option>" +
+"                <option value =\"/inTouch-war/lang?lang=spanish\">Spanish</option>\n" +
+"                <option value =\"/inTouch-war/lang?lang=english\">English</option>\n" +
+"                </select></li> ";
+        
         String tmp =
             "<!-- Menú de navegación horizontal superior, utiliza la hoja de estilo menucss.css -->\n" +
             "        <div id=\"menu\">\n" +
@@ -21,11 +27,10 @@ public class NavMenu {
             "                <li><a href=" + ((activo.equals("myProfile")) ? active : "\"/inTouch-war/userProfileLoadServlet\"") + ">Profile</a></li>\n" +
             "                <li><a href=" + ((activo.equals("friends")) ? active : "\"/inTouch-war/friends\"") + ">Friends</a></li>\n" +
             "                <li><a href=" + ((activo.equals("search")) ? active : "\"/inTouch-war/search\"") + ">Search</a></li>\n" +
-            "                <li><a href=\"/inTouch-war/lang?lang=spanish\">Spanish</a></li>\n" +
-            "                <li><a href=\"/inTouch-war/lang?lang=english\">English</a></li>\n" +
-            "                <li><a href=\"/inTouch-war/logout\">Log out</a></li>\n" +
+            "                <li><a href=\"/inTouch-war/logout\">Log out</a></li>\n" + langOption +
             "            </ul>\n" +
             "        </div>";
+        
         
         return tmp;
     }
