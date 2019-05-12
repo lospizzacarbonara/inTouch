@@ -5,13 +5,22 @@
  */
 package inTouchServlets;
 
+import inTouch.ejb.MembershipFacade;
+import inTouch.ejb.SocialGroupFacade;
+import inTouch.ejb.UserFacade;
+import inTouch.entity.Membership;
+import inTouch.entity.SocialGroup;
+import inTouch.entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Date;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +29,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "createGroupServlet", urlPatterns = {"/createGroupServlet"})
 public class createGroupServlet extends HttpServlet {
 
+    @EJB
+    SocialGroupFacade sgFacade;
+    
+    @EJB
+    MembershipFacade memFacade;
+    
+    @EJB
+    UserFacade userFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +48,25 @@ public class createGroupServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet createGroupServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet createGroupServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        HttpSession session = request.getSession();
+        int userId = (Integer) session.getAttribute("userId");
+        User user = this.userFacade.find(userId);
+        
+        
+        String groupName = request.getParameter("groupName");
+        String groupDescription = request.getParameter("body");
+        
+        SocialGroup group = new SocialGroup(0, groupName, new Date());
+        group.setDescription(groupDescription);
+        this.sgFacade.create(group);
+        
+        Membership mem = new Membership(0, true);
+        mem.setSocialGroup(group);
+        mem.setMember1(user);
+        this.memFacade.create(mem);
+        
+        response.sendRedirect("groupWallServlet?groupId="+group.getId());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
