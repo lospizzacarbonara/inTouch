@@ -121,6 +121,12 @@
                   
           }
           
+          .groupName {
+              background: #b0bec5;
+              border: none;
+              border-radius: 4px;
+          }
+          
           /* The Modal (background) */
           .modal {
               display: none; /* Hidden by default */
@@ -165,6 +171,10 @@
             #postModal{
                 color: black;
             }
+            
+            #createGroupModal{
+                color: black;
+            }
       </style>
 </head>
 
@@ -206,14 +216,18 @@
 
         <tr>
             <td class="groupList">
+                <br/>
                 <% 
                     for(SocialGroup sg : groupList){
                 %>
-                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a> <!-- Hace falta saber como enlazarlos -->
+                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a>
                 <br/>
                 <% 
                     }
                 %>
+                <!-- createGroup button -->
+                <br/>
+                <button id="createGroupButton"><%=ml.get("createGroup")%></button>
             </td>
 
             <td class="content">
@@ -342,13 +356,34 @@
             </form>
         </div>
     </div>
+            
+    <!-- Create group form -->
+    <div id="createGroupModal" class="modal" align="center">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="createGroupForm" method="POST" action="createGroupServlet">
+                <div align="center"><p><%=ml.get("groupName")%></p></div>
+                <input type="text" class="groupName" name="groupName" />
+                <br/><br/><br/>
+                <div align="center"><p><%=ml.get("groupDesc")%></p></div>
+                <textarea rows="5" cols="50" name="body" form="createGroupForm"></textarea><br/><br/>
+                <!-- date and author on servlet -->
+                <input type="submit" value="<%=ml.get("submitGroup")%>"/>
+            </form>
+        </div>
+    </div>
 
-    <!-- modal script -->
+    <!-- post modal script -->
     <script>
         // Modal script
         let modal = document.getElementById("postModal");
         let btn = document.getElementById("postButton");
         let span = document.getElementsByClassName("close")[0];
+        
+        // Modal script
+        let cgModal = document.getElementById("createGroupModal");
+        let cgBtn = document.getElementById("createGroupButton");
+        let cgSpan = document.getElementsByClassName("close")[1];
         
         btn.onclick = function() {
             if(modal.style.display !== "block"){
@@ -358,13 +393,29 @@
             }
         };
         
+        cgBtn.onclick = function() {
+            if(cgModal.style.display !== "block"){
+                cgModal.style.display = "block";
+            } else {
+                cgModal.style.display = "none";
+            }
+        };
+        
         span.onclick = function() {
             modal.style.display = "none";
+        };
+        
+        cgSpan.onclick = function() {
+            cgModal.style.display = "none";
         };
         
         window.onclick = function(event) {
             if(event.target === modal){
                 modal.style.display="none";
+            }
+            
+            if(event.target === cgModal){
+                cgModal.style.display="none";
             }
         };
     </script>

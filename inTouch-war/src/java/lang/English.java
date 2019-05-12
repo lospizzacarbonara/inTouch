@@ -66,6 +66,10 @@ public class English {
 "        \"public\": \"Make public\"\n" +
 "        \"submit\": \"Publish\",\n" +
 "        \"message\": \"Write your message:\",\n" +
+"        \"createGroup\": \"New Group\",\n" +
+"        \"groupName\": \"Group Name:\",\n" +
+"        \"groupDesc\": \"Group Description:\",\n" +
+"        \"submitGroup\": \"Create group\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Your profile\",\n" +

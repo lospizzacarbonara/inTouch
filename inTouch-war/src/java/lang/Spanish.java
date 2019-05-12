@@ -66,6 +66,10 @@ public class Spanish {
 "        \"public\": \"Hacer publico\"\n" +
 "        \"submit\": \"Publicar\",\n" +
 "        \"message\": \"Escribe tu mensaje:\",\n" +
+"        \"createGroup\": \"Nuevo Grupo\",\n" +
+"        \"groupName\": \"Nombre del grupo:\",\n" +
+"        \"groupDesc\": \"Descripción del grupo:\",\n" +
+"        \"submitGroup\": \"Crear grupo\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Tu perfil\",\n" +
