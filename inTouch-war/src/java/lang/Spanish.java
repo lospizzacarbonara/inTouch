@@ -70,6 +70,8 @@ public class Spanish {
 "        \"groupName\": \"Nombre del grupo:\",\n" +
 "        \"groupDesc\": \"Descripción del grupo:\",\n" +
 "        \"submitGroup\": \"Crear grupo\",\n" +
+"        \"public\": \"Publicaciones publicas\",\n" +
+"        \"private\": \"Publicaciones de amigos y grupos\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Tu perfil\",\n" +

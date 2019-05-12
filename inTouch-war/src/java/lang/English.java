@@ -70,6 +70,8 @@ public class English {
 "        \"groupName\": \"Group Name:\",\n" +
 "        \"groupDesc\": \"Group Description:\",\n" +
 "        \"submitGroup\": \"Create group\",\n" +
+"        \"public\": \"Public Posts\",\n" +
+"        \"private\": \"Friend and Group Posts\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Your profile\",\n" +

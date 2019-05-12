@@ -200,9 +200,9 @@
 
             <td class="tabButtons">
                 <div align="center">
-                    <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen">Private</button>
+                    <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen"><%=ml.get("private")%></button>
 
-                    <button class="tablink" onclick="openChat('Public', this)">Public</button>
+                    <button class="tablink" onclick="openChat('Public', this)"><%=ml.get("public")%></button>
                 </div>
             </td>
 
