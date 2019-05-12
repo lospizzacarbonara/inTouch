@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `inTouch`.`SocialGroup` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `creationDate` DATE NOT NULL,
-  `description` VARCHAR(45) NULL DEFAULT NULL,
+  `description` VARCHAR(500) NULL DEFAULT NULL,
   `type` INT(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ;
