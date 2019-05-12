@@ -65,7 +65,7 @@ public class SocialGroup implements Serializable, Comparable {
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
-    @Size(max = 45)
+    @Size(max = 500)
     @Column(name = "description")
     private String description;
     @Column(name = "type")
