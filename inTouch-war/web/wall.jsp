@@ -333,11 +333,12 @@
     <div id="postModal" class="modal" align="center">
         <div class="modal-content">
             <span class="close">&times;</span>
+            <div align="center"><p><%=ml.get("message")%></p></div>
             <form id="postForm" method="POST" action="createPostServlet">
-                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
+                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/><br/>
                 <%=ml.get("public")%> <input type="checkbox" name="isPublic" /><br/>
                 <!-- date and author on servlet -->
-                <input type="submit"/>
+                <input type="submit" value="<%=ml.get("submit")%>"/>
             </form>
         </div>
     </div>

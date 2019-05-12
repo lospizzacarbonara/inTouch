@@ -55,7 +55,7 @@ public class Spanish {
 "    },\n" +
 "    \"wall\": {\n" +
 "        \"title\": \"inTouch\",\n" +
-"        \"welcome\": \"Bienvenidos\",\n" +
+"        \"welcome\": \"Bienvenido\",\n" +
 "        \"groups\": \"Grupos\",\n" +
 "        \"friends\": \"Amigos\",\n" +
 "        \"invites\": \"Invitaciones\",\n" +
@@ -64,6 +64,8 @@ public class Spanish {
 "        \"up\": \"Subir\",\n" +
 "        \"post\": \"Post\",\n" +
 "        \"public\": \"Hacer publico\"\n" +
+"        \"submit\": \"Publicar\",\n" +
+"        \"message\": \"Escribe tu mensaje:\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Tu perfil\",\n" +

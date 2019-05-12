@@ -64,6 +64,8 @@ public class English {
 "        \"up\": \"Up\",\n" +
 "        \"post\": \"Post\",\n" +
 "        \"public\": \"Make public\"\n" +
+"        \"submit\": \"Publish\",\n" +
+"        \"message\": \"Write your message:\",\n" +
 "    },\n" +
 "    \"userProfile\": {\n" +
 "        \"title\": \"Your profile\",\n" +
