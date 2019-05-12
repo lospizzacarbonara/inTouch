@@ -46,11 +46,14 @@
     <%=NavMenu.toHtml("")%>
     
     <!-- Group info  -->
+    <fieldset>
     <div class="Descripcion del grupo" align="center">
         <h1><%=group.getName()%></h1><br>
         <%=groupDescription%>
     </div>
+</fieldset><br><br>
     
+    <fieldset>
                     <div class="memberList"align="center">
                     <div class="Members">
                         <h2><%=ml.get("members")%></h2>
@@ -67,9 +70,25 @@
                      </div>
                      
                 </div>
+    </fieldset><br><br>
         
         <table class="groupWallTable" align="center">
             <tr id="R1">
+                
+    <!-- Post button -->
+    <!--<button id="postButton">< %=ml.get("post")%></button>-->
+    <div id="postModal" class="modal" align="center">
+        
+        <div class="modal-content">
+            <!--<span class="close">&times;</span>-->
+            <form id="postForm" method="POST" action="createGroupPostServlet?groupId=<%=group.getId()%>">
+                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
+                <!--Make Public <input type="checkbox" name="isPublic" /><br/>
+                <!-- date and author on servlet -->
+                <input type="submit"/>
+            </form>
+        </div>
+    </div>
 
             <tr>
             <div class="Publicaciones" align="center">
@@ -104,19 +123,7 @@
                 <!-- Up button -->
     <a href="#R1"><button class="fixedButton"><%=ml.get("up")%></button></a>
     
-    <!-- Post button -->
-    <button id="postButton"><%=ml.get("post")%></button>
-    <div id="postModal" class="modal" align="center">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form id="postForm" method="POST" action="createGroupPostServlet?groupId=<%=group.getId()%>">
-                <textarea rows="5" cols="50" name="body" form="postForm"></textarea><br/>
-                <!--Make Public <input type="checkbox" name="isPublic" /><br/>
-                <!-- date and author on servlet -->
-                <input type="submit"/>
-            </form>
-        </div>
-    </div>
+
                 <h3><%=ml.get("searchUserToAdd")%></h3>    
                 <form action="searchFromGroupServlet?groupId=<%=group.getId()%>" method="post" name="busqueda">
                     <fieldset>
