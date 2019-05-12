@@ -50,7 +50,7 @@
      -o-border-radius: 20px;
 }
 
-select {
+.navSel {
     border-radius: 8px;
     color: white;
     background: #565656;

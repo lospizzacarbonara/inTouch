@@ -13,7 +13,7 @@ public class NavMenu {
     private final static String active = "\"#\" class=\"active\"";
     
     public static String toHtml(String activo) {
-        String langOption = "<li><select name=\"language\" onchange=\"location = this.value;\">\n" +
+        String langOption = "<li><select class=\"navSel\" name=\"language\" onchange=\"location = this.value;\">\n" +
 "                <option value=\"#\" selected>Language</option>" +
 "                <option value =\"/inTouch-war/lang?lang=spanish\">Spanish</option>\n" +
 "                <option value =\"/inTouch-war/lang?lang=english\">English</option>\n" +

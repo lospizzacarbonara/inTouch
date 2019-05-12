@@ -103,14 +103,14 @@
           .fixedButton {
               position: fixed;
               bottom: 75px;
-              right: 408px;
+              right: 380px;
               padding: 12px 28px;
           }
           
           #postButton {
               position: fixed;
               bottom: 75px;
-              right: 310px;
+              right: 280px;
               padding: 12px 28px;
           }
 
