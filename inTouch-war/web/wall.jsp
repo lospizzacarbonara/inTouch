@@ -115,6 +115,8 @@
           }
 
           textArea {
+              font-family: Arial, Helvetica, sans-serif;
+              color: black;
               background: #b0bec5;
               border: none;
               border-radius: 4px;
