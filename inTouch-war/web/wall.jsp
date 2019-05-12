@@ -46,6 +46,11 @@
               text-align: center;
           }
           
+          ul{
+              margin: 0;
+              padding: 14px;
+          }
+          
           .groupList{
               vertical-align: top;
           }
@@ -219,14 +224,16 @@
         <tr>
             <td class="groupList">
                 <br/>
-                <% 
-                    for(SocialGroup sg : groupList){
-                %>
-                <a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a>
-                <br/>
-                <% 
-                    }
-                %>
+                <ul>
+                    <% 
+                        for(SocialGroup sg : groupList){
+                    %>
+                    <li><a href="groupWallServlet?groupId=<%=sg.getId()%>"><%=sg.getName()%></a></li>
+                    <br/>
+                    <% 
+                        }
+                    %>
+                </ul>
                 <!-- createGroup button -->
                 <br/>
                 <button id="createGroupButton"><%=ml.get("createGroup")%></button>
