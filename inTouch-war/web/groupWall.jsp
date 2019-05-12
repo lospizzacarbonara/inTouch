@@ -102,7 +102,7 @@
         
     
                 <!-- Up button -->
-    <button class="fixedButton"><a href="#R1"><%=ml.get("up")%></a></button>
+    <a href="#R1"><button class="fixedButton"><%=ml.get("up")%></button></a>
     
     <!-- Post button -->
     <button id="postButton"><%=ml.get("post")%></button>
