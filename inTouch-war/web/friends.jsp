@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="resources/css/inTouch.css">
         <link rel="stylesheet" href="resources/css/navmenu.css">
         <link rel="stylesheet" href="resources/css/friends.css">
+        <title><%=ml.get("title")%></title>
     </head>
     <body>
         <%=NavMenu.toHtml("friends")%>

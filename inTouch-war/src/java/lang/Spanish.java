@@ -42,6 +42,7 @@ public class Spanish {
 "        \"moreDetails\": \"Mas detalles\"\n" +
 "    },\n" +
 "    \"friends\":{\n" +
+"        \"title\": \"Amigos\",\n" +
 "        \"pendingFriends\": \"Peticiones de amistad pendientes\",\n" +
 "        \"acceptFriend\": \"Aceptar peticcion de amistad\",\n" +
 "        \"removeFriendship\": \"Borrar peticion de amistad\",\n" +
@@ -105,6 +106,7 @@ public class Spanish {
 "        \"petitionSent\": \"Peticion enviada\",\n" +
 "        \"addFriend\": \"A&ntilde;adir como amigo\",\n" +
 "        \"noPostYet\": \" aun no ha publicado nada\",\n" +
+"        \"noResultFound\": \" No se han encontrado resultados\",\n" +
 "        \"groups\": \"Grupos\",\n" +
 "        \"alreadyMember\": \"Ya es miembro\",\n" +
 "        \"joinGroup\": \"Peticion para unirse al grupo\"\n" +

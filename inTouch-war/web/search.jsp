@@ -62,7 +62,7 @@
             </form>
             <!-- Friends -->
             <%
-                if (userSet != null) {
+                if (userSet != null && !userSet.isEmpty()) {
             %>
             <fieldset>
                 <legend><%=ml.get("users")%></legend> 
@@ -122,11 +122,18 @@
                 </table>
             </fieldset>
             <%
+                } else if(userSet != null) {
+            %>
+                <fieldset>
+                    <legend><%=ml.get("users")%></legend>
+                    <p><%=ml.get("noResultFound")%></p>
+                </fieldset>
+            <%
                 }
             %>
             <!-- Groups -->
             <%
-                if (groupSet != null) {
+                if (groupSet != null && !groupSet.isEmpty()) {
             %>
             <fieldset>
                 <legend><%=ml.get("groups")%></legend> 
@@ -185,6 +192,13 @@
                     </tr>
                 </table>
             </fieldset>
+            <%
+                } else if(groupSet != null) {
+            %>
+                <fieldset>
+                    <legend><%=ml.get("groups")%></legend>
+                    <p><%=ml.get("noResultFound")%></p>
+                </fieldset>
             <%
                 }
             %>
