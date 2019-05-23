@@ -6,6 +6,7 @@
 package inTouchServlets;
 
 import inTouch.ejb.PostFacade;
+import inTouch.ejb.UserFacade;
 import inTouch.entity.Post;
 import inTouch.entity.User;
 import java.io.IOException;
@@ -28,6 +29,9 @@ public class createPostServlet extends HttpServlet {
 
     @EJB
     private PostFacade postFacade;
+    
+    @EJB
+    private UserFacade userFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,7 +47,7 @@ public class createPostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         int loggedUserId = (Integer) session.getAttribute("userId");
-        User user = new User(loggedUserId);
+        User user = userFacade.find(loggedUserId);
         
         String body = request.getParameter("body");
         

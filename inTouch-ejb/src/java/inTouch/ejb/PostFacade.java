@@ -49,7 +49,8 @@ public class PostFacade extends AbstractFacade<Post> {
         list = q.getResultList();
         return list;
     }
-        public List<Post> getGroupPost(SocialGroup group){
+       
+    public List<Post> getGroupPost(SocialGroup group){
         List<Post> list;
         Query q;
         //q = this.em.createQuery("select p from Post p where socialGroup = 1");
